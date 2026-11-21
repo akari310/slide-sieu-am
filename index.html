@@ -2317,7 +2317,7 @@ select {
           <div class="canvas-box" style="min-height:270px">
             <iframe
               id="ytPlayer"
-              data-yt-src="https://www.youtube.com/embed/XpNbyfxxkWE?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0"
+              data-yt-src="https://www.youtube.com/embed/XpNbyfxxkWE?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
               title="Thí nghiệm sóng dừng siêu âm — ĐH Harvard"
               style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
               referrerpolicy="strict-origin-when-cross-origin"
@@ -2982,7 +2982,7 @@ select {
             <div data-yt-wrap hidden style="position:absolute;inset:0">
               <iframe
                 id="eswlYt"
-                data-yt-src="https://www.youtube.com/embed/_iqqEDAIGWg?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0"
+                data-yt-src="https://www.youtube.com/embed/_iqqEDAIGWg?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
                 title="Extracorporeal Shock Wave Lithotripsy (ESWL) — 3D Animation"
                 style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
                 referrerpolicy="strict-origin-when-cross-origin"
@@ -3072,7 +3072,7 @@ select {
             <div data-yt-wrap hidden style="position:absolute;inset:0">
               <iframe
                 id="weldYt"
-                data-yt-src="https://www.youtube.com/embed/Mxzn2HBeyVY?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0"
+                data-yt-src="https://www.youtube.com/embed/Mxzn2HBeyVY?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
                 title="Quy trình hàn nhựa siêu âm thực tế — EWI"
                 style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
                 referrerpolicy="strict-origin-when-cross-origin"
@@ -3138,7 +3138,7 @@ select {
             <div data-yt-wrap hidden style="position:absolute;inset:0">
               <iframe
                 id="cleanYt"
-                data-yt-src="https://www.youtube.com/embed/j06DGG_vc34?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0"
+                data-yt-src="https://www.youtube.com/embed/j06DGG_vc34?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
                 title="Thử nghiệm rửa kính mắt bằng máy rửa siêu âm"
                 style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
                 referrerpolicy="strict-origin-when-cross-origin"
@@ -3800,7 +3800,67 @@ $$('.checkpoint-box').forEach(box => {
   paint();
 })();
 
-/* --- đồng bộ iframe YouTube (ẩn trên file:// để tránh lỗi 153) --- */
+/* --- đồng bộ iframe YouTube + tự động bật phụ đề dịch Tiếng Việt --- */
+const ytApiQueue = [];
+let ytApiRequested = false;
+function ensureYtApi(cb) {
+  if (location.protocol === 'file:') return;
+  if (window.YT && typeof window.YT.Player === 'function') { cb(); return; }
+  ytApiQueue.push(cb);
+  if (!ytApiRequested) {
+    ytApiRequested = true;
+    const prevReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      prevReady?.();
+      while (ytApiQueue.length) ytApiQueue.shift()();
+    };
+    const s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+}
+
+function applyViCaptions(player) {
+  try {
+    player.loadModule?.('captions');
+    const tracks = player.getOption?.('captions', 'tracklist') || [];
+    if (!tracks.length) return false;
+    const vi = tracks.find(t => t.languageCode === 'vi');
+    if (vi) {
+      player.setOption('captions', 'track', vi);
+    } else {
+      player.setOption('captions', 'track', {
+        languageCode: tracks[0].languageCode,
+        vss_id: tracks[0].vss_id,
+        translationLanguage: { languageCode: 'vi', languageName: 'Tiếng Việt' }
+      });
+    }
+    return true;
+  } catch (_) { return false; }
+}
+
+function attachYtViCaptions(iframe) {
+  if (!iframe || iframe._ytAttached || !iframe.id) return;
+  iframe._ytAttached = true;
+  ensureYtApi(() => {
+    try {
+      iframe._ytPlayer = new window.YT.Player(iframe.id, {
+        events: {
+          onReady: e => applyViCaptions(e.target),
+          onApiChange: e => applyViCaptions(e.target),
+          onStateChange: e => {
+            if (e.data === 1) {
+              applyViCaptions(e.target);
+              setTimeout(() => applyViCaptions(e.target), 450);
+            }
+          }
+        }
+      });
+    } catch (_) { iframe._ytAttached = false; }
+  });
+}
+
 function syncYtFrame(iframe, active = true) {
   if (!iframe) return;
   const fileBox = iframe.parentElement?.querySelector('[data-yt-file]');
@@ -3810,10 +3870,16 @@ function syncYtFrame(iframe, active = true) {
   } else {
     iframe.hidden = false;
     if (fileBox) fileBox.hidden = true;
-    if (active && !iframe.getAttribute('src') && iframe.dataset.ytSrc) {
-      iframe.src = iframe.dataset.ytSrc;
-    } else if (!active && iframe.getAttribute('src')) {
-      iframe.removeAttribute('src');
+    if (active) {
+      if (!iframe.getAttribute('src') && iframe.dataset.ytSrc) {
+        iframe.addEventListener('load', () => attachYtViCaptions(iframe), { once: true });
+        const sep = iframe.dataset.ytSrc.includes('?') ? '&' : '?';
+        iframe.src = `${iframe.dataset.ytSrc}${sep}origin=${encodeURIComponent(location.origin)}`;
+      } else {
+        attachYtViCaptions(iframe);
+      }
+    } else {
+      iframe._ytPlayer?.pauseVideo?.();
     }
   }
 }
