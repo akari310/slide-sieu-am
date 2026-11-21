@@ -3031,7 +3031,7 @@ select {
 </section>
 
 <!-- ============ 29. RỬA ĐỒ VẬT & HÀN SIÊU ÂM (CAVITATION) ============ -->
-<section class="slide" data-sec="V. Ứng dụng" data-title="Rửa đồ vật bằng siêu âm &amp; ứng dụng đời sống" data-min="1" data-note="Giới thiệu ứng dụng cực gần gũi: máy rửa kính mắt, đồng hồ, trang sức, bo mạch dùng sóng ~40 kHz. Cơ chế là hiệu ứng xâm thực (cavitation): tạo hàng triệu bọt khí vi mô vỡ tung đánh bật vết bẩn ở mọi khe rãnh siêu nhỏ mà không cần cọ xát.">
+<section class="slide" data-sec="V. Ứng dụng" data-title="Rửa đồ vật &amp; hàn vật liệu bằng siêu âm" data-min="1" data-note="Giới thiệu 2 ứng dụng công nghiệp – đời sống dùng sóng 20–40 kHz: (1) Bể rửa tạo bọt khí cavitation đánh bật bụi bẩn ở khe siêu nhỏ; (2) Hàn siêu âm dùng đầu rung tạo ma sát nhiệt cục bộ làm nóng chảy mặt ghép để hàn kín vỏ nhựa, pin, màng y tế mà không cần keo hay que hàn.">
   <div class="slide-inner">
     <div class="s-head">
       <span class="kicker">V. Ứng dụng · 03 · Đời sống &amp; công nghiệp</span>
@@ -3076,8 +3076,8 @@ select {
               <li class="amber-dot"><b>Bước 3:</b> Ở pha nén tiếp theo, bọt khí <b>nổ sập tức thời</b> tạo vi tia nước đánh bật dầu mỡ khỏi khe siêu nhỏ mà không làm trầy đồ vật.</li>
             </ul>
           </div>
-          <div class="cards" style="grid-template-columns:1fr 1fr">
-            <div class="card"><span class="pill pill-blue" style="margin-bottom:.35em">Hàn nhựa &amp; kim loại</span><p style="font-size:var(--small-size);color:var(--text-2);margin:0">Ma sát siêu âm làm nóng chảy cục bộ mặt ghép trong vài mili-giây.</p></div>
+          <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr))">
+            <div class="card card-accent"><span class="pill pill-blue" style="margin-bottom:.35em">Hàn vật liệu</span><p style="font-size:var(--small-size);color:var(--text-2);margin:0">Đầu hàn rung <b>20–40 kHz</b> tạo ma sát nhiệt cục bộ làm nóng chảy mặt ghép trong vài mili-giây: hàn vỏ nhựa, cực pin, linh kiện mà <b>không cần keo hay que hàn</b>.</p></div>
             <div class="card"><span class="pill pill-blue" style="margin-bottom:.35em">Đời sống</span><p style="font-size:var(--small-size);color:var(--text-2);margin:0">Cảm biến lùi ô tô (40 kHz), máy tạo ẩm phun sương lạnh.</p></div>
           </div>
         </div>
@@ -3087,11 +3087,11 @@ select {
 </section>
 
 <!-- ============ 30. SONAR ============ -->
-<section class="slide" data-sec="V. Ứng dụng" data-title="Đo độ sâu đáy biển &amp; dò đàn cá (Sonar)" data-min="1" data-note="Cho một học sinh bấm Phát xung, đọc thời gian t trên màn hình và tự tính độ sâu đàn cá h = 1500·t/2 trước khi máy hiện đáp án.">
+<section class="slide" data-sec="V. Ứng dụng" data-title="Nghiên cứu biển &amp; dò đàn cá (Sonar)" data-min="1" data-note="Cho học sinh bấm Phát xung, đọc thời gian t và tự tính h = 1500·t/2. Nhấn mạnh Sonar không chỉ dò đàn cá mà còn dùng vẽ bản đồ địa hình đáy đại dương 3D, tìm xác tàu đắm và đo dòng chảy biển.">
   <div class="slide-inner">
     <div class="s-head">
-      <span class="kicker">V. Ứng dụng · 04 · Hàng hải</span>
-      <h2 class="anim-fade-up">Sonar: đo độ sâu biển và dò đàn cá</h2>
+      <span class="kicker">V. Ứng dụng · 04 · Biển &amp; đại dương</span>
+      <h2 class="anim-fade-up">Sonar: đo độ sâu, lập bản đồ đáy đại dương &amp; dò đàn cá</h2>
     </div>
     <div class="s-body">
       <div class="cols">
@@ -3105,12 +3105,19 @@ select {
           </div>
           <button class="btn" id="snNew" style="align-self:flex-start">↻ Đổi độ sâu đàn cá</button>
         </div>
-        <div class="txt">
-          <div class="formula" style="margin-bottom:.75rem">h = v · t / 2 <small>(v<sub>nước biển</sub> ≈ 1500 m/s)</small></div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.75rem">
+          <div class="formula">h = v · t / 2 <small>(v<sub>nước biển</sub> ≈ 1500 m/s)</small></div>
           <ul class="clean">
-            <li>Trong không khí siêu âm suy giảm nhanh, nhưng dưới nước truyền đi rất xa.</li>
-            <li>Đầu dò phát <b>chùm sóng tỏa thành hình nón</b> quét xuống biển; mặt sóng chạm đàn cá hay đáy biển sẽ dội echo ngược về đầu thu dưới đáy tàu để tính độ sâu <b>h</b>.</li>
+            <li>Trong không khí siêu âm suy giảm nhanh, nhưng dưới nước biển truyền đi rất xa.</li>
+            <li>Đầu dò phát <b>chùm sóng tỏa thành hình nón</b> quét xuống biển; thu sóng dội từ đàn cá hay đáy biển để tính độ sâu <b>h</b>.</li>
           </ul>
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Nghiên cứu biển &amp; đại dương</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Lập bản đồ đáy biển 3D:</b> vẽ địa hình rãnh sâu, núi ngầm, tìm xác tàu đắm và khảo sát địa chất đáy đại dương.</li>
+              <li><b>Hải dương học &amp; thủy sản:</b> dò luồng cá, đo dòng hải lưu (Doppler ADCP) và theo dõi sinh vật biển.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
