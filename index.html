@@ -436,6 +436,8 @@ b, strong { font-weight: 700; color: var(--text-1); }
   font-weight: 700;
 }
 .btn.solid:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent), var(--accent-teal));
+  border-color: transparent;
   filter: brightness(1.08);
   color: var(--accent-ink);
   box-shadow: 0 6px 20px -6px rgba(63, 227, 200, 0.55);
@@ -2948,40 +2950,60 @@ select {
 </section>
 
 
-<!-- ============ 27. SIÊU ÂM ĐIỀU TRỊ (ESWL & HIFU) + MÔ PHỎNG HỘI TỤ ============ -->
-<section class="slide" data-sec="V. Ứng dụng" data-title="Siêu âm điều trị: Tán sỏi &amp; HIFU" data-min="1.5" data-note="Bấm Kích hoạt chùm tia để học sinh thấy nhiều chùm sóng đi qua lớp da với cường độ thấp (da giữ nguyên 37 °C) nhưng cùng hội tụ tại tiêu điểm để phá vỡ sỏi (ESWL) hoặc tăng nhiệt tới 75–85 °C đốt khối u (HIFU).">
+<!-- ============ 29. SIÊU ÂM ĐIỀU TRỊ: TÁN SỎI NGOÀI CƠ THỂ (ESWL) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm trong điều trị: Tán sỏi ngoài cơ thể" data-min="1.5" data-note="Bấm 'Phát xung tán sỏi' để học sinh thấy nhiều chùm sóng đi qua lớp da với cường độ thấp (da giữ nguyên 37 °C) nhưng cùng hội tụ đúng vào viên sỏi thận tại tiêu điểm để phá vỡ sỏi thành vụn nhỏ. Chuyển sang tab 'Video chi tiết' để xem clip minh hoạ quy trình tán sỏi thực tế.">
   <div class="slide-inner">
     <div class="s-head">
-      <span class="kicker">V. Ứng dụng · 01 · Ngoài chẩn đoán</span>
-      <h2 class="anim-fade-up">Tăng cường độ sóng: từ quan sát sang điều trị không cần mổ</h2>
+      <span class="kicker">V. Ứng dụng · 01 · Y học điều trị</span>
+      <h2 class="anim-fade-up">Tăng cường độ sóng: tán sỏi ngoài cơ thể không cần mổ</h2>
     </div>
     <div class="s-body">
       <div class="cols" style="margin-bottom:.65rem;flex:0 0 auto;align-items:stretch">
-        <div class="txt" style="display:flex;flex-direction:column;gap:.55rem">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.6rem">
           <div class="card card-teal">
             <span class="pill pill-aqua" style="margin-bottom:.35em">Tán sỏi ngoài cơ thể (ESWL)</span>
-            <p style="font-size:var(--small-size);margin:0">Hội tụ hàng nghìn xung áp suất mạnh đúng vào viên sỏi thận. Sóng va đập làm sỏi nứt vỡ thành vụn nhỏ để tự đào thải.</p>
+            <p style="font-size:var(--small-size);margin:0">Đầu phát cong hội tụ nhiều chùm sóng siêu âm cường độ thấp đi qua da an toàn (mô lành không bị tổn thương), rồi <b>tập trung năng lượng cực lớn đúng vào viên sỏi</b> tại tiêu điểm.</p>
           </div>
-          <div class="card card-amber">
-            <span class="pill pill-amber" style="margin-bottom:.35em">Đốt khối u bằng HIFU</span>
-            <p style="font-size:var(--small-size);margin:0">Chùm siêu âm cường độ cao hội tụ như kính lúp: vùng mô trên đường đi an toàn, tại tiêu điểm đạt <b>65–85 °C</b> tiêu diệt tế bào u.</p>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.35em">Phá vỡ sỏi không cần phẫu thuật</span>
+            <p style="font-size:var(--small-size);margin:0">Hàng nghìn xung áp suất va đập liên tiếp làm viên sỏi thận, sỏi mật nứt vỡ thành <b>vụn nhỏ như cát</b> để cơ thể tự đào thải ra ngoài theo đường tự nhiên.</p>
           </div>
         </div>
-        <div class="lab" data-widget="hifu" style="min-height:0;padding:.72rem .88rem;gap:.45rem">
+        <div class="lab" data-widget="hifu" style="min-height:0;padding:.72rem .88rem;gap:.48rem">
           <div class="lab-top">
-            <span class="lab-tag">Mô phỏng · Chùm hội tụ điều trị</span>
-            <a class="pill pill-blue" href="https://www.youtube.com/results?search_query=ESWL+kidney+stone+lithotripsy+animation" target="_blank" rel="noopener noreferrer" style="text-decoration:none;cursor:pointer">↗ Video thực tế</a>
-          </div>
-          <div class="canvas-box" style="min-height:132px"><canvas id="hfCanvas"></canvas></div>
-          <div class="ctrl"><label for="hfPwr">Công suất hội tụ</label><input type="range" id="hfPwr" min="20" max="100" step="5" value="80"><output id="hfPwrOut">80%</output></div>
-          <div class="readout" style="gap:.4rem;font-size:var(--small-size)">
-            <div class="seg" id="hfModes">
-              <button class="btn on" data-mode="eswl">Tán sỏi</button>
-              <button class="btn" data-mode="hifu">Đốt u</button>
+            <span class="lab-tag">Mô phỏng · Tán sỏi ngoài cơ thể (ESWL)</span>
+            <div class="seg" data-vid-switch="eswl">
+              <button class="btn on" data-view="sim">🧪 Mô phỏng tán sỏi</button>
+              <button class="btn" data-view="yt">🎬 Video chi tiết</button>
             </div>
-            <button class="btn solid" id="hfFire">▶ Kích hoạt chùm</button>
-            <span>Da: <b class="hl">37,0 °C</b> · Đích: <b id="hfTarget" class="rose">sẵn sàng</b></span>
           </div>
+          <div class="canvas-box" style="min-height:175px">
+            <canvas id="hfCanvas"></canvas>
+            <div data-yt-wrap hidden style="position:absolute;inset:0">
+              <iframe
+                id="eswlYt"
+                data-yt-src="https://www.youtube.com/embed/BYLFz4R43Ow?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0"
+                title="Shockwave Lithotripsy | ESWL Procedure | 3D animation"
+                style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+              <div data-yt-file hidden style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding:1rem;text-align:center;background:radial-gradient(circle at 50% 35%, rgba(16,44,68,.92), #040b14 82%)">
+                <span class="pill pill-amber">Đang mở tệp trực tiếp (file://)</span>
+                <p style="margin:0;font-size:var(--small-size);color:var(--text-1);max-width:40ch">YouTube chặn nhúng ở <code>file://</code> (lỗi 153). Bấm xem trực tiếp hoặc mở trên web.</p>
+                <a class="btn solid" href="https://www.youtube.com/watch?v=BYLFz4R43Ow" target="_blank" rel="noopener noreferrer" style="text-decoration:none">▶ Xem video 3D tán sỏi trên YouTube ↗</a>
+              </div>
+            </div>
+          </div>
+          <div class="ctrl" data-view-only="sim"><label for="hfPwr">Công suất hội tụ</label><input type="range" id="hfPwr" min="20" max="100" step="5" value="80"><output id="hfPwrOut">80%</output></div>
+          <div class="readout" data-view-only="sim" style="gap:.4rem;font-size:var(--small-size)">
+            <div class="seg">
+              <button class="btn solid" id="hfFire">▶ Phát xung tán sỏi</button>
+              <button class="btn" id="hfReset">↺ Viên sỏi mới</button>
+            </div>
+            <span>Da: <b class="hl">37,0 °C</b> · Sỏi: <b id="hfTarget" class="rose">sẵn sàng</b></span>
+          </div>
+          <p class="dim" data-view-only="yt" hidden style="font-size:var(--small-size);margin:0"><b>Video 3D tán sỏi ngoài cơ thể (ESWL):</b> chùm sóng hội tụ phá vỡ sỏi thận không cần mổ · <a href="https://www.youtube.com/watch?v=GQKKsewfnSw" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">Xem thêm clip trên YouTube ↗</a></p>
         </div>
       </div>
       <div class="cards-4">
@@ -5516,30 +5538,29 @@ requestAnimationFrame(frame);
   });
 })();
 
-/* LAB 13 — Hội tụ điều trị ESWL & HIFU (Slide 27) */
+/* LAB 13 — Tán sỏi ngoài cơ thể ESWL (Slide 29) */
 (function () {
   const el = $('.lab[data-widget="hifu"]'); if (!el) return;
   const cv = $('#hfCanvas'), pR = $('#hfPwr'), pOut = $('#hfPwrOut'), targetEl = $('#hfTarget');
-  const modeBtns = $$('#hfModes button'), fireBtn = $('#hfFire');
-  let mode = 'eswl', power = 80, firing = false, prog = 0;
+  const fireBtn = $('#hfFire'), resetBtn = $('#hfReset');
+  let power = 80, firing = false, prog = 0;
 
   pR.addEventListener('input', () => {
     power = +pR.value;
     pOut.textContent = power + '%';
   });
-  modeBtns.forEach(b => {
-    b.onclick = () => {
-      mode = b.dataset.mode;
-      modeBtns.forEach(x => x.classList.toggle('on', x === b));
-      prog = 0; firing = false;
-      targetEl.textContent = 'sẵn sàng';
-    };
-  });
   fireBtn.onclick = () => {
     firing = true;
     prog = 0;
-    targetEl.textContent = mode === 'eswl' ? 'đang dồn xung phá sỏi…' : 'đang gia nhiệt tiêu điểm…';
+    targetEl.textContent = 'đang dồn xung phá sỏi…';
   };
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      firing = false;
+      prog = 0;
+      targetEl.textContent = 'sẵn sàng';
+    };
+  }
 
   lab(el, {
     tick(t, dt) {
@@ -5547,17 +5568,14 @@ requestAnimationFrame(frame);
         prog = Math.min(1, prog + dt * 0.48);
         if (prog >= 1) {
           firing = false;
-          const temp = Math.round(37 + (power / 100) * 48);
-          targetEl.textContent = mode === 'eswl'
-            ? (power >= 60 ? 'đã vỡ thành vụn nhỏ!' : 'nứt nhẹ (tăng công suất)')
-            : (temp >= 65 ? `${temp} °C · khối u đã hoại tử` : `${temp} °C · chưa đủ 65 °C (tăng công suất)`);
+          targetEl.textContent = power >= 60 ? 'đã vỡ thành vụn nhỏ!' : 'nứt nhẹ (tăng công suất)';
         }
       }
       const { g, w, h } = fit(cv);
       g.clearRect(0, 0, w, h);
       grid(g, w, h, 24);
 
-      const cx = w * 0.56, topY = 20, skinY = h * 0.34, focY = h * 0.72;
+      const cx = w * 0.54, topY = 18, skinY = h * 0.34, focY = h * 0.72;
       /* Lớp da */
       g.fillStyle = 'rgba(255,111,133,.16)';
       g.fillRect(10, skinY - 6, w - 20, 12);
@@ -5586,50 +5604,36 @@ requestAnimationFrame(frame);
         }
       }
 
-      /* Viên sỏi (ESWL) hoặc khối u (HIFU) ở tiêu điểm */
-      const heat = firing ? prog * (power / 100) : (prog > 0.9 ? power / 100 : 0.2);
-      const tempShow = Math.round(37 + heat * 48);
-      const gr = g.createRadialGradient(cx, focY, 2, cx, focY, 30);
-      gr.addColorStop(0, `rgba(255,111,133,${0.65 * heat})`);
+      /* Quầng áp suất tại tiêu điểm */
+      const impact = firing ? prog * (power / 100) : (prog > 0.9 ? power / 100 : 0.2);
+      const gr = g.createRadialGradient(cx, focY, 2, cx, focY, 32);
+      gr.addColorStop(0, `rgba(255,180,84,${0.55 * impact})`);
       gr.addColorStop(1, 'rgba(255,180,84,0)');
-      g.fillStyle = gr; g.beginPath(); g.arc(cx, focY, 30, 0, Math.PI * 2); g.fill();
+      g.fillStyle = gr; g.beginPath(); g.arc(cx, focY, 32, 0, Math.PI * 2); g.fill();
 
-      if (mode === 'eswl' && prog >= 0.85 && power >= 60) {
-        /* Hạt sỏi vỡ vụn */
+      /* Viên sỏi thận vỡ vụn khi đủ công suất */
+      if (prog >= 0.85 && power >= 60) {
         g.fillStyle = '#ffb454';
-        for (let i = 0; i < 6; i++) {
-          const ox = Math.cos(i * 1.1) * 10 * prog, oy = Math.sin(i * 1.3) * 8 * prog;
+        for (let i = 0; i < 7; i++) {
+          const ox = Math.cos(i * 0.92) * 12 * prog, oy = Math.sin(i * 1.15) * 9 * prog;
           g.beginPath(); g.arc(cx + ox, focY + oy, 3, 0, Math.PI * 2); g.fill();
         }
-      } else if (mode === 'hifu') {
-        /* Khối u co teo & chuyển xám hoại tử khi >= 65 °C */
-        const ablate = prog >= 0.45 && tempShow >= 65 ? clamp((prog - 0.45) / 0.45, 0, 1) * clamp((power - 55) / 25, 0.35, 1) : 0;
-        const r = 11 - 5.5 * ablate + (firing ? Math.sin(t * 20) * (1.2 - 0.8 * ablate) : 0);
-        if (ablate > 0.1) {
-          g.setLineDash([3, 2]);
-          g.strokeStyle = `rgba(255,180,84,${(0.35 + 0.5 * ablate).toFixed(2)})`;
-          g.lineWidth = 1.4;
-          g.beginPath(); g.arc(cx, focY, 12, 0, Math.PI * 2); g.stroke();
-          g.setLineDash([]);
-        }
-        g.fillStyle = ablate >= 0.7 ? '#7b8794' : ablate > 0.2 ? '#c97b84' : '#ff6f85';
-        g.beginPath(); g.arc(cx, focY, r, 0, Math.PI * 2); g.fill();
-        if (ablate >= 0.7) {
-          g.strokeStyle = '#dceef2'; g.lineWidth = 1.6;
+      } else {
+        const sr = 11 + (firing ? Math.sin(t * 22) * 1.4 : 0);
+        g.fillStyle = '#ffb454';
+        g.beginPath(); g.arc(cx, focY, sr, 0, Math.PI * 2); g.fill();
+        /* Vết nứt dần xuất hiện trên viên sỏi khi đang bắn xung */
+        if (prog > 0.35) {
+          g.strokeStyle = '#040b12'; g.lineWidth = 1.6;
           g.beginPath();
-          g.moveTo(cx - 3.5, focY - 3.5); g.lineTo(cx + 3.5, focY + 3.5);
-          g.moveTo(cx + 3.5, focY - 3.5); g.lineTo(cx - 3.5, focY + 3.5);
+          g.moveTo(cx - 5, focY - 4); g.lineTo(cx, focY + 1); g.lineTo(cx + 5, focY - 2);
+          if (prog > 0.6) { g.moveTo(cx, focY + 1); g.lineTo(cx - 2, focY + 7); }
           g.stroke();
         }
-      } else {
-        g.fillStyle = '#ffb454';
-        g.beginPath(); g.arc(cx, focY, 10 + (firing ? Math.sin(t * 20) * 1.5 : 0), 0, Math.PI * 2); g.fill();
       }
 
       g.fillStyle = '#dceef2'; g.font = 'bold 12.5px "JetBrains Mono", monospace';
-      g.fillText(mode === 'eswl'
-        ? (prog >= 0.85 && power >= 60 ? 'Tiêu điểm: Sỏi đã vỡ vụn' : 'Tiêu điểm: Viên sỏi thận')
-        : (prog >= 0.85 && tempShow >= 65 ? `Khối u đã hoại tử (${tempShow} °C)` : `Tiêu điểm: Khối u (~${tempShow} °C)`), cx + 18, focY + 5);
+      g.fillText(prog >= 0.85 && power >= 60 ? 'Tiêu điểm: Sỏi đã vỡ vụn' : 'Tiêu điểm: Viên sỏi thận', cx + 20, focY + 5);
     }
   });
 })();
