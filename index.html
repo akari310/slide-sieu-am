@@ -1771,7 +1771,7 @@ select {
 </header>
 <div class="progress"><i id="bar"></i></div>
 <nav class="rail" id="rail" aria-label="Điều hướng slide"></nav>
-<div class="hud"><b id="curNum">01</b><span class="bar"></span><span id="totNum">37</span><span id="curSec">MỞ ĐẦU</span></div>
+<div class="hud"><b id="curNum">01</b><span class="bar"></span><span id="totNum">39</span><span id="curSec">MỞ ĐẦU</span></div>
 
 <canvas class="draw-layer" id="drawCanvas"></canvas>
 <div class="laser-dot" id="laserDot"></div>
@@ -1794,7 +1794,7 @@ select {
       <p class="cover-sub reveal" style="--d:1">Sóng cơ học tần số trên 20 kHz — từ tiếng dội của loài dơi đến hình ảnh y học và kiểm tra vật liệu.</p>
     </div>
     <div class="cover-meta reveal" style="--d:2">
-      <div><b>37</b><span>Slide</span></div>
+      <div><b>39</b><span>Slide</span></div>
       <div><b>15</b><span>Mô phỏng &amp; video</span></div>
       <div><b>21</b><span>Câu hỏi &amp; bài tập</span></div>
       <div><b>45′</b><span>Thời lượng</span></div>
@@ -1845,7 +1845,7 @@ select {
 </section>
 
 <!-- ============ 03. LỊCH SỬ PHÁT HIỆN & PHÁT TRIỂN ============ -->
-<section class="slide" data-sec="Mở đầu" data-title="Lịch sử phát hiện &amp; phát triển siêu âm" data-min="2" data-note="Kể ngắn gọn qua 4 cột mốc lịch sử từ Spallanzani (1794) tới anh em Curie (1880), Langevin (1917) và y học hiện đại (1958–nay). Nếu có Internet, có thể bấm link YouTube ở góc dưới phải.">
+<section class="slide" data-sec="Mở đầu" data-title="Lịch sử phát hiện &amp; phát triển siêu âm" data-min="1.5" data-note="Kể ngắn gọn qua 4 cột mốc lịch sử từ Spallanzani (1794) tới anh em Curie (1880), Langevin (1917) và Ian Donald cùng y học hiện đại (1958–nay).">
   <div class="slide-inner">
     <div class="s-head">
       <span class="kicker">Bối cảnh khoa học · Mạch bài học</span>
@@ -1889,20 +1889,13 @@ select {
           </div>
         </article>
       </div>
-      <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.65rem 1rem">
-        <span style="font-size:var(--small-size);color:var(--text-2)"><b>4 trọng tâm tiết học:</b> 1. Bản chất sóng → 2. Tạo &amp; thu áp điện → 3. Máy &amp; dựng ảnh → 4. Ứng dụng thực tế</span>
-        <div class="chip-row">
-          <a class="btn" href="https://www.youtube.com/watch?v=tG5hFPsreJo" target="_blank" rel="noopener noreferrer" style="text-decoration:none;padding:.32em .75em;font-size:12.5px">↗ Video History of Ultrasound</a>
-          <a class="btn" href="https://www.youtube.com/watch?v=vbRS9Oc7Jgs" target="_blank" rel="noopener noreferrer" style="text-decoration:none;padding:.32em .75em;font-size:12.5px">↗ Tư liệu Sonar (1917)</a>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 
 <!-- ============ 04. ĐỊNH NGHĨA + LAB 1 + WEB AUDIO ============ -->
-<section class="slide" data-sec="I. Siêu âm" data-title="Siêu âm là gì? Thang tần số" data-min="2" data-note="Bấm 'Nghe thử tần số' rồi kéo thanh trượt từ 500 Hz tăng dần qua 10 kHz, 16 kHz, 20 kHz: cả lớp sẽ nghe thấy âm cao dần rồi đột ngột tắt lịm khi vượt ngưỡng nghe của tai người (trong khi các biểu tượng chó/mèo/dơi/cá heo vẫn sáng).">
+<section class="slide" data-sec="I. Siêu âm" data-title="Siêu âm là gì? Thang tần số" data-min="1.5" data-note="Bấm 'Nghe thử tần số' rồi kéo thanh trượt từ 500 Hz tăng dần qua 10 kHz, 16 kHz, 20 kHz: cả lớp sẽ nghe thấy âm cao dần rồi đột ngột tắt lịm khi vượt ngưỡng nghe của tai người (trong khi các biểu tượng chó/mèo/dơi/cá heo vẫn sáng).">
   <div class="slide-inner">
     <div class="s-head">
       <span class="kicker">I. Siêu âm là gì · 01</span>
@@ -3030,12 +3023,80 @@ select {
   </div>
 </section>
 
-<!-- ============ 29. RỬA ĐỒ VẬT & HÀN SIÊU ÂM (CAVITATION) ============ -->
-<section class="slide" data-sec="V. Ứng dụng" data-title="Rửa đồ vật &amp; hàn vật liệu bằng siêu âm" data-min="1" data-note="Giới thiệu 2 ứng dụng công nghiệp – đời sống dùng sóng 20–40 kHz: (1) Bể rửa tạo bọt khí cavitation đánh bật bụi bẩn ở khe siêu nhỏ; (2) Hàn siêu âm dùng đầu rung tạo ma sát nhiệt cục bộ làm nóng chảy mặt ghép để hàn kín vỏ nhựa, pin, màng y tế mà không cần keo hay que hàn.">
+<!-- ============ 31. HÀN VẬT LIỆU BẰNG SIÊU ÂM (HÌNH 7.8 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm để hàn vật liệu" data-min="1" data-note="Trình bày theo Hình 7.8 SGK: đầu hàn truyền dao động cơ học tần số 20–40 kHz làm ma sát nóng chảy cục bộ mặt tiếp xúc giữa hai vật liệu, tạo mối hàn kín mà không cần keo dán hay que hàn. Liên hệ thêm vai trò siêu âm trong tổng hợp vật liệu mới (SGK tr. 42).">
   <div class="slide-inner">
     <div class="s-head">
-      <span class="kicker">V. Ứng dụng · 03 · Đời sống &amp; công nghiệp</span>
-      <h2 class="anim-fade-up">Rửa đồ vật bằng siêu âm: làm sạch khe siêu nhỏ không cần cọ</h2>
+      <span class="kicker">V. Ứng dụng · 03 · Công nghiệp (Hình 7.8 SGK)</span>
+      <h2 class="anim-fade-up">Ứng dụng siêu âm để hàn vật liệu</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt" style="display:flex;align-items:center;justify-content:center">
+          <div class="card" style="padding:.9rem;width:100%">
+            <svg viewBox="0 0 460 285" style="width:100%;height:auto" aria-label="Sơ đồ nguyên lí hàn vật liệu bằng siêu âm">
+              <defs>
+                <radialGradient id="weldGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#ffb454" stop-opacity="0.95"/>
+                  <stop offset="60%" stop-color="#ff6f85" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#ff6f85" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <!-- Bộ biến đổi áp điện -->
+              <rect x="105" y="14" width="250" height="40" rx="6" fill="rgba(63,227,200,.18)" stroke="var(--accent-teal)" stroke-width="1.6"/>
+              <text x="230" y="39" text-anchor="middle" fill="var(--accent-teal)" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">Đầu phát áp điện (20–40 kHz)</text>
+              <!-- Thanh khuếch đại & Đầu hàn -->
+              <path d="M170 54h120l-20 82h-80z" fill="var(--surface-2)" stroke="var(--accent-2)" stroke-width="1.6"/>
+              <text x="230" y="96" text-anchor="middle" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">Đầu hàn</text>
+              <text x="230" y="114" text-anchor="middle" fill="var(--accent-2)" font-family="JetBrains Mono, monospace" font-size="11">rung cơ học ↕</text>
+              <!-- Mũi tên rung 2 bên đầu hàn -->
+              <path d="M142 80v34m-5-28 5-6 5 6m-10 22 5 6 5-6" fill="none" stroke="var(--accent-teal)" stroke-width="1.6"/>
+              <path d="M318 80v34m-5-28 5-6 5 6m-10 22 5 6 5-6" fill="none" stroke="var(--accent-teal)" stroke-width="1.6"/>
+              <!-- Hai lớp vật liệu cần hàn -->
+              <rect x="64" y="138" width="332" height="28" rx="3" fill="rgba(96,165,250,.22)" stroke="var(--accent-2)" stroke-width="1.4"/>
+              <rect x="64" y="168" width="332" height="28" rx="3" fill="rgba(148,197,255,.16)" stroke="var(--text-2)" stroke-width="1.4"/>
+              <text x="78" y="156" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">Vật liệu 1</text>
+              <text x="78" y="186" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">Vật liệu 2</text>
+              <!-- Vùng nóng chảy cục bộ -->
+              <ellipse cx="230" cy="167" rx="54" ry="15" fill="url(#weldGlow)">
+                <animate attributeName="opacity" values=".55;1;.55" dur="1.4s" repeatCount="indefinite"/>
+              </ellipse>
+              <line x1="194" y1="167" x2="266" y2="167" stroke="#ffb454" stroke-width="3" stroke-linecap="round"/>
+              <!-- Đế cố định -->
+              <rect x="44" y="198" width="372" height="30" rx="5" fill="var(--bg-soft)" stroke="var(--text-3)" stroke-width="1.5"/>
+              <text x="230" y="218" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">Đế cố định (kẹp giữ chi tiết)</text>
+              <!-- Chú thích vùng nóng chảy -->
+              <text x="230" y="264" text-anchor="middle" fill="var(--accent-amber)" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">Ma sát siêu âm → nóng chảy cục bộ → liên kết bền chặt</text>
+            </svg>
+          </div>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.7rem">
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Nguyên lí hàn siêu âm</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li>Đầu hàn truyền dao động cơ học tần số <b>20–40 kHz</b> xuống bề mặt tiếp xúc giữa hai chi tiết.</li>
+              <li>Ma sát mạnh làm <b>nóng chảy cục bộ</b> tại đúng mặt ghép trong thời gian rất ngắn, tạo liên kết chắc chắn mà <b>không cần keo dán hay que hàn</b>.</li>
+            </ul>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Công nghiệp &amp; khoa học vật liệu</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Hàn chi tiết chính xác:</b> hàn vỏ nhựa, cực pin, linh kiện điện tử, khẩu trang, màng lọc y tế và các tấm kim loại mỏng.</li>
+              <li><b>Tổng hợp vật liệu mới:</b> sóng siêu âm còn được dùng để hỗ trợ tổng hợp vật liệu vô cơ, hữu cơ, vật liệu sinh học và vật liệu cấu trúc nano.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 32. LÀM SẠCH & KHỬ KHUẨN BẰNG SIÊU ÂM (HÌNH 7.10 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm để làm sạch &amp; khử khuẩn" data-min="1" data-note="Trình bày theo Hình 7.10 SGK: bể rửa siêu âm (20–40 kHz) tạo bọt khí xâm thực (cavitation) làm sạch mọi khe rãnh siêu nhỏ và hỗ trợ khử khuẩn dụng cụ y tế, rau quả, kính mắt, trang sức.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng · 04 · Đời sống &amp; y tế (Hình 7.10 SGK)</span>
+      <h2 class="anim-fade-up">Ứng dụng siêu âm để làm sạch và khử khuẩn</h2>
     </div>
     <div class="s-body">
       <div class="cols">
@@ -3067,18 +3128,18 @@ select {
           </div>
           <p class="dim" style="font-size:var(--small-size);margin:0"><b>Bể rửa siêu âm (40 kHz):</b> đầu phát dưới đáy làm khối nước rung mạnh, rửa sạch kính mắt, đồng hồ, trang sức, bo mạch.</p>
         </div>
-        <div class="txt" style="display:flex;flex-direction:column;gap:.6rem">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
           <div class="card card-teal">
-            <span class="pill pill-aqua" style="margin-bottom:.4em">Cơ chế bọt khí Cavitation (Xâm thực)</span>
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Cơ chế bọt khí xâm thực (Cavitation)</span>
             <ul class="clean" style="font-size:var(--small-size)">
-              <li><b>Bước 1:</b> Đầu phát 20–40 kHz truyền sóng áp suất nén – dãn vào dung dịch tẩy rửa.</li>
-              <li><b>Bước 2:</b> Ở pha dãn, áp suất giảm tạo hàng triệu <b>bọt khí chân không vi mô</b>.</li>
-              <li class="amber-dot"><b>Bước 3:</b> Ở pha nén tiếp theo, bọt khí <b>nổ sập tức thời</b> tạo vi tia nước đánh bật dầu mỡ khỏi khe siêu nhỏ mà không làm trầy đồ vật.</li>
+              <li><b>Bước 1:</b> Đầu phát 20–40 kHz truyền sóng áp suất nén – dãn vào chất lỏng.</li>
+              <li><b>Bước 2:</b> Ở pha dãn, áp suất giảm mạnh tạo hàng triệu <b>bọt khí vi mô</b> trong dung dịch.</li>
+              <li class="amber-dot"><b>Bước 3:</b> Ở pha nén tiếp theo, bọt khí <b>vỡ sập tức thời</b> tạo xung kích vi mô đánh bật vết bẩn ở khe siêu nhỏ mà không làm trầy bề mặt.</li>
             </ul>
           </div>
-          <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr))">
-            <div class="card card-accent"><span class="pill pill-blue" style="margin-bottom:.35em">Hàn vật liệu</span><p style="font-size:var(--small-size);color:var(--text-2);margin:0">Đầu hàn rung <b>20–40 kHz</b> tạo ma sát nhiệt cục bộ làm nóng chảy mặt ghép trong vài mili-giây: hàn vỏ nhựa, cực pin, linh kiện mà <b>không cần keo hay que hàn</b>.</p></div>
-            <div class="card"><span class="pill pill-blue" style="margin-bottom:.35em">Đời sống</span><p style="font-size:var(--small-size);color:var(--text-2);margin:0">Cảm biến lùi ô tô (40 kHz), máy tạo ẩm phun sương lạnh.</p></div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.35em">Khử khuẩn &amp; ứng dụng đời sống</span>
+            <p style="font-size:var(--small-size);color:var(--text-2);margin:0">Phá vỡ màng vi sinh vật để <b>khử khuẩn</b> dụng cụ y tế, rau quả; làm sạch kính mắt, linh kiện; ứng dụng trong cảm biến lùi ô tô và máy tạo ẩm siêu âm.</p>
           </div>
         </div>
       </div>
@@ -3086,17 +3147,17 @@ select {
   </div>
 </section>
 
-<!-- ============ 30. SONAR ============ -->
-<section class="slide" data-sec="V. Ứng dụng" data-title="Nghiên cứu biển &amp; dò đàn cá (Sonar)" data-min="1" data-note="Cho học sinh bấm Phát xung, đọc thời gian t và tự tính h = 1500·t/2. Nhấn mạnh Sonar không chỉ dò đàn cá mà còn dùng vẽ bản đồ địa hình đáy đại dương 3D, tìm xác tàu đắm và đo dòng chảy biển.">
+<!-- ============ 33. KHAI THÁC THUỶ SẢN (HÌNH 7.11 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm trong khai thác thuỷ sản" data-min="1" data-note="Trình bày theo Hình 7.11 SGK: cho một học sinh bấm Phát xung, đọc thời gian t và tự tính độ sâu đàn cá h = 1500·t/2 trước khi máy hiện đáp án.">
   <div class="slide-inner">
     <div class="s-head">
-      <span class="kicker">V. Ứng dụng · 04 · Biển &amp; đại dương</span>
-      <h2 class="anim-fade-up">Sonar: đo độ sâu, lập bản đồ đáy đại dương &amp; dò đàn cá</h2>
+      <span class="kicker">V. Ứng dụng · 05 · Hàng hải &amp; thuỷ sản (Hình 7.11 SGK)</span>
+      <h2 class="anim-fade-up">Ứng dụng siêu âm trong khai thác thuỷ sản</h2>
     </div>
     <div class="s-body">
       <div class="cols">
         <div class="lab" data-widget="sonar">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 12 · Máy đo sâu Sonar</span><span class="lab-hint">Bấm phát xung để đo</span></div>
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 12 · Máy dò đàn cá (Sonar)</span><span class="lab-hint">Bấm phát xung để đo</span></div>
           <div class="canvas-box"><canvas id="snCanvas"></canvas></div>
           <div class="readout">
             <button class="btn solid" id="snFire">▶ Phát xung</button>
@@ -3108,14 +3169,85 @@ select {
         <div class="txt" style="display:flex;flex-direction:column;gap:.75rem">
           <div class="formula">h = v · t / 2 <small>(v<sub>nước biển</sub> ≈ 1500 m/s)</small></div>
           <ul class="clean">
-            <li>Trong không khí siêu âm suy giảm nhanh, nhưng dưới nước biển truyền đi rất xa.</li>
-            <li>Đầu dò phát <b>chùm sóng tỏa thành hình nón</b> quét xuống biển; thu sóng dội từ đàn cá hay đáy biển để tính độ sâu <b>h</b>.</li>
+            <li>Trong nước biển, sóng siêu âm truyền đi rất xa và ít bị suy giảm hơn nhiều so với trong không khí.</li>
+            <li>Đầu dò gắn dưới đáy tàu phát <b>chùm sóng siêu âm hình nón</b> hướng xuống nước; khi gặp đàn cá, một phần sóng phản xạ trở lại đầu thu.</li>
+            <li>Dựa vào thời gian phản hồi <b>t</b> và cường độ tín hiệu dội về, máy xác định được <b>độ sâu, vị trí và mật độ đàn cá</b>, giúp tàu đánh bắt hiệu quả hơn.</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 34. NGHIÊN CỨU BIỂN VÀ ĐẠI DƯƠNG (HÌNH 7.12 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm trong nghiên cứu biển và đại dương" data-min="1" data-note="Trình bày theo Hình 7.12 SGK: tàu nghiên cứu dùng hệ thống Sonar đa tia đo độ sâu, lập bản đồ địa hình đáy đại dương 3D (rãnh sâu, núi ngầm), khảo sát địa chất đáy biển, tìm kiếm vật thể chìm và đo dòng hải lưu.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng · 06 · Hải dương học (Hình 7.12 SGK)</span>
+      <h2 class="anim-fade-up">Ứng dụng siêu âm trong nghiên cứu biển và đại dương</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt" style="display:flex;align-items:center;justify-content:center">
+          <div class="card" style="padding:.85rem;width:100%">
+            <svg viewBox="0 0 460 285" style="width:100%;height:auto" aria-label="Sơ đồ tàu nghiên cứu phát siêu âm lập bản đồ đáy đại dương">
+              <defs>
+                <linearGradient id="oceanBg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#0b3b52"/>
+                  <stop offset="100%" stop-color="#041522"/>
+                </linearGradient>
+                <linearGradient id="beamFan" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.34"/>
+                  <stop offset="100%" stop-color="#3fe3c8" stop-opacity="0.06"/>
+                </linearGradient>
+              </defs>
+              <!-- Mặt biển & nước sâu -->
+              <rect x="10" y="48" width="440" height="225" rx="8" fill="url(#oceanBg)" stroke="var(--border-strong)" stroke-width="1.2"/>
+              <path d="M10 48 Q65 42 120 48 T230 48 T340 48 T450 48" fill="none" stroke="var(--accent-teal)" stroke-width="2"/>
+              <!-- Tàu nghiên cứu -->
+              <path d="M196 48h68l8-14h-84z" fill="var(--text-1)"/>
+              <rect x="212" y="22" width="32" height="12" rx="2" fill="var(--accent-2)"/>
+              <text x="230" y="15" text-anchor="middle" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">Tàu nghiên cứu hải dương</text>
+              <!-- Địa hình đáy đại dương: thềm lục địa - rãnh sâu - núi ngầm -->
+              <path d="M10 170 L105 170 L158 212 L212 252 L248 252 L292 186 L336 154 L388 192 L450 185 L450 273 L10 273 Z" fill="rgba(78,60,44,.9)" stroke="#c79a6b" stroke-width="1.8"/>
+              <!-- Chùm sóng siêu âm đa tia quét đáy -->
+              <path d="M230 50 L85 170 L212 252 L248 252 L336 154 L388 192 Z" fill="url(#beamFan)"/>
+              <g stroke="var(--accent-teal)" stroke-width="1.3" stroke-dasharray="4 3" opacity="0.85">
+                <line x1="230" y1="50" x2="105" y2="170"/>
+                <line x1="230" y1="50" x2="165" y2="216"/>
+                <line x1="230" y1="50" x2="230" y2="252"/>
+                <line x1="230" y1="50" x2="336" y2="154"/>
+                <line x1="230" y1="50" x2="388" y2="192"/>
+              </g>
+              <!-- Cung sóng lan xuống -->
+              <g fill="none" stroke="var(--accent-teal)" stroke-width="1.5" opacity="0.7">
+                <path d="M204 82 A40 40 0 0 0 256 82"/>
+                <path d="M180 112 A76 76 0 0 0 280 112"/>
+                <path d="M154 146 A114 114 0 0 0 306 146"/>
+              </g>
+              <!-- Tia phản xạ dội về -->
+              <line x1="238" y1="250" x2="234" y2="56" stroke="#ffb454" stroke-width="1.8" stroke-dasharray="5 3"/>
+              <!-- Nhãn địa hình -->
+              <text x="56" y="192" text-anchor="middle" fill="#f0d9be" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">Thềm lục địa</text>
+              <text x="230" y="267" text-anchor="middle" fill="#ffb454" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">Rãnh sâu đại dương</text>
+              <text x="368" y="142" text-anchor="middle" fill="#3fe3c8" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">Núi ngầm</text>
+              <text x="372" y="76" text-anchor="middle" fill="#8bd3ff" font-family="JetBrains Mono, monospace" font-size="11.5">Chùm sóng đa tia</text>
+            </svg>
+          </div>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.7rem">
           <div class="card card-teal">
-            <span class="pill pill-aqua" style="margin-bottom:.4em">Nghiên cứu biển &amp; đại dương</span>
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Đo độ sâu &amp; lập bản đồ đáy biển</span>
             <ul class="clean" style="font-size:var(--small-size)">
-              <li><b>Lập bản đồ đáy biển 3D:</b> vẽ địa hình rãnh sâu, núi ngầm, tìm xác tàu đắm và khảo sát địa chất đáy đại dương.</li>
-              <li><b>Hải dương học &amp; thủy sản:</b> dò luồng cá, đo dòng hải lưu (Doppler ADCP) và theo dõi sinh vật biển.</li>
+              <li>Ánh sáng bị nước biển hấp thụ rất mạnh, chỉ xuống được vài trăm mét; ngược lại <b>sóng siêu âm truyền đi rất xa</b> dưới đại dương.</li>
+              <li>Hệ thống Sonar đo thời gian phản xạ (<b>h = v·t/2</b>) theo nhiều hướng để dựng <b>bản đồ địa hình đáy biển 3D</b>: xác định rãnh sâu, núi ngầm và thềm lục địa.</li>
+            </ul>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Địa chất biển, cứu nạn &amp; hải dương học</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Khảo sát địa chất &amp; tìm kiếm:</b> thăm dò các lớp trầm tích đáy biển, phát hiện tàu đắm, vật thể chìm và kiểm tra đường ống ngầm.</li>
+              <li><b>Theo dõi môi trường biển:</b> đo vận tốc dòng hải lưu (nhờ hiệu ứng Doppler) và nghiên cứu sự phân bố của sinh vật biển sâu.</li>
             </ul>
           </div>
         </div>
@@ -3124,7 +3256,7 @@ select {
   </div>
 </section>
 
-<!-- ============ 30. KIỂM TRA NHANH 06 ============ -->
+<!-- ============ 35. KIỂM TRA NHANH 06 ============ -->
 <section class="slide" data-sec="V. Ứng dụng" data-title="Kiểm tra nhanh 06 · Tính độ sâu Sonar" data-min="0.5" data-note="Cho lớp tính nhẩm nhanh phép tính h = v·t/2.">
   <div class="slide-inner">
     <div class="s-head">
@@ -3146,8 +3278,8 @@ select {
   </div>
 </section>
 
-<!-- ============ 31. THỰC HÀNH XỬ LÍ 2 CA THỰC TẾ ============ -->
-<section class="slide" data-sec="V. Ứng dụng" data-title="Thực hành: Xử lí 2 tình huống thực tế" data-min="2" data-note="Bấm đồng hồ đếm 90 giây để các nhóm tự thảo luận và bấm máy tính Ca 1 (bác sĩ) + Ca 2 (kĩ sư), sau đó bấm Hiện phân tích để đối chiếu.">
+<!-- ============ 36. THỰC HÀNH XỬ LÍ 2 CA THỰC TẾ ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Thực hành: Xử lí 2 tình huống thực tế" data-min="1.5" data-note="Bấm đồng hồ đếm 90 giây để các nhóm tự thảo luận và bấm máy tính Ca 1 (bác sĩ) + Ca 2 (kĩ sư), sau đó bấm Hiện phân tích để đối chiếu.">
   <div class="slide-inner">
     <div class="s-head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap">
       <div>
@@ -3220,7 +3352,7 @@ select {
 </section>
 
 <!-- ============ 33. QUIZ 15 CÂU ============ -->
-<section class="slide" data-sec="Tổng kết" data-title="Trắc nghiệm củng cố (15 câu)" data-min="3.5" data-note="Cho lớp trả lời trực tiếp từng câu, giải thích nhanh ngay khi chọn đáp án. Nếu sắp hết giờ, giáo viên có thể chọn làm các câu 1, 3, 4, 5, 7, 9, 12, 14.">
+<section class="slide" data-sec="Tổng kết" data-title="Trắc nghiệm củng cố (15 câu)" data-min="3" data-note="Cho lớp trả lời trực tiếp từng câu, giải thích nhanh ngay khi chọn đáp án. Nếu sắp hết giờ, giáo viên có thể chọn làm các câu 1, 3, 4, 5, 7, 9, 12, 14.">
   <div class="slide-inner">
     <div class="s-head">
       <span class="kicker">Kiểm tra tại lớp · 15 câu</span>
@@ -3279,7 +3411,7 @@ select {
 
 <div class="overlay" id="overview">
   <div class="ov-head">
-    <h3 id="ovTitle">Mục lục bài giảng · 34 slide</h3>
+    <h3 id="ovTitle">Mục lục bài giảng · 39 slide</h3>
     <button class="icon-btn" id="ovClose">Đóng (Esc)</button>
   </div>
   <div class="ov-grid" id="ovGrid"></div>
@@ -4638,7 +4770,7 @@ requestAnimationFrame(frame);
       g.clearRect(0, 0, w, h);
       const f = +fR.value, d = +dR.value;
       const beamW = 52;
-      const P = { l: 48, r: beamW + 22, t: 22, b: 28 };
+      const P = { l: 48, r: beamW + 22, t: 32, b: 28 };
       const pw = w - P.l - P.r, ph = h - P.t - P.b;
       const X = x => P.l + (x / 8) * pw;
       const Y = y => P.t + (1 - y) * ph;
@@ -4658,8 +4790,10 @@ requestAnimationFrame(frame);
         g.fillText(i + '', x, h - 8);
       }
       g.textAlign = 'left';
-      g.fillText('I/I₀', 6, P.t - 5);
-      g.fillText('d (cm)', P.l + pw - 42, h - 8);
+      g.fillText('I/I₀', 8, 16);
+      g.textAlign = 'center';
+      g.fillText('d (cm)', X(7), h - 8);
+      g.textAlign = 'left';
 
       /* Đường tham chiếu 2 MHz */
       g.beginPath();
@@ -4715,7 +4849,7 @@ requestAnimationFrame(frame);
       g.beginPath(); g.moveTo(bx - 4, dy); g.lineTo(bx + bw + 4, dy); g.stroke();
       g.fillStyle = '#b4ccd6'; g.font = '11.5px "JetBrains Mono", monospace';
       g.textAlign = 'center';
-      g.fillText('0 cm', bx + bw / 2, P.t - 5);
+      g.fillText('0 cm', bx + bw / 2, P.t - 10);
       g.fillText('8 cm', bx + bw / 2, h - 8);
       g.textAlign = 'left';
     }
