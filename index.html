@@ -3825,17 +3825,19 @@ function applyViCaptions(player) {
   try {
     player.loadModule?.('captions');
     const tracks = player.getOption?.('captions', 'tracklist') || [];
-    if (!tracks.length) return false;
+    const cur = player.getOption?.('captions', 'track') || {};
     const vi = tracks.find(t => t.languageCode === 'vi');
     if (vi) {
       player.setOption('captions', 'track', vi);
-    } else {
-      player.setOption('captions', 'track', {
-        languageCode: tracks[0].languageCode,
-        vss_id: tracks[0].vss_id,
-        translationLanguage: { languageCode: 'vi', languageName: 'Tiếng Việt' }
-      });
+      return true;
     }
+    const base = tracks[0] || (cur.languageCode ? cur : { languageCode: 'en', kind: 'asr', vss_id: 'a.en' });
+    player.setOption('captions', 'track', {
+      languageCode: base.languageCode,
+      vss_id: base.vss_id,
+      kind: base.kind,
+      translationLanguage: { languageCode: 'vi', languageName: 'Tiếng Việt' }
+    });
     return true;
   } catch (_) { return false; }
 }
