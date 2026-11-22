@@ -2813,32 +2813,39 @@ select {
   </div>
 </section>
 
-<!-- ============ 17. PHẢN XẠ / KHÚC XẠ ============ -->
-<section class="slide" data-sec="III. Máy siêu âm" data-title="Phản xạ – khúc xạ tại mặt phân cách" data-min="1.5" data-note="Điều chỉnh góc tới từ 0° đến 45°. Tại 0°, tia phản xạ truyền ngược thẳng về đầu dò nên tín hiệu thu được lớn nhất. Khi vượt quá góc giới hạn 22,2° tại ranh giới mô mềm – xương sẽ xảy ra hiện tượng phản xạ toàn phần.">
+<!-- ============ 17. PHẢN XẠ / KHÚC XẠ (HÌNH 7.3 SGK) ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Phản xạ – khúc xạ tại mặt phân cách" data-min="1.5" data-note="Đối chiếu trực tiếp Hình 7.3 SGK (tr. 40): điều chỉnh góc tới i để quan sát đồng thời sóng phản xạ (i' = i) và sóng khúc xạ (sin i / v₁ = sin r / v₂). Có thể chuyển giữa hai ranh giới Mô mềm → Xương (v₁ < v₂, có phản xạ toàn phần quá 22,2°) và Xương → Mô mềm (v₁ > v₂, tia khúc xạ lệch gần pháp tuyến như Hình 7.3), sau đó nhấn 0° để giải thích vì sao khi siêu âm đặt đầu dò vuông góc bề mặt.">
   <div class="slide-inner">
     <div class="s-head">
-      <span class="kicker">III. Nguyên lí máy siêu âm · 04</span>
+      <span class="kicker">III. Nguyên lí máy siêu âm · 04 · Hình 7.3 SGK</span>
       <h2 class="anim-fade-up">Hiện tượng phản xạ và khúc xạ tại mặt phân cách</h2>
     </div>
     <div class="s-body">
       <div class="cols lab-left">
         <div class="lab" data-widget="reflect">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 06 · Phản xạ &amp; khúc xạ</span><span class="lab-hint">Điều chỉnh góc tới</span></div>
-          <div class="canvas-box"><canvas id="rfCanvas"></canvas></div>
-          <div class="ctrl"><label for="rfAngle">Góc tới</label><input type="range" id="rfAngle" min="0" max="45" step="1" value="0"><output id="rfOut">0°</output></div>
-          <div class="readout">
-            <span>Năng lượng phản xạ: <span class="big" id="rfPct">43%</span></span>
-            <span id="rfState" class="hl">vuông góc · thu tín hiệu tối đa</span>
+          <div class="lab-top">
+            <span class="lab-tag">Mô phỏng 06 · Phản xạ &amp; khúc xạ</span>
+            <div class="seg" id="rfPair">
+              <button class="btn on" data-pair="sb">Mô mềm → Xương</button>
+              <button class="btn" data-pair="bs">Xương → Mô mềm</button>
+            </div>
+          </div>
+          <div class="canvas-box" style="min-height:225px"><canvas id="rfCanvas"></canvas></div>
+          <div class="ctrl"><label for="rfAngle">Góc tới</label><input type="range" id="rfAngle" min="0" max="45" step="1" value="15"><output id="rfOut">15°</output></div>
+          <div class="readout" style="font-size:var(--small-size)">
+            <button class="btn" id="rfZero">↺ Về 0° (vuông góc)</button>
+            <span>Phản xạ R: <span class="big" id="rfPct">53%</span></span>
+            <span id="rfState" class="hl">góc khúc xạ r = 43°</span>
           </div>
         </div>
-        <div class="txt">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.55rem">
           <ul class="clean">
-            <li>Khi gặp mặt phân cách hai môi trường có trở kháng âm <b>Z₁ ≠ Z₂</b>, chùm sóng tách thành tia <b>phản xạ</b> và tia <b>khúc xạ</b>.</li>
-            <li>Hệ số phản xạ năng lượng khi chùm tia tới vuông góc:</li>
+            <li>Khi gặp <b>mặt phân cách (ranh giới)</b> hai môi trường có trở kháng âm <b>Z₁ ≠ Z₂</b>, sóng siêu âm vừa bị <b>phản xạ</b> vừa bị <b>khúc xạ</b> (Hình 7.3 SGK).</li>
+            <li><b>Định luật phản xạ và khúc xạ:</b></li>
           </ul>
-          <div class="formula" style="margin:.6rem 0">R = [(Z₂ − Z₁) / (Z₂ + Z₁)]²</div>
-          <div class="formula" style="margin-bottom:.6rem">d = v · Δt / 2</div>
-          <p class="note-line">Đầu dò chỉ thu được sóng phản xạ khi tia phản xạ quay đúng về mặt thu; do đó bác sĩ luôn đặt đầu dò <b>vuông góc với bề mặt da</b>.</p>
+          <div class="formula" style="font-size:clamp(.95rem,1.4vw,1.22rem)">i′ = i &nbsp;·&nbsp; sin i / v₁ = sin r / v₂</div>
+          <div class="formula" style="font-size:clamp(.95rem,1.4vw,1.22rem)">R = [(Z₂ − Z₁) / (Z₂ + Z₁)]² <small>(tại i = 0°)</small></div>
+          <p class="note-line">Trong kĩ thuật siêu âm, ta quan tâm tới <b>tín hiệu sóng phản xạ</b> để chuyển thành tín hiệu điện và dựng ảnh. Đầu dò thường được đặt <b>vuông góc với bề mặt da (i ≈ 0°)</b> để sóng phản xạ quay đúng về mặt thu.</p>
         </div>
       </div>
     </div>
@@ -4955,32 +4962,70 @@ requestAnimationFrame(frame);
 })();
 
 /* ============================================================
-   LAB 05 — Phản xạ & khúc xạ (Slide 14): TIR = 100%, độ dày tia tỉ lệ năng lượng
+   LAB 05 — Phản xạ & khúc xạ (Hình 7.3 SGK): Rayleigh R(i), Snell, 2 cặp môi trường
    ============================================================ */
 (function () {
   const el = $('.lab[data-widget="reflect"]'); if (!el) return;
   const cv = $('#rfCanvas'), aR = $('#rfAngle'), aOut = $('#rfOut');
-  const pctEl = $('#rfPct'), stEl = $('#rfState');
-  const V1 = 1540, V2 = 4080, R0 = 0.43;
-  let theta = 0, curR = R0, isTir = false;
+  const pctEl = $('#rfPct'), stEl = $('#rfState'), zeroBtn = $('#rfZero');
+  const pairBtns = $$('#rfPair button');
+
+  const PAIRS = {
+    sb: {
+      v1: 1540, z1: 1.63, lab1: 'Mô mềm · v₁ = 1540 m/s', bg1: 'rgba(18,52,68,.85)',
+      v2: 4080, z2: 7.80, lab2: 'Xương · v₂ = 4080 m/s', bg2: 'rgba(65,50,36,.85)',
+      defAngle: 15
+    },
+    bs: {
+      v1: 4080, z1: 7.80, lab1: 'Xương · v₁ = 4080 m/s', bg1: 'rgba(65,50,36,.85)',
+      v2: 1540, z2: 1.63, lab2: 'Mô mềm · v₂ = 1540 m/s', bg2: 'rgba(18,52,68,.85)',
+      defAngle: 30
+    }
+  };
+  let pairKey = 'sb', theta = 15, curR = 0.53, curT2 = 0, isTir = false;
 
   const rng = mulberry32(404);
   const dotsTop = Array.from({ length: 45 }, () => [rng(), rng()]);
   const dotsBot = Array.from({ length: 35 }, () => [rng(), rng(), 1 + rng() * 1.8]);
 
   function paint() {
+    const P = PAIRS[pairKey];
     theta = +aR.value;
     aOut.textContent = theta + '°';
-    const s2 = V2 / V1 * Math.sin(theta * Math.PI / 180);
+    const th1 = theta * Math.PI / 180;
+    const s2 = (P.v2 / P.v1) * Math.sin(th1);
     isTir = s2 >= 1;
-    curR = isTir ? 1 : clamp(R0 + (1 - R0) * Math.pow(Math.sin(theta * Math.PI / 180), 2), 0, 1);
+    if (isTir) {
+      curR = 1;
+      curT2 = Math.PI / 2;
+    } else {
+      curT2 = Math.asin(s2);
+      /* Hệ số phản xạ năng lượng âm học Rayleigh chính xác cho góc tới i */
+      const c1 = Math.cos(th1), c2 = Math.cos(curT2);
+      const num = P.z2 * c1 - P.z1 * c2;
+      const den = P.z2 * c1 + P.z1 * c2;
+      curR = clamp(Math.pow(num / den, 2), 0, 1);
+    }
     pctEl.textContent = fmt(curR * 100, 0) + '%';
-    stEl.textContent = isTir ? 'phản xạ toàn phần (100%)'
+    const rDeg = Math.round(curT2 * 180 / Math.PI);
+    stEl.textContent = isTir ? 'phản xạ toàn phần (i > 22,2°)'
       : theta === 0 ? 'vuông góc · thu tín hiệu tối đa'
-        : 'tia phản xạ lệch khỏi đầu dò';
-    stEl.style.color = isTir ? 'var(--accent-amber)' : theta === 0 ? 'var(--accent-teal)' : 'var(--text-2)';
+        : `i′ = ${theta}° · góc khúc xạ r = ${rDeg}°`;
+    stEl.style.color = isTir ? 'var(--accent-amber)' : theta === 0 ? 'var(--accent-teal)' : 'var(--accent-2)';
   }
-  aR.addEventListener('input', paint); paint();
+  aR.addEventListener('input', paint);
+  if (zeroBtn) {
+    zeroBtn.onclick = () => { aR.value = 0; paint(); };
+  }
+  pairBtns.forEach(b => {
+    b.onclick = () => {
+      pairKey = b.dataset.pair;
+      pairBtns.forEach(x => x.classList.toggle('on', x === b));
+      aR.value = PAIRS[pairKey].defAngle;
+      paint();
+    };
+  });
+  paint();
 
   function arrow(g, x1, y1, x2, y2, color, wid = 2.2) {
     g.strokeStyle = color; g.fillStyle = color; g.lineWidth = wid;
@@ -4993,15 +5038,33 @@ requestAnimationFrame(frame);
     g.closePath(); g.fill();
   }
 
+  /* Vẽ các vạch mặt sóng chạy dọc tia để minh hoạ chiều truyền sóng */
+  function drawRayPulses(g, x1, y1, x2, y2, phase, color, count = 3) {
+    const dx = x2 - x1, dy = y2 - y1;
+    const len = Math.hypot(dx, dy);
+    if (len < 16) return;
+    const nx = -dy / len, ny = dx / len;
+    g.strokeStyle = color; g.lineWidth = 1.6;
+    for (let k = 0; k < count; k++) {
+      const u = (phase + k / count) % 1;
+      const px = x1 + dx * u, py = y1 + dy * u;
+      g.beginPath();
+      g.moveTo(px - nx * 6, py - ny * 6);
+      g.lineTo(px + nx * 6, py + ny * 6);
+      g.stroke();
+    }
+  }
+
   lab(el, {
-    tick() {
+    tick(t) {
+      const cfg = PAIRS[pairKey];
       const { g, w, h } = fit(cv);
       g.clearRect(0, 0, w, h);
-      const iy = h * 0.56, P = { x: w * 0.52, y: iy };
+      const iy = h * 0.54, P = { x: w * 0.50, y: iy };
 
-      g.fillStyle = 'rgba(18,52,68,.85)'; g.fillRect(0, 0, w, iy);
-      g.fillStyle = 'rgba(65,50,36,.85)'; g.fillRect(0, iy, w, h - iy);
-      g.strokeStyle = '#3fe3c8'; g.lineWidth = 1.6;
+      g.fillStyle = cfg.bg1; g.fillRect(0, 0, w, iy);
+      g.fillStyle = cfg.bg2; g.fillRect(0, iy, w, h - iy);
+      g.strokeStyle = '#3fe3c8'; g.lineWidth = 1.8;
       g.beginPath(); g.moveTo(0, iy); g.lineTo(w, iy); g.stroke();
 
       g.fillStyle = 'rgba(255,255,255,.06)';
@@ -5010,56 +5073,114 @@ requestAnimationFrame(frame);
         g.beginPath(); g.arc(rx * w, iy + ry * (h - iy), r, 0, Math.PI * 2); g.fill();
       });
 
+      /* Nhãn hai môi trường & Mặt phân cách */
       g.fillStyle = '#dceef2';
-      g.font = '12.5px "JetBrains Mono", monospace';
-      g.fillText('Mô mềm · v₁ = 1540 m/s', 12, 20);
-      g.fillText('Xương · v₂ = 4080 m/s', 12, h - 11);
+      g.font = '12px "JetBrains Mono", monospace';
+      g.fillText(cfg.lab1, 10, 18);
+      g.fillText(cfg.lab2, 10, h - 10);
 
-      g.setLineDash([4, 4]); g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 1;
-      g.beginPath(); g.moveTo(P.x, P.y - h * 0.42); g.lineTo(P.x, P.y + h * 0.32); g.stroke();
+      g.fillStyle = '#3fe3c8';
+      g.textAlign = 'right';
+      g.fillText('Mặt phân cách', w - 10, iy - 6);
+      g.textAlign = 'left';
+
+      /* Pháp tuyến nét đứt + nhãn Pháp tuyến (đặt góc dưới trái pháp tuyến để không bao giờ đè tia hay đầu dò) */
+      g.setLineDash([4, 4]); g.strokeStyle = 'rgba(255,255,255,.4)'; g.lineWidth = 1.1;
+      g.beginPath(); g.moveTo(P.x, 16); g.lineTo(P.x, h - 12); g.stroke();
       g.setLineDash([]);
+      g.fillStyle = 'rgba(220,238,242,.74)';
+      g.font = '11px "JetBrains Mono", monospace';
+      g.textAlign = 'right';
+      g.fillText('Pháp tuyến', P.x - 8, h - 10);
+      g.textAlign = 'left';
 
-      const L = Math.min(w * 0.36, P.y - 42);
+      const L = Math.min(w * 0.36, P.y - 38);
       const th = theta * Math.PI / 180;
       const S = { x: P.x - L * Math.sin(th), y: P.y - L * Math.cos(th) };
       const E = { x: P.x + L * Math.sin(th), y: P.y - L * Math.cos(th) };
+      const pulsePh = (t * 0.55) % 1;
 
-      /* Tia tới */
+      /* Tia tới (xanh ngọc) */
       arrow(g, S.x, S.y, P.x, P.y, '#3fe3c8', 2.4);
-      /* Tia phản xạ (nếu θ = 0° lệch nhẹ sang phải 6px để nhìn rõ cả 2 chiều) */
-      const off = theta === 0 ? 6 : 0;
-      arrow(g, P.x + off, P.y, E.x + off, E.y, `rgba(139,211,255,${0.45 + 0.55 * curR})`, 1.4 + 1.8 * curR);
+      drawRayPulses(g, S.x, S.y, P.x, P.y, pulsePh, 'rgba(63,227,200,.72)', 3);
 
-      const s2 = V2 / V1 * Math.sin(th);
-      if (s2 < 1) {
-        const t2 = Math.asin(s2);
-        const R2 = { x: P.x + L * 0.78 * Math.sin(t2), y: P.y + L * 0.78 * Math.cos(t2) };
-        const trAlpha = clamp(1 - curR, 0.25, 0.95);
-        arrow(g, P.x, P.y, R2.x, R2.y, `rgba(255,180,84,${trAlpha})`, 1.2 + 1.8 * (1 - curR));
-        g.fillStyle = '#ffb454';
-        g.fillText('khúc xạ ' + Math.round(t2 * 180 / Math.PI) + '°', R2.x + 8, R2.y);
+      /* Tia phản xạ (xanh dương nhạt; nếu θ = 0° lệch nhẹ 6px để nhìn rõ cả 2 chiều) */
+      const off = theta === 0 ? 6 : 0;
+      const refCol = `rgba(139,211,255,${(0.5 + 0.5 * curR).toFixed(2)})`;
+      arrow(g, P.x + off, P.y, E.x + off, E.y, refCol, 1.5 + 1.6 * curR);
+      drawRayPulses(g, P.x + off, P.y, E.x + off, E.y, pulsePh, 'rgba(139,211,255,.68)', 3);
+
+      /* Nhãn sóng tới & sóng phản xạ */
+      g.font = 'bold 11.5px "JetBrains Mono", monospace';
+      if (theta >= 8) {
+        g.fillStyle = '#3fe3c8';
+        g.textAlign = 'right';
+        g.fillText('Sóng tới', (S.x + P.x) * 0.5 - 10, (S.y + P.y) * 0.5 - 2);
+        g.fillStyle = '#8bd3ff';
+        g.textAlign = 'left';
+        g.fillText('Sóng phản xạ', (E.x + P.x) * 0.5 + 10, (E.y + P.y) * 0.5 - 2);
       } else {
-        g.fillStyle = '#ffb454';
-        g.font = '13px "JetBrains Mono", monospace';
-        g.fillText('Phản xạ toàn phần (100%)', P.x + 12, P.y + 26);
+        g.fillStyle = '#8bd3ff';
+        g.textAlign = 'left';
+        g.fillText('Phản xạ ngược về đầu dò', P.x + 14, P.y - L * 0.52);
       }
 
+      /* Tia khúc xạ (vàng cam) hoặc phản xạ toàn phần */
+      const L2 = Math.min(w * 0.36, h - iy - 22);
+      if (!isTir) {
+        const R2 = { x: P.x + L2 * Math.sin(curT2), y: P.y + L2 * Math.cos(curT2) };
+        const trAlpha = clamp(1 - curR, 0.32, 0.95);
+        arrow(g, P.x, P.y, R2.x, R2.y, `rgba(255,180,84,${trAlpha.toFixed(2)})`, 1.4 + 1.6 * (1 - curR));
+        drawRayPulses(g, P.x, P.y, R2.x, R2.y, pulsePh, `rgba(255,180,84,${(0.75 * trAlpha).toFixed(2)})`, 3);
+        const rDeg = Math.round(curT2 * 180 / Math.PI);
+        g.fillStyle = '#ffb454';
+        g.textAlign = 'left';
+        g.fillText('Sóng khúc xạ (' + rDeg + '°)', R2.x + 8, Math.min(h - 16, R2.y + 4));
+
+        /* Cung góc khúc xạ r */
+        if (rDeg > 0) {
+          const arcR = 30;
+          g.strokeStyle = 'rgba(255,180,84,.78)'; g.lineWidth = 1.3;
+          g.beginPath(); g.arc(P.x, P.y, arcR, Math.PI / 2 - curT2, Math.PI / 2); g.stroke();
+          const midA = Math.PI / 2 - curT2 * 0.5;
+          g.fillStyle = '#ffb454'; g.font = '11px "JetBrains Mono", monospace';
+          g.fillText('r', P.x + Math.cos(midA) * (arcR + 10) - 3, P.y + Math.sin(midA) * (arcR + 10) + 3);
+        }
+      } else {
+        g.fillStyle = '#ffb454';
+        g.font = 'bold 12px "JetBrains Mono", monospace';
+        g.fillText('Phản xạ toàn phần (R = 100%)', P.x + 12, P.y + 26);
+      }
+
+      /* Đầu dò gắn ở đầu tia tới */
       g.save();
       g.translate(S.x, S.y); g.rotate(-th);
       g.fillStyle = '#12464f'; g.strokeStyle = '#3fe3c8'; g.lineWidth = 1.5;
-      rr(g, -16, -11, 32, 22, 4); g.fill(); g.stroke();
+      rr(g, -15, -10, 30, 20, 4); g.fill(); g.stroke();
       g.restore();
       g.fillStyle = '#3fe3c8';
-      g.font = '12.5px "JetBrains Mono", monospace';
+      g.font = '11.5px "JetBrains Mono", monospace';
       g.textAlign = 'center';
-      g.fillText('Đầu dò', S.x, S.y - 17);
+      g.fillText('Đầu dò', S.x, S.y - 15);
       g.textAlign = 'left';
 
+      /* Cung góc tới i và góc phản xạ i' */
       if (theta > 0) {
-        g.strokeStyle = 'rgba(255,255,255,.45)'; g.lineWidth = 1;
-        g.beginPath(); g.arc(P.x, P.y, 32, -Math.PI / 2 - th, -Math.PI / 2); g.stroke();
-        g.fillStyle = '#ffffff';
-        g.fillText(theta + '°', P.x - 42, P.y - 36);
+        const arcR = 34;
+        g.strokeStyle = 'rgba(63,227,200,.88)'; g.lineWidth = 1.4;
+        g.beginPath(); g.arc(P.x, P.y, arcR, -Math.PI / 2 - th, -Math.PI / 2); g.stroke();
+        g.strokeStyle = 'rgba(139,211,255,.82)'; g.lineWidth = 1.4;
+        g.beginPath(); g.arc(P.x, P.y, arcR - 6, -Math.PI / 2, -Math.PI / 2 + th); g.stroke();
+
+        const midI = -Math.PI / 2 - th * 0.5;
+        const midIr = -Math.PI / 2 + th * 0.5;
+        g.font = 'bold 11.5px "JetBrains Mono", monospace';
+        g.textAlign = 'center';
+        g.fillStyle = '#3fe3c8';
+        g.fillText('i', P.x + Math.cos(midI) * (arcR + 11), P.y + Math.sin(midI) * (arcR + 11) + 3);
+        g.fillStyle = '#8bd3ff';
+        g.fillText('i′', P.x + Math.cos(midIr) * (arcR + 6), P.y + Math.sin(midIr) * (arcR + 6) + 3);
+        g.textAlign = 'left';
       }
     }
   });
