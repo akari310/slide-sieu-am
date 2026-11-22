@@ -5640,23 +5640,68 @@ requestAnimationFrame(frame);
       const activeU = prog < 1 ? prog : 0.30;
       const activeX = prog < 1 ? sw : imgW * 0.30;
 
+      /* Độ sâu mặt phản xạ chính trên cột hiện tại (gặp sỏi tại v=0.66 thì dội ngược hoàn toàn) */
+      const onStone = Math.abs(activeU - 0.30) < 0.036;
+      const vHit = onStone ? 0.66 : 0.92;
+      const hitY = topY + vHit * imgH;
+      const pulsePh = (t * (prog < 1 ? 2.6 : 1.15)) % 1;
+      const goingDown = pulsePh < 0.5;
+      const kVert = goingDown ? (pulsePh / 0.5) : (1 - (pulsePh - 0.5) / 0.5);
+      const py = topY + kVert * (hitY - topY);
+
       if (prog < 1) {
         const grd = g.createLinearGradient(sw - 34, 0, sw, 0);
         grd.addColorStop(0, 'rgba(63,227,200,0)');
-        grd.addColorStop(1, 'rgba(63,227,200,.38)');
+        grd.addColorStop(1, 'rgba(63,227,200,.34)');
         g.fillStyle = grd; g.fillRect(Math.max(0, sw - 34), topY, 34, imgH);
-        g.strokeStyle = '#3fe3c8'; g.lineWidth = 2;
-        g.beginPath(); g.moveTo(sw, topY); g.lineTo(sw, h); g.stroke();
-        /* Chấn tử phát đang kích hoạt ở mép trên & xung chạy dọc từ trên xuống */
-        g.fillStyle = '#3fe3c8';
-        rr(g, Math.max(2, sw - 9), 3, 18, 12, 3); g.fill();
-        const py = topY + ((t * 4.5) % 1) * imgH;
-        g.fillStyle = '#ffffff';
-        g.beginPath(); g.arc(sw, py, 3.2, 0, Math.PI * 2); g.fill();
+        g.strokeStyle = 'rgba(63,227,200,.72)'; g.lineWidth = 1.6;
+        g.beginPath(); g.moveTo(sw, topY); g.lineTo(sw, hitY); g.stroke();
       } else {
-        g.setLineDash([4, 3]); g.strokeStyle = 'rgba(255,180,84,.6)'; g.lineWidth = 1.2;
-        g.beginPath(); g.moveTo(activeX, topY); g.lineTo(activeX, h); g.stroke();
+        g.setLineDash([4, 3]); g.strokeStyle = 'rgba(255,180,84,.55)'; g.lineWidth = 1.2;
+        g.beginPath(); g.moveTo(activeX, topY); g.lineTo(activeX, hitY); g.stroke();
         g.setLineDash([]);
+      }
+
+      /* Chấn tử phát/thu ở mép trên: xanh ngọc khi phát xuống, loé vàng cam khi nhận echo dội về */
+      const receivingFlash = !goingDown && pulsePh > 0.88;
+      g.fillStyle = receivingFlash ? '#ffb454' : '#3fe3c8';
+      rr(g, clamp(activeX - 9, 2, imgW - 20), 3, 18, 12, 3); g.fill();
+
+      /* Hiệu ứng hạt xung siêu âm bắn thẳng xuống & dội thẳng ngược lên đầu dò */
+      if (goingDown) {
+        /* Hạt phát xuống (xanh ngọc + đuôi trên) */
+        const tailY = Math.max(topY, py - 20);
+        const tg = g.createLinearGradient(0, tailY, 0, py);
+        tg.addColorStop(0, 'rgba(63,227,200,0)');
+        tg.addColorStop(1, 'rgba(63,227,200,0.95)');
+        g.strokeStyle = tg; g.lineWidth = 2.6;
+        g.beginPath(); g.moveTo(activeX, tailY); g.lineTo(activeX, py); g.stroke();
+
+        g.fillStyle = '#eafffb';
+        g.beginPath(); g.arc(activeX, py, 3.6, 0, Math.PI * 2); g.fill();
+        g.strokeStyle = '#3fe3c8'; g.lineWidth = 1.4;
+        g.beginPath(); g.arc(activeX, py, 5.5, 0, Math.PI * 2); g.stroke();
+      } else {
+        /* Vòng loé sáng ngay mặt phản xạ khi hạt vừa đập vào */
+        const ep = (pulsePh - 0.5) / 0.5;
+        if (ep < 0.35) {
+          const rrHit = 4 + ep * 32;
+          g.strokeStyle = `rgba(255,180,84,${(0.92 * (1 - ep / 0.35)).toFixed(2)})`;
+          g.lineWidth = 1.8;
+          g.beginPath(); g.arc(activeX, hitY, rrHit, Math.PI, Math.PI * 2); g.stroke();
+        }
+        /* Hạt echo dội thẳng ngược lên đầu dò (vàng cam + đuôi dưới) */
+        const tailY = Math.min(hitY, py + 22);
+        const tg = g.createLinearGradient(0, tailY, 0, py);
+        tg.addColorStop(0, 'rgba(255,180,84,0)');
+        tg.addColorStop(1, 'rgba(255,180,84,0.98)');
+        g.strokeStyle = tg; g.lineWidth = 2.8;
+        g.beginPath(); g.moveTo(activeX, tailY); g.lineTo(activeX, py); g.stroke();
+
+        g.fillStyle = '#fff5dc';
+        g.beginPath(); g.arc(activeX, py, 3.8, 0, Math.PI * 2); g.fill();
+        g.strokeStyle = '#ffb454'; g.lineWidth = 1.5;
+        g.beginPath(); g.arc(activeX, py, 6, 0, Math.PI * 2); g.stroke();
       }
 
       /* Nhãn độ sâu & sỏi/nang trên vùng ảnh 2D */
@@ -5678,6 +5723,15 @@ requestAnimationFrame(frame);
         g.fillStyle = '#3fe3c8';
         g.fillText('Nang dịch', imgW * 0.68 - 32, topY + imgH * 0.56);
       }
+
+      /* Chú thích hạt phát xuống & hạt dội ngược lên (góc dưới trái) */
+      g.fillStyle = 'rgba(4,11,20,0.82)';
+      rr(g, 8, h - 24, 214, 18, 5); g.fill();
+      g.font = 'bold 10.5px "JetBrains Mono", monospace';
+      g.fillStyle = '#3fe3c8';
+      g.fillText('● Phát xuống', 15, h - 11);
+      g.fillStyle = '#ffb454';
+      g.fillText('● Dội ngược lên', 112, h - 11);
 
       /* Cột bên phải: Đồ thị 1 đường A dọc từ trên xuống tại đúng cột tia quét */
       const ax = imgW + 8, aw = aPanelW - 6;
@@ -5701,6 +5755,12 @@ requestAnimationFrame(frame);
       g.strokeStyle = prog < 1 ? '#3fe3c8' : '#ffb454';
       g.lineWidth = 1.6;
       g.stroke();
+
+      /* Chấm đồng bộ vị trí hạt xung trên đồ thị đường A */
+      const vCur = clamp((py - topY) / imgH, 0, 1);
+      const aDotX = baseAX + clamp(scene(activeU, vCur) * gainVal, 0, 1) * maxAmp;
+      g.fillStyle = goingDown ? '#3fe3c8' : '#ffb454';
+      g.beginPath(); g.arc(aDotX, clamp(py, topY + 2, h - 8), 3.4, 0, Math.PI * 2); g.fill();
     }
   });
 })();
