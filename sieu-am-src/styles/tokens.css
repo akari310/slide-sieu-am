@@ -51,12 +51,12 @@
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 
   --topbar-h: 52px;
-  --pad: clamp(1.1rem, 3.6vw, 3.6rem);
-  --h1-size: clamp(2.8rem, 8.2vw, 6.2rem);
-  --h2-size: clamp(1.16rem, 1.72vw, 1.62rem);
-  --h3-size: clamp(1.02rem, 1.28vw, 1.18rem);
-  --body-size: clamp(0.95rem, 1.08vw, 1.1rem);
-  --small-size: clamp(0.84rem, 0.96vw, 0.98rem);
+  --pad: clamp(1.1rem, 3.2vw, 3.2rem);
+  --h1-size: clamp(3.1rem, 8.8vw, 6.6rem);
+  --h2-size: clamp(1.42rem, 2.35vw, 2.32rem);
+  --h3-size: clamp(1.18rem, 1.58vw, 1.56rem);
+  --body-size: clamp(1.1rem, 1.46vw, 1.48rem);
+  --small-size: clamp(1rem, 1.26vw, 1.26rem);
   --ease: cubic-bezier(0.22, 0.75, 0.2, 1);
 }
 

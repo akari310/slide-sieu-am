@@ -41,7 +41,7 @@
 
 .lab-tag {
   font-family: var(--mono);
-  font-size: clamp(12px, 0.86vw, 13.5px);
+  font-size: clamp(0.84rem, 1.06vw, 1.06rem);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -62,7 +62,7 @@
 
 .lab-hint {
   font-family: var(--mono);
-  font-size: clamp(11.5px, 0.8vw, 13px);
+  font-size: clamp(0.8rem, 0.96vw, 0.96rem);
   letter-spacing: 0.04em;
   color: var(--text-2);
   text-transform: uppercase;
@@ -99,7 +99,7 @@
 }
 
 .readout .big {
-  font-size: clamp(1.02rem, 1.45vw, 1.28rem);
+  font-size: clamp(1.16rem, 1.68vw, 1.52rem);
   color: var(--text-1);
   font-weight: 700;
 }
@@ -109,7 +109,7 @@
   align-items: center;
   gap: 0.65rem;
   font-family: var(--mono);
-  font-size: clamp(12px, 0.88vw, 13.5px);
+  font-size: clamp(0.84rem, 1.02vw, 1.02rem);
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -122,7 +122,7 @@
   font-weight: 700;
   min-width: 5.8em;
   text-align: right;
-  font-size: clamp(13px, 0.92vw, 14.5px);
+  font-size: clamp(0.9rem, 1.12vw, 1.12rem);
   letter-spacing: 0.01em;
   text-transform: none;
 }
@@ -248,13 +248,13 @@ select {
   background: var(--bg-soft);
   text-align: center;
   font-family: var(--mono);
-  font-size: clamp(11.5px, 0.84vw, 13px);
+  font-size: clamp(0.8rem, 0.98vw, 0.98rem);
   color: var(--text-2);
   transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.15s;
   line-height: 1.3;
 }
 .animal:hover { transform: translateY(-2px); border-color: var(--accent-2); }
-.animal b { display: block; font-size: clamp(13px, 0.94vw, 14.5px); color: inherit; font-weight: 700; }
+.animal b { display: block; font-size: clamp(0.88rem, 1.08vw, 1.08rem); color: inherit; font-weight: 700; }
 .animal svg { display: block; width: 22px; height: 22px; margin: 0 auto 0.15em; fill: currentColor; }
 .animal.on { border-color: var(--accent-teal); background: var(--good-bg); color: var(--accent-teal); }
 
@@ -381,12 +381,12 @@ select {
   min-height: 0;
   gap: 0.1rem;
 }
-.pipe.compact .pipe-step i { font-size: 11.5px; }
-.pipe.compact .pipe-step b { font-size: clamp(12.5px, 0.96vw, 14px); }
-.pipe.compact .pipe-step span { font-size: clamp(11.5px, 0.84vw, 13px); line-height: 1.28; }
-.pipe-step i { font-family: var(--mono); font-style: normal; font-size: 12.5px; font-weight: 700; color: var(--accent-2); letter-spacing: 0.08em; }
-.pipe-step b { font-size: clamp(13px, 1.05vw, 15px); line-height: 1.25; }
-.pipe-step span { font-size: clamp(12px, 0.92vw, 14px); color: var(--text-2); line-height: 1.38; }
+.pipe.compact .pipe-step i { font-size: clamp(0.8rem, 0.95vw, 0.95rem); }
+.pipe.compact .pipe-step b { font-size: clamp(0.92rem, 1.14vw, 1.12rem); }
+.pipe.compact .pipe-step span { font-size: clamp(0.84rem, 1.02vw, 1rem); line-height: 1.3; }
+.pipe-step i { font-family: var(--mono); font-style: normal; font-size: clamp(0.84rem, 1vw, 1rem); font-weight: 700; color: var(--accent-2); letter-spacing: 0.08em; }
+.pipe-step b { font-size: clamp(0.96rem, 1.24vw, 1.2rem); line-height: 1.25; }
+.pipe-step span { font-size: clamp(0.88rem, 1.08vw, 1.06rem); color: var(--text-2); line-height: 1.38; }
 .pipe-step.hot { border-top: 3px solid var(--accent-teal); background: linear-gradient(180deg, rgba(63, 227, 200, 0.12), var(--surface-solid) 65%); }
 .pipe-step.hot i { color: var(--accent-teal); }
 .pipe-step::after {
@@ -431,9 +431,9 @@ select {
   background: var(--bg-soft);
   border: 1px solid var(--border);
 }
-.probe-card b { font-size: clamp(14px, 1.15vw, 17px); line-height: 1.25; }
-.probe-card em { font-family: var(--mono); font-style: normal; font-size: clamp(12.5px, 0.96vw, 14.5px); font-weight: 700; color: var(--accent-2); }
-.probe-card span { font-size: clamp(13px, 0.98vw, 15px); color: var(--text-2); line-height: 1.42; }
+.probe-card b { font-size: clamp(1rem, 1.3vw, 1.28rem); line-height: 1.25; }
+.probe-card em { font-family: var(--mono); font-style: normal; font-size: clamp(0.88rem, 1.1vw, 1.08rem); font-weight: 700; color: var(--accent-2); }
+.probe-card span { font-size: var(--small-size); color: var(--text-2); line-height: 1.4; }
 
 /* ---------------- Poll & Quiz ---------------- */
 .poll { display: grid; gap: 0.65rem; grid-template-columns: minmax(0, 1fr); }
@@ -463,12 +463,12 @@ select {
 .poll button.no { border-color: var(--bad); background: var(--bad-bg); }
 
 .quiz { display: flex; flex-direction: column; gap: 0.72rem; height: 100%; min-height: 0; }
-.quiz-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--mono); font-size: 13.5px; font-weight: 700; color: var(--text-2); }
+.quiz-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--mono); font-size: var(--small-size); font-weight: 700; color: var(--text-2); }
 .qdots { display: flex; gap: 4px; flex-wrap: wrap; }
 .qdots i { width: 16px; height: 4px; border-radius: 99px; background: rgba(148, 197, 255, 0.22); }
 .qdots i.done { background: var(--accent-teal); }
 .qdots i.now { background: var(--accent-2); }
-.qtext { font-size: clamp(1.08rem, 1.65vw, 1.42rem); font-weight: 800; color: var(--text-1); line-height: 1.36; }
+.qtext { font-size: clamp(1.22rem, 1.9vw, 1.68rem); font-weight: 800; color: var(--text-1); line-height: 1.36; }
 .opts { display: grid; gap: 0.6rem; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
 .opt {
   text-align: left;
@@ -481,7 +481,7 @@ select {
   border-radius: var(--radius-sm);
   padding: 0.8em 1em;
   cursor: pointer;
-  font-size: var(--small-size);
+  font-size: var(--body-size);
   font-weight: 600;
   color: var(--text-1);
   line-height: 1.4;
@@ -491,7 +491,7 @@ select {
   align-items: center;
 }
 .opt:hover { border-color: var(--accent-2); background: var(--surface-2); }
-.opt .l { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent-2); padding-top: 0.05em; }
+.opt .l { font-family: var(--mono); font-size: var(--small-size); font-weight: 700; color: var(--accent-2); padding-top: 0.05em; }
 .opt.correct { border-color: var(--good); background: var(--good-bg); }
 .opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
 .opt.dimmed { opacity: 0.48; }
