@@ -65,8 +65,8 @@
   --topbar-h: 52px;
   --pad: clamp(1.1rem, 3.6vw, 3.6rem);
   --h1-size: clamp(2.8rem, 8.2vw, 6.2rem);
-  --h2-size: clamp(1.35rem, 2.4vw, 2.15rem);
-  --h3-size: clamp(1.04rem, 1.32vw, 1.22rem);
+  --h2-size: clamp(1.16rem, 1.72vw, 1.62rem);
+  --h3-size: clamp(1.02rem, 1.28vw, 1.18rem);
   --body-size: clamp(0.95rem, 1.08vw, 1.1rem);
   --small-size: clamp(0.84rem, 0.96vw, 0.98rem);
   --ease: cubic-bezier(0.22, 0.75, 0.2, 1);
@@ -210,7 +210,14 @@ code, kbd, pre, samp {
   margin: 0 auto;
 }
 
-.s-head { flex: none; }
+.s-head {
+  flex: none;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(148, 197, 255, 0.12);
+}
+html[data-theme="light"] .s-head {
+  border-bottom-color: rgba(12, 34, 74, 0.10);
+}
 
 .s-body {
   flex: 1;
@@ -257,34 +264,38 @@ code, kbd, pre, samp {
 .kicker {
   display: inline-flex;
   align-items: center;
-  gap: 0.55em;
-  font-family: var(--mono);
-  font-size: clamp(0.68rem, 0.78vw, 0.78rem);
-  letter-spacing: 0.14em;
+  gap: 0.5em;
+  font-family: var(--sans);
+  font-size: clamp(0.88rem, 1.1vw, 1.08rem);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--accent-2);
-  font-weight: 700;
+  color: var(--accent-teal);
+  font-weight: 800;
+  padding: 0.24em 0.85em 0.24em 0.7em;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(63, 227, 200, 0.14), rgba(56, 189, 248, 0.05));
+  border: 1px solid rgba(63, 227, 200, 0.30);
+  border-left: 3.5px solid var(--accent-teal);
+  line-height: 1.2;
 }
-
-.kicker::before {
-  content: "";
-  width: 1.5em;
-  height: 2px;
-  border-radius: 2px;
-  background: currentColor;
+html[data-theme="light"] .kicker {
+  color: var(--accent-teal);
+  background: linear-gradient(90deg, rgba(11, 122, 111, 0.10), rgba(22, 89, 214, 0.04));
+  border-color: rgba(11, 122, 111, 0.26);
+  border-left-color: var(--accent-teal);
 }
 
 h1, h2, h3 {
   margin: 0;
   color: var(--text-1);
-  letter-spacing: -0.025em;
-  line-height: 1.12;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
 }
 
 h2 {
   font-size: var(--h2-size);
-  font-weight: 800;
-  margin: 0.25em 0 0.32em;
+  font-weight: 700;
+  margin: 0.38em 0 0.15em;
   text-wrap: balance;
 }
 
@@ -1432,7 +1443,9 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
 
 /* ---------------- Responsive ---------------- */
 @media (max-height: 760px) {
-  :root { --topbar-h: 46px; --h2-size: clamp(1.18rem, 2.25vw, 1.85rem); }
+  :root { --topbar-h: 46px; --h2-size: clamp(1.1rem, 1.55vw, 1.48rem); }
+  .kicker { font-size: clamp(0.82rem, 1.02vw, 0.96rem); padding: 0.2em 0.75em 0.2em 0.62em; }
+  .s-head { padding-bottom: 0.35rem; }
   .slide-inner { padding-top: 0.55rem; padding-bottom: 1.65rem; gap: 0.4rem; }
   .slide-inner.cover-inner { padding-bottom: 2.7rem; }
 }
@@ -2160,7 +2173,7 @@ select {
           <div class="hist-card-body">
             <span class="pill pill-aqua" style="align-self:flex-start">1794 · Ý</span>
             <b>Lazzaro Spallanzani</b>
-            <p>Phát hiện dơi dù bị che mắt vẫn tránh được các dây chuông nhờ sóng âm tần số &gt; 20 kHz.</p>
+            <p>Phát hiện dơi dù bị che mắt vẫn tránh được các dây chuông nhờ thính giác (sau này xác định là sóng siêu âm &gt; 20 kHz).</p>
           </div>
         </article>
         <article class="hist-card">
@@ -2309,7 +2322,7 @@ select {
             <div class="bar-row"><span>Thạch anh</span><div class="track"><i style="width:97%"></i></div><span class="mono">5700</span></div>
             <div class="bar-row"><span>Thép</span><div class="track"><i style="width:100%"></i></div><span class="mono">5900</span></div>
           </div>
-          <p class="dim" style="font-size:var(--small-size);margin-top:.65rem">Đơn vị: m/s (ở điều kiện tiêu chuẩn). Cơ thể người chứa khoảng 65% nước nên tốc độ truyền âm trong mô mềm gần tương đương trong nước.</p>
+          <p class="dim" style="font-size:var(--small-size);margin-top:.65rem">Đơn vị: m/s (ở nhiệt độ phòng ~20 °C). Cơ thể người chứa khoảng 65% nước nên tốc độ truyền âm trong mô mềm gần tương đương trong nước.</p>
         </div>
         <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
           <div class="card card-accent">
@@ -2862,13 +2875,14 @@ select {
     <div class="s-body">
       <div class="cols">
         <div class="txt">
-          <div class="card card-amber" style="margin-bottom:.6rem">
-            <span class="pill pill-amber" style="margin-bottom:.4em">Bài toán 2 · Tính hệ số phản xạ</span>
+          <div class="card card-amber" style="margin-bottom:.55rem">
+            <span class="pill pill-amber" style="margin-bottom:.38em">Bài toán 2 · Tính hệ số phản xạ</span>
             <p style="font-size:var(--small-size);margin:0">Cho trở kháng âm (đơn vị kg/(m²·s)): <b>Z<sub>khí</sub> = 413</b>, <b>Z<sub>da</sub> = 1,63×10⁶</b>, <b>Z<sub>gel</sub> = 1,50×10⁶</b>.</p>
           </div>
-          <ul class="clean">
-            <li><b>Không bôi gel (khí – da):</b><br><span class="mono">R = [(1,63×10⁶ − 413) / (1,63×10⁶ + 413)]² ≈ <b>99,90%</b></span><br><span class="dim" style="font-size:var(--small-size)">Gần như toàn bộ sóng phản xạ trở lại tại lớp không khí; chưa tới 0,1% năng lượng truyền vào mô.</span></li>
-            <li class="teal-dot"><b>Đã bôi gel (gel – da):</b><br><span class="mono">R = [(1,63 − 1,50) / (1,63 + 1,50)]² ≈ <b>0,17%</b></span><br><span class="dim" style="font-size:var(--small-size)">Hơn <b>99,8%</b> năng lượng sóng truyền qua vào cơ thể.</span></li>
+          <div class="formula" style="margin-bottom:.55rem;font-size:clamp(.92rem,1.35vw,1.18rem)">R = [(Z₂ − Z₁) / (Z₂ + Z₁)]² <small>(tại góc tới vuông góc)</small></div>
+          <ul class="clean" style="font-size:var(--small-size)">
+            <li><b>Không bôi gel (khí – da):</b><br><span class="mono">R = [(1,63×10⁶ − 413) / (1,63×10⁶ + 413)]² ≈ <b>99,90%</b></span><br><span class="dim">Tính cả hai ranh giới đầu dò – khí và khí – da, tới <b>99,95%</b> sóng bị phản xạ trở lại (SGK tr. 40), chưa tới 0,1% năng lượng truyền vào mô.</span></li>
+            <li class="teal-dot"><b>Đã bôi gel (gel – da):</b><br><span class="mono">R = [(1,63 − 1,50) / (1,63 + 1,50)]² ≈ <b>0,17%</b></span><br><span class="dim">Hơn <b>99,8%</b> năng lượng sóng truyền qua vào cơ thể.</span></li>
           </ul>
         </div>
         <div class="lab" data-widget="gel">
@@ -3417,11 +3431,11 @@ select {
           <table class="tbl">
             <thead><tr><th>Tiêu chí</th><th>Siêu âm</th><th>X-quang / CT</th><th>MRI</th></tr></thead>
             <tbody>
-              <tr><td>Tác nhân</td><td>Sóng cơ học</td><td>Tia X (ion hoá)</td><td>Từ trường &amp; sóng vô tuyến</td></tr>
-              <tr><td>An toàn thai nhi</td><td>Rất cao</td><td>Hạn chế tối đa</td><td>An toàn (trừ 3 tháng đầu)</td></tr>
-              <tr><td>Thế mạnh</td><td>Thai, ổ bụng, tim, mạch</td><td>Xương, phổi, cấp cứu</td><td>Não, tủy sống, khớp</td></tr>
-              <tr><td>Thời gian thực</td><td>Có (30–60 khung/s)</td><td>Không (chụp tĩnh)</td><td>Chậm (15–45 phút)</td></tr>
-              <tr><td>Chi phí</td><td>Thấp, thiết bị cơ động</td><td>Trung bình</td><td>Cao, thiết bị cố định</td></tr>
+              <tr><td>Tác nhân vật lí</td><td>Sóng cơ học (1–15 MHz)</td><td>Tia X (bức xạ ion hoá)</td><td>Từ trường mạnh &amp; sóng vô tuyến (không ion hoá)</td></tr>
+              <tr><td>An toàn thai nhi</td><td>Rất cao (ưu tiên hàng đầu)</td><td>Hạn chế (nguy cơ ion hoá)</td><td>An toàn (không tiêm thuốc đối quang từ)</td></tr>
+              <tr><td>Thế mạnh chẩn đoán</td><td>Thai nhi, ổ bụng, tim, mạch máu, mô mềm nông</td><td>Xương, phổi, chấn thương, cấp cứu</td><td>Não, tủy sống, dây chằng, khớp, mô mềm sâu</td></tr>
+              <tr><td>Thời gian khảo sát</td><td>Thời gian thực (tạo ảnh liên tục)</td><td>Nhanh (vài giây – vài phút; ảnh tĩnh / lát cắt)</td><td>Chậm (15–60 phút; cần nằm yên)</td></tr>
+              <tr><td>Chi phí &amp; cơ động</td><td>Thấp, thiết bị gọn nhẹ, cơ động</td><td>Trung bình (CT cao hơn X-quang thường)</td><td>Cao, phòng chắn từ cố định</td></tr>
             </tbody>
           </table>
         </div>
