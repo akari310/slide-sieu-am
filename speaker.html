@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>Ghi chú thuyết trình — Siêu âm (Vật lí 12)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS & BASE — Dark Acoustic Studio · Liquid Glass (Flagship)
+   ============================================================ */
+:root {
+  --bg: #070d19;
+  --bg-soft: #0d182b;
+  --surface: rgba(15, 27, 48, 0.72);
+  --surface-solid: rgba(14, 26, 46, 0.92);
+  --surface-2: rgba(24, 44, 76, 0.84);
+  --border: rgba(148, 197, 255, 0.16);
+  --border-strong: rgba(148, 197, 255, 0.32);
+
+  --text-1: #f0f6ff;
+  --text-2: #a8bed8;
+  --text-3: #6f89ab;
+
+  --accent: #38bdf8;
+  --accent-ink: #04101f;
+  --accent-2: #60a5fa;
+  --accent-teal: #3fe3c8;
+  --accent-amber: #ffb454;
+  --accent-rose: #ff6f85;
+
+  --good: #22c55e;
+  --good-bg: rgba(34, 197, 94, 0.14);
+  --warn: #ffb454;
+  --warn-bg: rgba(255, 180, 84, 0.14);
+  --bad: #ff6f85;
+  --bad-bg: rgba(255, 111, 133, 0.15);
+
+  --scr-bg: #040b14;
+  --scr-bg-2: #0a1626;
+  --scr-line: rgba(63, 227, 200, 0.24);
+  --scr-text: #dceef2;
+  --scr-muted: #8aaab6;
+  --scr-cyan: #3fe3c8;
+  --scr-ice: #8bd3ff;
+  --scr-amber: #ffb454;
+  --scr-rose: #ff6f85;
+
+  --topbar-bg: rgba(7, 13, 25, 0.82);
+  --overlay-bg: rgba(6, 12, 23, 0.95);
+  --glass-blur: blur(16px);
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 38px -16px rgba(0, 0, 0, 0.72);
+  --shadow-lg: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 24px 56px -18px rgba(0, 0, 0, 0.85);
+
+  --sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --topbar-h: 52px;
+  --pad: clamp(1.1rem, 3.6vw, 3.6rem);
+  --h1-size: clamp(2.8rem, 8.2vw, 6.2rem);
+  --h2-size: clamp(1.16rem, 1.72vw, 1.62rem);
+  --h3-size: clamp(1.02rem, 1.28vw, 1.18rem);
+  --body-size: clamp(0.95rem, 1.08vw, 1.1rem);
+  --small-size: clamp(0.84rem, 0.96vw, 0.98rem);
+  --ease: cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+
+html[data-theme="light"] {
+  --bg: #f4f7fc;
+  --bg-soft: #eaf0f8;
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-solid: #ffffff;
+  --surface-2: #edf3fb;
+  --border: rgba(12, 34, 74, 0.14);
+  --border-strong: rgba(12, 34, 74, 0.28);
+
+  --text-1: #0b1b3a;
+  --text-2: #3b4d6e;
+  --text-3: #6c7d9b;
+
+  --accent: #0d2b6b;
+  --accent-ink: #ffffff;
+  --accent-2: #1659d6;
+  --accent-teal: #0b7a6f;
+  --accent-amber: #c26508;
+  --accent-rose: #c92a2a;
+
+  --good: #0e7348;
+  --good-bg: rgba(14, 115, 72, 0.1);
+  --warn: #c26508;
+  --warn-bg: rgba(194, 101, 8, 0.1);
+  --bad: #c92a2a;
+  --bad-bg: rgba(201, 42, 42, 0.1);
+
+  --topbar-bg: rgba(255, 255, 255, 0.9);
+  --overlay-bg: rgba(244, 247, 252, 0.96);
+  --shadow: 0 10px 28px -12px rgba(11, 27, 58, 0.14), 0 2px 6px -1px rgba(11, 27, 58, 0.06);
+  --shadow-lg: 0 18px 42px -16px rgba(11, 27, 58, 0.2), 0 4px 12px -2px rgba(11, 27, 58, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Quan trọng: đảm bảo thuộc tính [hidden] luôn ẩn bất kể display:flex/grid */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+body {
+  font-family: var(--sans);
+  font-size: var(--body-size);
+  line-height: 1.5;
+  color: var(--text-1);
+  background:
+    radial-gradient(52vw 52vw at 88% 8%, rgba(63, 227, 200, 0.13), transparent 60%),
+    radial-gradient(50vw 50vw at 10% 92%, rgba(56, 189, 248, 0.14), transparent 58%),
+    radial-gradient(36vw 36vw at 22% 14%, rgba(255, 180, 84, 0.05), transparent 55%),
+    radial-gradient(rgba(148, 197, 255, 0.12) 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, auto, auto, 28px 28px, auto;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(55vw 55vw at 92% 4%, rgba(22, 89, 214, 0.07), transparent 62%),
+    radial-gradient(45vw 45vw at 6% 96%, rgba(11, 122, 111, 0.07), transparent 60%),
+    radial-gradient(rgba(11, 27, 58, 0.08) 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, auto, 28px 28px, auto;
+  background-attachment: fixed;
+}
+
+img, svg, canvas, video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+code, kbd, pre, samp {
+  font-family: var(--mono);
+}
+
+::selection {
+  background: rgba(63, 227, 200, 0.25);
+  color: var(--text-1);
+}
+
+
+/* ============================================================
+   SPEAKER / TELEPROMPTER MODE (Mobile + 2nd Screen Presenter)
+   ============================================================ */
+body.is-speaker-only {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+  min-height: 100dvh;
+  padding-top: 0;
+}
+
+body.is-speaker-only #deck,
+body.is-speaker-only .topbar,
+body.is-speaker-only .progress,
+body.is-speaker-only .rail,
+body.is-speaker-only .hud,
+body.is-speaker-only .nav-arrows,
+body.is-speaker-only .draw-layer,
+body.is-speaker-only .laser-dot,
+body.is-speaker-only #notes,
+body.is-speaker-only #overview,
+body.is-speaker-only #help {
+  display: none !important;
+}
+
+.spk-app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse 75% 45% at 15% 0%, rgba(63, 227, 200, 0.09), transparent 70%),
+    radial-gradient(ellipse 70% 45% at 90% 100%, rgba(56, 189, 248, 0.08), transparent 70%),
+    var(--bg);
+  color: var(--text-1);
+}
+
+.spk-top {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.6rem clamp(0.8rem, 3vw, 1.5rem);
+  background: var(--topbar-bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.spk-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-1);
+}
+.spk-brand .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-teal);
+  box-shadow: 0 0 8px var(--accent-teal);
+}
+.spk-sync {
+  font-size: 0.72rem;
+  padding: 0.16em 0.55em;
+  border-radius: 999px;
+  background: rgba(63, 227, 200, 0.12);
+  border: 1px solid rgba(63, 227, 200, 0.3);
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+
+.spk-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.spk-btn {
+  appearance: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  background: var(--surface-solid);
+  color: var(--text-1);
+  padding: 0.42em 0.72em;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.spk-btn:hover:not(:disabled) {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+.spk-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.spk-btn.on {
+  background: rgba(63, 227, 200, 0.16);
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+}
+.spk-btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-teal));
+  border-color: transparent;
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+.spk-btn.primary:hover:not(:disabled) {
+  color: var(--accent-ink);
+  border-color: transparent;
+  filter: brightness(1.08);
+}
+html[data-theme="light"] .spk-btn.primary,
+html[data-theme="light"] .spk-btn.primary:hover:not(:disabled) {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.spk-prog {
+  height: 3px;
+  background: rgba(148, 197, 255, 0.12);
+}
+.spk-prog i {
+  display: block;
+  height: 100%;
+  width: 2.5%;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-teal));
+  transition: width 0.25s ease;
+}
+
+.spk-main {
+  flex: 1;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(0.85rem, 3vw, 1.4rem) clamp(0.85rem, 3.2vw, 1.5rem) 5.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.spk-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+.spk-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.spk-kicker {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  padding-left: 0.65em;
+  border-left: 3.5px solid var(--accent-teal);
+}
+.spk-meta {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--text-2);
+  padding: 0.18em 0.6em;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.spk-title {
+  margin: 0;
+  font-size: clamp(1.18rem, 4.2vw, 1.55rem);
+  font-weight: 800;
+  line-height: 1.24;
+  color: var(--text-1);
+}
+
+.spk-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: clamp(0.9rem, 3vw, 1.2rem);
+  box-shadow: var(--shadow);
+}
+.spk-card.say {
+  border-left: 4px solid var(--accent-teal);
+  background: linear-gradient(135deg, rgba(63, 227, 200, 0.10), var(--surface) 60%);
+}
+.spk-card.ans {
+  border-left: 4px solid var(--accent-amber);
+  background: linear-gradient(135deg, rgba(255, 180, 84, 0.10), var(--surface) 60%);
+}
+.spk-card.facts {
+  border-top: 2px solid var(--accent-2);
+}
+
+.spk-label {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 0.5rem;
+}
+.spk-card.say .spk-label { color: var(--accent-teal); }
+.spk-card.ans .spk-label { color: var(--accent-amber); }
+
+.spk-say-text {
+  margin: 0;
+  font-size: var(--spk-fs, 1.12rem);
+  line-height: 1.68;
+  color: var(--text-1);
+}
+
+.spk-formulas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+}
+.spk-formula-chip {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--accent-teal);
+  background: rgba(63, 227, 200, 0.10);
+  border: 1px solid rgba(63, 227, 200, 0.30);
+  border-radius: 8px;
+  padding: 0.28em 0.65em;
+}
+html[data-theme="light"] .spk-formula-chip {
+  background: rgba(11, 122, 111, 0.08);
+  border-color: rgba(11, 122, 111, 0.25);
+}
+
+.spk-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.48rem;
+  font-size: calc(var(--spk-fs, 1.12rem) * 0.88);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.spk-list li {
+  position: relative;
+  padding-left: 1.05em;
+}
+.spk-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-2);
+}
+.spk-list b { color: var(--text-1); }
+
+.spk-next-cue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.72rem 0.95rem;
+  border-radius: 12px;
+  border: 1px dashed var(--border-strong);
+  background: rgba(148, 197, 255, 0.04);
+  font-size: 0.86rem;
+  color: var(--text-2);
+  cursor: pointer;
+}
+.spk-next-cue:hover {
+  border-color: var(--accent-teal);
+  color: var(--text-1);
+}
+.spk-next-cue strong { color: var(--accent-teal); }
+
+.spk-foot-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 45;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.6rem clamp(0.8rem, 3vw, 1.5rem) calc(0.6rem + env(safe-area-inset-bottom, 0px));
+  background: var(--topbar-bg);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.spk-foot-nav .spk-btn {
+  justify-content: center;
+  min-height: 44px;
+  font-size: 0.88rem;
+}
+.spk-counter {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  font-weight: 700;
+  padding: 0.45em 0.85em;
+  border-radius: 9px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.spk-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: var(--bg);
+  display: none;
+  flex-direction: column;
+  padding: 1rem clamp(0.85rem, 3vw, 1.6rem) 2rem;
+  overflow-y: auto;
+}
+.spk-drawer.open { display: flex; }
+.spk-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.spk-drawer-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.spk-sec-group {
+  margin-bottom: 1.1rem;
+}
+.spk-sec-title {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-teal);
+  margin: 0 0 0.45rem;
+  display: flex;
+  justify-content: space-between;
+}
+.spk-sec-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 0.45rem;
+}
+.spk-jump {
+  text-align: left;
+  padding: 0.62rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-1);
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+}
+.spk-jump.cur {
+  border-color: var(--accent-teal);
+  background: rgba(63, 227, 200, 0.14);
+}
+.spk-jump .n {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accent-2);
+  flex: none;
+}
+.spk-jump .m {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  margin-left: auto;
+  flex: none;
+}
+
+</style>
+</head>
+<body class="is-speaker-only">
+<script>
+window.__SPEAKER_STANDALONE__ = true;
+window.__SPEAKER_DATA__ = [{"idx":1,"sec":"Mở đầu","title":"Siêu âm — Vật lí 12","min":"0.5","kicker":"Vật lí 12 · Chuyên đề 2 · Bài 7","heading":"SIÊU ÂM","note":"Giới thiệu Bài 7: Siêu âm (Chuyên đề 2, Vật lí 12). Nội dung trọng tâm gồm bản chất vật lí của siêu âm, cơ chế phát – thu bằng hiệu ứng áp điện, nguyên lí tạo ảnh trong y học và các ứng dụng tiêu biểu trong khoa học – kĩ thuật.","formulas":[],"bullets":[],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":2,"sec":"Mở đầu","title":"Quan sát thai nhi không dùng tia X","min":"1.5","kicker":"Đặt vấn đề","heading":"Quan sát thai nhi không phẫu thuật và không dùng tia X","note":"Quan sát hình ảnh siêu âm 2D bên phải và chuyển sang mục Video 4D thực tế để theo dõi cử động thai nhi. Từ đó đặt vấn đề về tác nhân vật lí được sử dụng trong chẩn đoán sản khoa thay cho tia X.","formulas":[],"bullets":[],"answers":["<b>Phương án B (Sóng âm tần số cao):</b> Chính xác. Thiết bị phát xung sóng cơ học có tần số trên 20 kHz và thu tín hiệu sóng phản xạ từ các mặt phân cách mô."],"ansLabel":"Đáp án & giải thích"},{"idx":3,"sec":"Mở đầu","title":"Lịch sử phát hiện & phát triển siêu âm","min":"1.5","kicker":"Lịch sử phát triển","heading":"Các dấu mốc nghiên cứu và ứng dụng siêu âm","note":"Khái quát 4 mốc lịch sử tiêu biểu: thí nghiệm của Spallanzani (1794), phát hiện hiệu ứng áp điện của anh em Curie (1880), hệ thống Sonar của Langevin (1917) và ứng dụng sản khoa của Ian Donald từ năm 1958 đến nay.","formulas":[],"bullets":[],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":4,"sec":"I. Siêu âm","title":"Siêu âm là gì? Thang tần số","min":"1.5","kicker":"I. Siêu âm","heading":"1. Khái niệm và thang tần số âm","note":"Bật chức năng Nghe thử tần số và kéo thanh trượt tăng dần từ 500 Hz qua 10 kHz, 16 kHz và 20 kHz: âm thanh có độ cao tăng dần rồi không còn nghe thấy khi vượt quá giới hạn trên 20 kHz của tai người, trong khi nhiều loài động vật vẫn cảm nhận được.","formulas":["16 Hz ≤ f<sub>nghe được</sub> ≤ 20 kHz &lt; f<sub>siêu âm</sub>"],"bullets":["<b>Hạ âm (&lt; 16 Hz):</b> voi, cá voi sử dụng để giao tiếp ở khoảng cách xa.","<b>Âm thanh nghe được (16 Hz – 20 kHz):</b> nằm trong giới hạn thính giác của con người.","<b>Siêu âm (&gt; 20 kHz):</b> dơi, cá heo sử dụng để định vị; y học sử dụng dải <b>1 – 15 MHz</b>."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":5,"sec":"I. Siêu âm","title":"Kiểm tra nhanh 01 · Bản chất siêu âm","min":"0.5","kicker":"I. Siêu âm","heading":"Kiểm tra nhanh · Bản chất của sóng siêu âm","note":"Củng cố nhanh bản chất sóng cơ học của siêu âm trước khi chuyển sang tốc độ truyền sóng trong các môi trường.","formulas":[],"bullets":["<b>Câu hỏi:</b> Đặc điểm nào sau đây đúng với sóng siêu âm?"],"answers":["<b>Đáp án đúng:</b> A. Là sóng cơ học có tần số lớn hơn 20 kHz","Chính xác. Sóng siêu âm có bản chất là <b>sóng cơ học</b> nên cần môi trường vật chất (rắn, lỏng, khí) để lan truyền và có tần số lớn hơn 20 kHz, vượt trên giới hạn trên của âm thanh nghe được."],"ansLabel":"Đáp án & giải thích"},{"idx":6,"sec":"I. Siêu âm","title":"Tốc độ truyền & trở kháng âm","min":"1","kicker":"I. Siêu âm","heading":"2. Tốc độ truyền sóng và trở kháng âm","note":"Phân tích biểu đồ tốc độ truyền âm để rút ra quy luật v_rắn > v_lỏng > v_khí. Giải thích giá trị chuẩn v = 1540 m/s của máy siêu âm lâm sàng và giá trị xấp xỉ 1500 m/s thường dùng trong tính toán.","formulas":["Z = ρ · v"],"bullets":["<b>v<sub>rắn</sub> &gt; v<sub>lỏng</sub> &gt; v<sub>khí</sub></b>; sóng siêu âm không truyền được trong chân không.","Thiết bị lâm sàng lấy giá trị chuẩn <b>v = 1540 m/s</b> (trong bài tập thường lấy xấp xỉ <b>1500 m/s</b>)."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":7,"sec":"I. Siêu âm","title":"Bước sóng & độ phân giải hình ảnh","min":"2","kicker":"I. Siêu âm","heading":"3. Bước sóng và độ phân giải hình ảnh","note":"Thực hiện Bài toán 1 (λ = 5700 / (2·10^6) = 2,85 mm) và nạp thông số lên mô phỏng để kiểm chứng. Tăng tần số từ 1 MHz lên 10 MHz trong mô mềm để quan sát bước sóng ngắn dần trên thước đo milimét.","formulas":["λ = v / f"],"bullets":["Đầu dò sử dụng tinh thể thạch anh (<b>v = 5700 m/s</b>) phát sóng siêu âm ở tần số <b>2 MHz</b>. Tính bước sóng của chùm siêu âm trong tinh thể đó."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":8,"sec":"I. Siêu âm","title":"Kiểm tra nhanh 02 · Tính bước sóng","min":"0.5","kicker":"I. Siêu âm","heading":"Kiểm tra nhanh · Tính bước sóng siêu âm","note":"Vận dụng nhanh công thức λ = v / f để tính bước sóng siêu âm trong mô mềm.","formulas":[],"bullets":["<b>Câu hỏi:</b> Sóng siêu âm có tần số 5 MHz truyền trong mô mềm (lấy v = 1500 m/s) có bước sóng bằng bao nhiêu?"],"answers":["<b>Đáp án đúng:</b> B. 0,30 mm","Chính xác. λ = v / f = 1500 / (5 × 10⁶) = 3 × 10⁻⁴ m = <b>0,30 mm</b> (tương đương khoảng 4 lần đường kính sợi tóc)."],"ansLabel":"Đáp án & giải thích"},{"idx":9,"sec":"II. Cách tạo","title":"Hiệu ứng áp điện","min":"1","kicker":"II. Cách tạo ra siêu âm","heading":"1. Hiệu ứng áp điện (Hình 7.1 SGK)","note":"Giải thích giới hạn của màng loa cơ học (chỉ dao động hiệu quả dưới khoảng 20 kHz) và nguyên lí tạo siêu âm tần số hàng megahertz bằng hiệu ứng áp điện nghịch đảo trên tinh thể thạch anh hoặc gốm áp điện PZT.","formulas":["U xoay chiều (f) &nbsp;→&nbsp; Sóng siêu âm (f)"],"bullets":["<b>a) Chưa đặt điện áp:</b> bề dày tấm tinh thể giữ nguyên.","<b>b) Điện áp một chiều:</b> điện trường làm mạng tinh thể bị <b>nén</b> (hoặc dãn).","<b>c) Đảo cực điện áp:</b> chiều biến dạng đảo ngược theo.","<b>d) Điện áp xoay chiều tần số f:</b> tấm gốm co – dãn tuần hoàn với tần số f, phát ra sóng siêu âm có cùng tần số f."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":10,"sec":"II. Cách tạo","title":"Thí nghiệm: Điều khiển tấm gốm áp điện","min":"1.5","kicker":"II. Cách tạo ra siêu âm","heading":"2. Mô phỏng tấm gốm áp điện phát sóng","note":"Ở chế độ xoay chiều, quan sát sự đồng bộ giữa đồ thị điện áp U(t), nhịp co dãn của tấm gốm, chiều điện trường và sóng phát ra. Khi tăng tần số, tấm gốm dao động nhanh hơn và bước sóng ngắn lại tương ứng.","formulas":[],"bullets":[],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":11,"sec":"II. Cách tạo","title":"Một đầu dò vừa phát vừa thu","min":"1","kicker":"II. Cách tạo ra siêu âm","heading":"3. Tính thuận nghịch: một đầu dò vừa phát vừa thu","note":"Trình bày tính thuận nghịch của hiệu ứng áp điện: biến đổi điện – cơ khi phát và cơ – điện khi thu. Nhờ đó một đầu dò phát xung rất ngắn vài microgiây rồi chuyển sang chế độ thu sóng phản xạ.","formulas":[],"bullets":["Đặt xung điện xoay chiều tần số f → tinh thể dao động cơ học tần số f → truyền xung siêu âm vào cơ thể.","Sóng phản xạ trở về tác dụng lực nén lên tinh thể → tạo ra <b>tín hiệu điện áp xoay chiều</b> ở hai bản cực để máy tính xử lí."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":12,"sec":"II. Cách tạo","title":"Thí nghiệm sóng dừng nâng vật lơ lửng","min":"1.5","kicker":"II. Cách tạo ra siêu âm","heading":"4. Thí nghiệm mở rộng: Sóng dừng siêu âm nâng vật","note":"Quan sát ảnh thí nghiệm TinyLev bên trái và video thí nghiệm sóng dừng của Đại học Harvard bên phải. Trang kế tiếp giải thích cơ chế bằng mô hình sóng dừng.","formulas":[],"bullets":[],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":13,"sec":"II. Cách tạo","title":"Giải thích hiện tượng bằng mô hình sóng dừng","min":"1","kicker":"II. Cách tạo ra siêu âm","heading":"4. Giải thích hiện tượng bằng mô hình sóng dừng","note":"Điều chỉnh tần số trong khoảng 28–60 kHz để quan sát khoảng cách giữa hai nút sóng dừng λ/2 thay đổi; nhấn Tắt sóng để minh hoạ vật rơi tự do khi mất lực nâng âm học.","formulas":[],"bullets":["Đặt đầu phát siêu âm (<b>28–60 kHz</b>) đối diện mặt phản xạ → sóng tới và sóng phản xạ giao thoa tạo hệ <b>sóng dừng</b>.","Tại các <b>nút áp suất</b> cách nhau <b>λ/2</b>, lực do chênh lệch áp suất âm cân bằng với trọng lực nên giọt nước được giữ đứng yên.","Thí nghiệm chứng minh siêu âm mang <b>năng lượng cơ học</b>: cường độ thấp dùng cho chẩn đoán hình ảnh, cường độ cao tạo lực tác động cơ học mạnh."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":14,"sec":"III. Máy siêu âm","title":"Chu trình hoạt động của máy siêu âm","min":"1","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"1. Chu trình phát – thu sóng phản xạ","note":"Trình bày 6 bước của chu trình quét (~50–200 µs/đường quét) từ phát xung điện đến xử lí ảnh; điều chỉnh độ sâu d và nhấn Phát xung trên khung mô phỏng để minh hoạ thời gian trễ Δt và công thức d = v·Δt/2.","formulas":["d = v · Δt / 2"],"bullets":["<b>Thời gian trễ Δt:</b> khoảng thời gian từ lúc phát xung tới lúc thu sóng phản xạ giúp xác định chính xác <b>độ sâu d</b> của mặt phân cách.","<b>Biên độ sóng phản xạ:</b> xung phản xạ càng mạnh → điểm ảnh càng sáng; chu trình lặp lại hàng nghìn lần mỗi giây nên quan sát được <b>chuyển động tim theo thời gian thực</b>."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":15,"sec":"III. Máy siêu âm","title":"Cấu tạo bên trong đầu dò","min":"1","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"2. Cấu tạo đầu dò siêu âm (Hình 7.2 SGK)","note":"Chọn từng bộ phận trong danh sách bên phải để làm nổi bật cấu trúc tương ứng trên mặt cắt đầu dò. Nhấn mạnh vai trò của lớp giảm rung (tắt nhanh dao động dư để tạo xung ngắn) và lớp đệm (phối hợp trở kháng âm).","formulas":[],"bullets":["01 Vỏ 02 Giảm rung 03 Áp điện 04 Điện cực 05 Đệm 06 Tiếp âm Gel Da 01 Vỏ đầu dò Che chắn nhiễu điện từ","02 Lớp giảm rung Hấp thụ sóng ngược về sau","03 Tinh thể áp điện Phát &amp; thu sóng","04 Hai bản điện cực Cấp và nhận tín hiệu điện","05 Lớp đệm Phối hợp trở kháng","06 Lớp tiếp âm Ôm sát da, hội tụ chùm tia"],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":16,"sec":"III. Máy siêu âm","title":"Thực tế thiết bị: Đầu dò siêu âm y khoa","min":"1","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"2. Cấu tạo thực tế của đầu dò siêu âm y khoa","note":"Đối chiếu trực tiếp từ sơ đồ mặt cắt sang cấu tạo thực tế của đầu dò siêu âm cong (Convex): mặt tiếp âm mềm tiếp xúc với da, vỏ bọc chống nhiễu và cáp truyền tín hiệu điện về bộ xử lí.","formulas":[],"bullets":["<b>1. Mặt tiếp âm màu xanh:</b> Chế tạo từ vật liệu cao su chuyên dụng có trở kháng âm gần với da; ngay bên dưới là <b>dãy tinh thể áp điện</b> sắp xếp theo cung cong.","<b>2. Thân vỏ & cáp chống nhiễu:</b> Vỏ nhựa cách điện, bên trong bọc lưới kim loại chống nhiễu điện từ; dây cáp truyền hàng trăm kênh tín hiệu điện về máy xử lí.","<b>3. Sử dụng kèm lớp gel tiếp âm:</b> Khi thăm khám, bác sĩ phủ lớp gel lên bề mặt tiếp âm nhằm loại bỏ lớp không khí giữa đầu dò và da bệnh nhân."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":17,"sec":"III. Máy siêu âm","title":"Phản xạ – khúc xạ tại mặt phân cách","min":"1.5","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"3. Phản xạ và khúc xạ tại mặt phân cách (Hình 7.3 SGK)","note":"","formulas":["i′ = i &nbsp;·&nbsp; sin i / v₁ = sin r / v₂","R = [(Z₂ − Z₁) / (Z₂ + Z₁)]²"],"bullets":["Khi gặp <b>mặt phân cách (ranh giới)</b> hai môi trường có trở kháng âm <b>Z₁ ≠ Z₂</b>, sóng siêu âm vừa bị <b>phản xạ</b> vừa bị <b>khúc xạ</b> (Hình 7.3 SGK).","<b>Định luật phản xạ và khúc xạ:</b>"],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":18,"sec":"III. Máy siêu âm","title":"Bài toán lớp gel: Tính hệ số phản xạ 99,9%","min":"2","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"4. Vai trò của lớp gel tiếp âm","note":"Thay số vào công thức R = ((Z2 − Z1)/(Z2 + Z1))² để chứng minh lớp không khí phản xạ tới 99,9% năng lượng sóng, trong khi lớp gel làm hệ số phản xạ giảm xuống dưới 0,2%. Sau đó thao tác nút Bôi gel kín bề mặt trên mô phỏng để đối chiếu.","formulas":["R = [(Z₂ − Z₁) / (Z₂ + Z₁)]²"],"bullets":["<b>Không bôi gel (khí – da):</b> R = [(1,63×10⁶ − 413) / (1,63×10⁶ + 413)]² ≈ <b>99,90%</b> Tính cả hai ranh giới đầu dò – khí và khí – da, tới <b>99,95%</b> sóng bị phản xạ trở lại (SGK tr. 40), chưa tới 0,1% năng lượng truyền vào mô.","<b>Đã bôi gel (gel – da):</b> R = [(1,63 − 1,50) / (1,63 + 1,50)]² ≈ <b>0,17%</b> Hơn <b>99,8%</b> năng lượng sóng truyền qua vào cơ thể."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":19,"sec":"III. Máy siêu âm","title":"Suy giảm cường độ theo độ sâu","min":"1","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"5. Sự suy giảm cường độ sóng theo độ sâu","note":"Tăng tần số từ 2 MHz lên 10 MHz để quan sát cột biểu diễn cường độ chùm tia suy giảm rất nhanh ngay trong vài xentimét đầu tiên.","formulas":["I = I₀ · e<sup>−αd</sup>"],"bullets":["Mô hấp thụ và chuyển hoá một phần năng lượng sóng thành nhiệt. Ở tần số cao, sóng suy giảm nhanh ở lớp nông; để khảo sát cơ quan ở sâu cần giảm tần số."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":20,"sec":"III. Máy siêu âm","title":"Kiểm tra nhanh 03 · Chọn tần số","min":"0.5","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"Kiểm tra nhanh · Ảnh hưởng của tần số siêu âm","note":"Củng cố mối liên hệ giữa tần số, bước sóng và mức độ hấp thụ của mô ngay sau quy luật suy giảm cường độ.","formulas":[],"bullets":["<b>Câu hỏi:</b> Khi tăng tần số đầu dò từ 3 MHz lên 12 MHz, độ phân giải hình ảnh và độ xuyên sâu thay đổi như thế nào?"],"answers":["<b>Đáp án đúng:</b> A. Độ phân giải tăng nhưng độ xuyên sâu giảm","Chính xác. Khi tăng tần số f, bước sóng λ = v/f giảm nên độ phân giải tăng, nhưng hệ số hấp thụ α tăng mạnh khiến sóng suy giảm nhanh theo độ sâu."],"ansLabel":"Đáp án & giải thích"},{"idx":21,"sec":"III. Máy siêu âm","title":"Phân loại đầu dò & chọn tần số","min":"1","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"6. Phân loại đầu dò và dải tần số sử dụng","note":"Từ mối liên hệ giữa bước sóng λ và độ hấp thụ α, giới thiệu 4 loại đầu dò phổ biến trong lâm sàng: đầu dò thẳng (khảo sát nông, độ phân giải cao), đầu dò cong (ổ bụng và sản khoa), đầu dò mảng pha (đặt qua khe liên sườn khảo sát tim) và đầu dò 3D/4D.","formulas":[],"bullets":["<b>Mối liên hệ giữa độ phân giải và độ xuyên sâu:</b> Tần số cao (10 MHz) cho bước sóng ngắn nên độ phân giải cao nhưng suy giảm nhanh ở lớp nông; tần số thấp (3–5 MHz) ít suy giảm hơn, khảo sát được độ sâu 15–20 cm nhưng độ chi tiết thấp hơn."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":22,"sec":"III. Máy siêu âm","title":"Kiểm tra nhanh 04 · Chọn đầu dò","min":"0.5","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"Kiểm tra nhanh · Lựa chọn đầu dò phù hợp","note":"Vận dụng quy tắc lựa chọn đầu dò và dải tần số cho vùng khảo sát sâu qua thành bụng (8–12 cm).","formulas":[],"bullets":["<b>Câu hỏi:</b> Khi siêu âm thai nhi qua thành bụng (vùng khảo sát ở độ sâu khoảng 8–12 cm), bác sĩ nên chọn loại đầu dò nào?"],"answers":["<b>Đáp án đúng:</b> B. Đầu dò cong, 3,5 MHz","Chính xác. Cần độ xuyên sâu lớn qua thành bụng và tử cung (8–12 cm) nên chọn tần số 2–5 MHz để giảm suy hao; đồng thời đầu dò cong (Convex) cho trường quét hình quạt rộng."],"ansLabel":"Đáp án & giải thích"},{"idx":23,"sec":"III. Máy siêu âm","title":"Thảo luận: Những vùng hạn chế của siêu âm","min":"1","kicker":"III. Nguyên lí hoạt động của máy siêu âm","heading":"Thảo luận · Đặc điểm hiển thị ở da, xương, não và phổi","note":"Sử dụng đồng hồ 90 giây cho hai câu hỏi thảo luận về đặc điểm hiển thị của da – xương và giới hạn khảo sát đối với não – phổi; nhấn Hiện đáp án để đối chiếu kết quả.","formulas":[],"bullets":["Vì sao trên ảnh siêu âm, bề mặt da và xương thường hiển thị rất sáng, còn các cơ quan mềm bên trong có độ tương phản thấp hơn?","Vì sao siêu âm ít được sử dụng để khảo sát mô não bên trong hộp sọ và mô phổi bình thường?"],"answers":["Độ sáng tỉ lệ với hệ số phản xạ R. Giữa mô mềm và xương có sự chênh lệch trở kháng âm Z rất lớn nên sóng phản xạ mạnh (vùng sáng). Các cơ quan mềm có giá trị Z gần nhau nên sóng phản xạ yếu và độ tương phản thấp hơn.","<b>Não:</b> xương sọ phản xạ và hấp thụ phần lớn năng lượng siêu âm. <b>Phổi:</b> các phế nang chứa không khí nên mặt phân cách mô – khí phản xạ tới 99,9% năng lượng. Vì vậy não thường dùng MRI/CT, còn phổi dùng X-quang/CT."],"ansLabel":"Đáp án & giải thích"},{"idx":24,"sec":"IV. Tạo ảnh","title":"Siêu âm kiểu A (A-scan)","min":"2","kicker":"IV. Nguyên tắc tạo hình ảnh siêu âm","heading":"1. Siêu âm kiểu A (Hình 7.5 SGK)","note":"Nhấn Phát xung để quan sát xung siêu âm truyền xuống và các xung phản xạ trở về đầu dò tại các mặt phân cách A, B, C. Điều chỉnh vị trí mặt phân cách B để theo dõi sự dịch chuyển của đỉnh B và tính lại bề dày lớp cơ theo Δt(B→C).","formulas":[],"bullets":[],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":25,"sec":"IV. Tạo ảnh","title":"Siêu âm kiểu B & đặc điểm hình ảnh sỏi, nang","min":"2","kicker":"IV. Nguyên tắc tạo hình ảnh siêu âm","heading":"2. Siêu âm kiểu B (Hình 7.6 SGK)","note":"Nhấn Quét lại để quan sát quá trình ghép nhiều đường quét kiểu A thành ảnh lát cắt 2D. Phân tích hai dấu hiệu đặc trưng trên lâm sàng: nang dịch hiển thị màu tối do không có mặt phản xạ bên trong; viên sỏi hiển thị sáng rõ kèm vùng bóng lưng âm tối ở phía sau.","formulas":[],"bullets":["<b>Trống âm (tối):</b> dịch ối, nang dịch, bàng quang — sóng truyền qua hầu như không phản xạ.","<b>Tăng âm (sáng):</b> xương, sỏi thận hoặc sỏi mật — sóng phản xạ rất mạnh.","<b>Bóng lưng âm:</b> vùng tối kéo dài ngay sau viên sỏi do sỏi phản xạ và hấp thụ phần lớn chùm sóng."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":26,"sec":"IV. Tạo ảnh","title":"Kiểu M, 3D/4D và Siêu âm Doppler","min":"1","kicker":"IV. Nguyên tắc tạo hình ảnh siêu âm","heading":"3. Siêu âm kiểu M, 3D/4D và Doppler","note":"Trình bày 3 chế độ mở rộng: kiểu M (TM), 3D/4D và Doppler. Điều chỉnh tốc độ dòng máu từ 0 đến 120 cm/s để quan sát chuyển động hồng cầu và độ lệch tần số Δf tăng tỉ lệ thuận.","formulas":[],"bullets":["<b>M (TM):</b> Theo dõi một tia quét theo thời gian — khảo sát hoạt động đóng mở của van tim.","<b>3D / 4D:</b> Ghép nhiều lát cắt thành ảnh khối 3D (4D là ảnh 3D theo thời gian thực).","<b>Doppler:</b> Sóng phản xạ từ các tế bào hồng cầu chuyển động bị dịch tần số <b>Δf = 2f₀·v·cosθ / c</b>, giúp phát hiện hẹp hoặc tắc mạch máu."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":27,"sec":"IV. Tạo ảnh","title":"Kiểm tra nhanh 05 · Chế độ hiển thị","min":"0.5","kicker":"IV. Nguyên tắc tạo hình ảnh siêu âm","heading":"Kiểm tra nhanh · Chế độ hiển thị hình ảnh siêu âm","note":"Củng cố ứng dụng của chế độ siêu âm kiểu M (Time–motion) trong khảo sát tim mạch, khép lại phần Nguyên tắc tạo ảnh.","formulas":[],"bullets":["<b>Câu hỏi:</b> Chế độ siêu âm nào chuyên dùng để ghi lại chuyển động đóng – mở của van tim theo thời gian?"],"answers":["<b>Đáp án đúng:</b> A. Kiểu M (Time–motion)","Chính xác. Kiểu M (TM) ghi lại sự thay đổi vị trí của các lá van tim theo trục thời gian, giúp bác sĩ tim mạch đo chính xác biên độ và chu kì hoạt động của van tim."],"ansLabel":"Đáp án & giải thích"},{"idx":28,"sec":"V. Ứng dụng","title":"Kiểm tra khuyết tật kim loại (NDT)","min":"1","kicker":"V. Ứng dụng của siêu âm","heading":"1. Kiểm tra khuyết tật sản phẩm kim loại (Hình 7.7 SGK)","note":"Mở đầu phần Ứng dụng theo đúng thứ tự Hình 7.7 SGK: chuyển đổi giữa Mẫu có lỗ hổng và Mẫu đạt chuẩn rồi nhấn Phát xung để so sánh trực tiếp số lượng xung phản xạ trên đồ thị kiểu A.","formulas":[],"bullets":["<b>Kiểm tra không phá huỷ (NDT):</b> đặt đầu dò lên dầm cầu, đường ray, thân máy bay hoặc đường ống thép (v ≈ 5900 m/s).","<b>Mối hàn đạt chuẩn:</b> sóng truyền thẳng tới mặt đáy rồi phản xạ trở lại → chỉ thu được <b>1 xung đáy</b>.","<b>Có bọt khí / vết nứt:</b> mặt phân cách kim loại – không khí phản xạ sớm thêm <b>1 xung khuyết tật</b> nằm trước xung đáy.","<b>Xác định độ sâu khuyết tật:</b> đo thời gian trễ Δt của xung phản xạ sớm để tính chính xác vị trí lỗi theo <b>d = v·Δt / 2</b>."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":29,"sec":"V. Ứng dụng","title":"Ứng dụng siêu âm để hàn vật liệu","min":"1","kicker":"V. Ứng dụng của siêu âm","heading":"2. Hàn và tổng hợp vật liệu (Hình 7.8 SGK)","note":"Trình bày theo Hình 7.8 SGK: nhấn Ép & hàn để quan sát đầu hàn hạ xuống, dao động tần số 20–40 kHz tạo nhiệt ma sát cục bộ làm liên kết hai lớp vật liệu mà không cần keo hay que hàn. Có thể chuyển mục Video EWI để xem thiết bị hàn siêu âm thực tế.","formulas":[],"bullets":["Đầu hàn truyền dao động cơ học tần số <b>20–40 kHz</b> xuống bề mặt tiếp xúc giữa hai chi tiết.","Ma sát mạnh làm <b>nóng chảy cục bộ</b> tại mặt ghép trong thời gian rất ngắn, tạo mối liên kết bền chắc mà <b>không cần keo dán hay que hàn</b>.","<b>Hàn chi tiết chính xác:</b> hàn vỏ nhựa, cực pin, linh kiện điện tử, khẩu trang, màng lọc y tế và các tấm kim loại mỏng.","<b>Tổng hợp vật liệu mới:</b> sóng siêu âm còn hỗ trợ tổng hợp vật liệu vô cơ, hữu cơ, vật liệu sinh học và vật liệu cấu trúc nano."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":30,"sec":"V. Ứng dụng","title":"Ứng dụng siêu âm trong y học & tán sỏi ngoài cơ thể","min":"1.5","kicker":"V. Ứng dụng của siêu âm","heading":"3. Chẩn đoán hình ảnh và tán sỏi trong y học (Hình 7.9 SGK)","note":"Trình bày hai nhóm ứng dụng trong y học (Hình 7.9 SGK): chẩn đoán hình ảnh không xâm lấn và tán sỏi ngoài cơ thể ESWL. Nhấn Phát xung tán sỏi để quan sát lớp da duy trì 37 °C trong khi viên sỏi tại tiêu điểm bị phá vỡ thành mảnh vụn nhỏ; có thể chuyển mục Video chi tiết để xem mô phỏng 3D.","formulas":[],"bullets":["Đầu phát lõm hội tụ nhiều chùm sóng đi qua da an toàn (không gây tổn thương mô lành) và <b>tập trung năng lượng lớn đúng vào viên sỏi</b> tại tiêu điểm.","Hàng nghìn xung áp suất tác động liên tiếp làm sỏi thận, sỏi mật vỡ thành <b>các mảnh vụn nhỏ</b> để cơ thể đào thải tự nhiên mà không cần phẫu thuật."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":31,"sec":"V. Ứng dụng","title":"So sánh Siêu âm, X-quang / CT và MRI","min":"1","kicker":"V. Ứng dụng của siêu âm","heading":"3. Đối chiếu Siêu âm, X-quang / CT và MRI trong y học","note":"Đối chiếu ba kĩ thuật chẩn đoán hình ảnh y học để giải đáp trọn vẹn vấn đề đặt ra ở đầu bài; nhấn Hiện đáp án để trình bày ba lí do ưu tiên siêu âm trong sản khoa.","formulas":[],"bullets":["Không sử dụng bức xạ ion hoá → <b>an toàn cho thai nhi</b>.","Phân biệt rõ ranh giới giữa <b>mô mềm và dịch ối</b>.","Theo dõi <b>nhịp tim và cử động thai nhi</b> theo thời gian thực, có thể lặp lại nhiều lần."],"answers":["Không sử dụng bức xạ ion hoá → <b>an toàn cho thai nhi</b>.","Phân biệt rõ ranh giới giữa <b>mô mềm và dịch ối</b>.","Theo dõi <b>nhịp tim và cử động thai nhi</b> theo thời gian thực, có thể lặp lại nhiều lần."],"ansLabel":"Đáp án & giải thích"},{"idx":32,"sec":"V. Ứng dụng","title":"Ứng dụng siêu âm để làm sạch & khử khuẩn","min":"1","kicker":"V. Ứng dụng của siêu âm","heading":"4. Làm sạch, khử khuẩn và đời sống (Hình 7.10 SGK)","note":"Trình bày theo Hình 7.10 SGK: bể rửa siêu âm (20–40 kHz) tạo hiện tượng bọt khí xâm thực (cavitation) làm sạch các khe rãnh kích thước nhỏ và hỗ trợ khử khuẩn dụng cụ y tế, rau quả, kính mắt, trang sức.","formulas":[],"bullets":["<b>Bước 1:</b> Đầu phát 20–40 kHz truyền sóng áp suất nén – dãn vào chất lỏng.","<b>Bước 2:</b> Ở pha dãn, áp suất giảm mạnh tạo hàng triệu <b>bọt khí vi mô</b> trong dung dịch.","<b>Bước 3:</b> Ở pha nén tiếp theo, bọt khí <b>co sụp tức thời</b> tạo sóng xung kích vi mô tách rời chất bẩn tại các khe rãnh nhỏ mà không làm trầy xước bề mặt."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":33,"sec":"V. Ứng dụng","title":"Ứng dụng siêu âm trong khai thác thuỷ sản","min":"1","kicker":"V. Ứng dụng của siêu âm","heading":"5. Khai thác thuỷ sản (Hình 7.11 SGK)","note":"Trình bày theo Hình 7.11 SGK: nhấn Phát xung để đo thời gian phản xạ t và tính độ sâu đàn cá theo công thức h = v·t/2 với v ≈ 1500 m/s.","formulas":["h = v · t / 2"],"bullets":["Trong nước biển, sóng siêu âm truyền đi rất xa và ít bị suy giảm hơn nhiều so với trong không khí.","Đầu dò gắn dưới đáy tàu phát <b>chùm sóng siêu âm hình nón</b> hướng xuống nước; khi gặp đàn cá, một phần sóng phản xạ trở lại đầu thu.","Dựa vào thời gian phản hồi <b>t</b> và cường độ sóng phản xạ, thiết bị xác định được <b>độ sâu, vị trí và mật độ đàn cá</b>, nâng cao hiệu quả khai thác thuỷ sản."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":34,"sec":"V. Ứng dụng","title":"Ứng dụng siêu âm trong nghiên cứu biển và đại dương","min":"1","kicker":"V. Ứng dụng của siêu âm","heading":"6. Nghiên cứu biển và đại dương (Hình 7.12 SGK)","note":"Quan sát mô phỏng tàu nghiên cứu phát chùm sóng siêu âm đa tia quét từ trái sang phải để dựng địa hình đáy biển (thềm lục địa, rãnh sâu 3850 m, núi ngầm 920 m và xác tàu đắm) theo công thức h = v·t/2.","formulas":[],"bullets":["Ánh sáng bị nước biển hấp thụ rất mạnh, chỉ truyền được vài trăm mét; ngược lại <b>sóng siêu âm truyền đi rất xa</b> dưới đại dương.","Hệ thống Sonar đo thời gian phản xạ (<b>h = v·t/2</b>) theo nhiều hướng để lập <b>bản đồ địa hình đáy biển 3D</b>: xác định rãnh sâu, núi ngầm và thềm lục địa.","<b>Khảo sát địa chất &amp; tìm kiếm:</b> thăm dò các lớp trầm tích đáy biển, phát hiện tàu đắm, vật thể chìm và kiểm tra đường ống ngầm.","<b>Theo dõi môi trường biển:</b> đo vận tốc dòng hải lưu (nhờ hiệu ứng Doppler) và nghiên cứu sự phân bố của sinh vật biển sâu."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":35,"sec":"V. Ứng dụng","title":"Kiểm tra nhanh 06 · Tính độ sâu Sonar","min":"0.5","kicker":"V. Ứng dụng của siêu âm","heading":"Kiểm tra nhanh · Đo độ sâu đáy biển bằng Sonar","note":"Vận dụng nhanh công thức h = v·t/2 để tính độ sâu đáy biển từ thời gian phản xạ Sonar.","formulas":[],"bullets":["<b>Câu hỏi:</b> Tàu khảo sát phát xung siêu âm xuống đáy biển, sau 4,0 s thu được sóng phản xạ (v = 1500 m/s). Độ sâu đáy biển tại vị trí đó bằng bao nhiêu?"],"answers":["<b>Đáp án đúng:</b> B. 3000 m","Chính xác. h = v · t / 2 = 1500 × 4,0 / 2 = <b>3000 m</b> (chia 2 do sóng truyền theo cả lượt đi từ tàu tới đáy biển và lượt phản xạ trở về)."],"ansLabel":"Đáp án & giải thích"},{"idx":36,"sec":"V. Ứng dụng","title":"Vận dụng: Phân tích hai tình huống thực tế","min":"1.5","kicker":"V. Ứng dụng của siêu âm","heading":"Vận dụng · Phân tích hai tình huống thực tế","note":"Sử dụng đồng hồ đếm ngược 90 giây để phân tích Tình huống 1 (chẩn đoán gan mật) và Tình huống 2 (kiểm tra mối hàn đường ống), sau đó nhấn Hiện phân tích để đối chiếu lời giải.","formulas":[],"bullets":["1. Nên chọn đầu dò thẳng (10 MHz) hay đầu dò cong (3,5 MHz)?","2. Vùng tăng âm sáng kèm vùng tối kéo dài phía sau biểu thị dấu hiệu gì?","1. Mối hàn có đạt tiêu chuẩn kĩ thuật không?","2. Khuyết tật nằm cách mặt trên của tấm thép bao nhiêu cm?"],"answers":["Chọn <b>đầu dò cong 3,5 MHz</b> để đạt độ xuyên sâu 12 cm. Vùng tăng âm phản xạ mạnh kèm <b>bóng lưng âm</b> phía sau là dấu hiệu điển hình của <b>sỏi mật</b>.","<b>Không đạt chuẩn</b> do xuất hiện xung phản xạ sớm. Độ sâu khuyết tật: d = 5900 × (13,6×10⁻⁶) / 2 ≈ <b>0,040 m = 4,0 cm</b>."],"ansLabel":"Đáp án & giải thích"},{"idx":37,"sec":"Tổng kết","title":"Tổng hợp công thức & nguyên lí","min":"1","kicker":"Tổng kết bài học","heading":"Hệ thống kiến thức và công thức trọng tâm","note":"Hệ thống lại ba nội dung trọng tâm và bốn công thức cơ bản của bài học trước khi chuyển sang phần trắc nghiệm củng cố 15 câu.","formulas":["λ = v / f","d = v · Δt / 2","R = [(Z₂ − Z₁)/(Z₂ + Z₁)]²","I = I₀ · e<sup>−αd</sup>"],"bullets":["<b>01 · Nguồn phát & thu:</b> Siêu âm là <b>sóng cơ học có f &gt; 20 kHz</b>. Một đầu dò áp điện chuyển đổi hai chiều <b>điện ↔ cơ</b> vừa phát xung ngắn vừa thu sóng phản xạ.","<b>02 · Phản xạ & tiếp âm:</b> Chênh lệch trở kháng âm Z càng lớn thì hệ số phản xạ càng cao. Sử dụng <b>gel tiếp âm</b> để loại bỏ lớp không khí phản xạ tới 99,95% sóng.","<b>03 · Tạo ảnh & chọn tần số:</b> Kiểu A đo bề dày lớp mô theo Δt; kiểu B ghép nhiều đường A thành ảnh 2D. Tần số cao cho độ phân giải cao nhưng xuyên nông; tần số thấp xuyên sâu hơn."],"answers":[],"ansLabel":"Đáp án & giải thích"},{"idx":38,"sec":"Tổng kết","title":"Trắc nghiệm củng cố (15 câu)","min":"3","kicker":"Trắc nghiệm củng cố","heading":"15 câu hỏi kiểm tra kiến thức","note":"Thực hiện lần lượt 15 câu trắc nghiệm củng cố và đối chiếu giải thích sau mỗi câu. Khi thời gian có hạn, có thể ưu tiên các câu trọng tâm: 1, 3, 4, 5, 7, 9, 12 và 14.","formulas":[],"bullets":[],"answers":["<b>Câu 1 (B):</b> Sóng cơ học có tần số trên 20 kHz — Siêu âm là sóng cơ học có tần số lớn hơn giới hạn nghe 20 kHz của tai người và không truyền được trong chân không.","<b>Câu 2 (B):</b> Chuyển đổi hai chiều điện năng ↔ cơ năng — Bản tinh thể thạch anh hoặc gốm áp điện PZT biến dạng khi đặt điện áp xoay chiều (phát sóng) và sinh ra điện áp khi chịu tác dụng của sóng phản xạ (thu sóng).","<b>Câu 3 (B):</b> Để loại bỏ lớp không khí ở giữa — không khí phản xạ tới 99,95% sóng — Không khí có trở kháng âm rất nhỏ so với mô mềm nên gần như toàn bộ sóng bị phản xạ trở lại; lớp gel giúp phối hợp trở kháng tiếp âm.","<b>Câu 4 (B):</b> 0,30 mm — λ = v / f = 1500 / (5 × 10⁶) = 3 × 10⁻⁴ m = 0,30 mm.","<b>Câu 5 (B):</b> 7,5 cm — d = v · Δt / 2 = 1500 × 0,0001 / 2 = 0,075 m = 7,5 cm (chia 2 do sóng truyền theo cả lượt đi và lượt về).","<b>Câu 6 (B):</b> Đầu dò cong, 3,5 MHz — Khảo sát ở độ sâu lớn qua thành bụng cần tần số thấp (2–5 MHz) để giảm suy hao; đầu dò cong tạo trường quét hình quạt rộng.","<b>Câu 7 (B):</b> Độ phân giải tăng nhưng độ xuyên sâu giảm — Tăng tần số làm bước sóng λ giảm (độ phân giải tăng), nhưng hệ số hấp thụ α tăng mạnh nên sóng suy giảm nhanh theo độ sâu.","<b>Câu 8 (B):</b> Đồ thị biên độ tín hiệu theo thời gian trên một phương — Kiểu A hiển thị các đỉnh biên độ điện áp theo thời gian truyền, dùng để đo chính xác khoảng cách hoặc bề dày lớp mô.","<b>Câu 9 (B):</b> Ghép nhiều đường quét kiểu A, đổi biên độ thành độ sáng điểm ảnh — Đầu dò quét ngang qua lát cắt; xung phản xạ có biên độ càng lớn thì điểm ảnh tương ứng trên màn hình càng sáng.","<b>Câu 10 (C):</b> Kiểu M (Time–motion) — Kiểu M (TM) ghi lại sự thay đổi vị trí của các mặt phản xạ theo trục thời gian, phù hợp để khảo sát hoạt động của van tim.","<b>Câu 11 (B):</b> Vận tốc và hướng chuyển động của dòng máu — Sóng phản xạ từ các tế bào hồng cầu chuyển động bị dịch tần số Δf tỉ lệ thuận với thành phần vận tốc dọc theo phương chùm tia.","<b>Câu 12 (B):</b> Chênh lệch trở kháng âm tại mặt phân cách lớn nên phản xạ mạnh — Chênh lệch trở kháng âm Z lớn làm hệ số phản xạ năng lượng cao, tạo tín hiệu điện áp thu về có biên độ lớn.","<b>Câu 13 (B):</b> Xương hộp sọ phản xạ và hấp thụ siêu âm rất mạnh — Xương hộp sọ phản xạ và hấp thụ phần lớn năng lượng siêu âm ở cả chiều truyền vào và chiều phản xạ trở ra, nên thường sử dụng CT hoặc MRI.","<b>Câu 14 (B):</b> 3000 m — h = v · t / 2 = 1500 × 4,0 / 2 = 3000 m.","<b>Câu 15 (B):</b> Xuất hiện thêm một xung phản xạ ở trước xung mặt đáy — Lỗ rỗng chứa không khí tạo mặt phân cách thép – không khí, phản xạ sớm một xung trước khi sóng truyền tới mặt đáy khối thép."],"ansLabel":"Đáp án nhanh 15 câu trắc nghiệm"},{"idx":39,"sec":"Tổng kết","title":"Cảm ơn đã lắng nghe","min":"0.5","kicker":"","heading":"Cảm ơn thầy và các bạn đã chú ý lắng nghe!","note":"Kết thúc phần trình bày, gửi lời cảm ơn thầy và các bạn, đồng thời sẵn sàng trao đổi và giải đáp các câu hỏi mở rộng.","formulas":[],"bullets":[],"answers":[],"ansLabel":"Đáp án & giải thích"}];
+/* ============================================================
+   SPEAKER / TELEPROMPTER ENGINE (works in speaker.html & ?speaker=1)
+   ============================================================ */
+(function () {
+  const isStandalone = !!window.__SPEAKER_STANDALONE__;
+  const isParamSpeaker = new URLSearchParams(location.search).get('speaker') === '1';
+  if (!isStandalone && !isParamSpeaker) return;
+
+  const DATA = window.__SPEAKER_DATA__ || [];
+  if (!DATA.length) return;
+
+  document.body.classList.add('is-speaker-only');
+  const TOTAL = DATA.length;
+  const pad2 = n => String(n).padStart(2, '0');
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+  function readInitialIdx() {
+    const m = location.hash.match(/s?(\d+)/);
+    if (m) {
+      const idx = parseInt(m[1], 10) - 1;
+      if (!Number.isNaN(idx)) return clamp(idx, 0, TOTAL - 1);
+    }
+    return 0;
+  }
+
+  let cur = readInitialIdx();
+  let fs = parseFloat(localStorage.getItem('sieu-am-spk-fs') || '1.12');
+  fs = clamp(fs, 0.9, 1.55);
+
+  let sec = 0, timerOn = false, tid = null;
+
+  /* Kênh đồng bộ thời gian thực cùng trình duyệt / thiết bị (máy tính <-> cửa sổ chiếu) */
+  const winId = Math.random().toString(36).slice(2);
+  const ch = typeof BroadcastChannel === 'function' ? new BroadcastChannel('sieu-am-sync') : null;
+  let linked = false;
+
+  function broadcastSlide(idx) {
+    try { ch?.postMessage({ type: 'goto', idx, from: winId }); } catch (_) {}
+    try { localStorage.setItem('sieu-am-slide', JSON.stringify({ idx, from: winId, t: Date.now() })); } catch (_) {}
+    try { window.opener?.postMessage?.({ type: 'sieu-am-goto', idx, from: winId }, '*'); } catch (_) {}
+  }
+
+  /* Dựng giao diện người thuyết trình */
+  const root = document.createElement('div');
+  root.className = 'spk-app';
+  root.innerHTML = `
+    <header class="spk-top">
+      <div class="spk-brand">
+        <span class="dot"></span>
+        <span>NGƯỜI THUYẾT TRÌNH</span>
+        <span class="spk-sync" id="spkSync" hidden>Đã đồng bộ màn chiếu</span>
+      </div>
+      <div class="spk-tools">
+        <button class="spk-btn" id="spkClockBtn" title="Bắt đầu / tạm dừng đồng hồ">⏱ <span id="spkClock">00:00</span></button>
+        <button class="spk-btn" id="spkClockReset" title="Đặt lại đồng hồ">↺</button>
+        <button class="spk-btn" id="spkFsDown" title="Thu nhỏ chữ">A−</button>
+        <button class="spk-btn" id="spkFsUp" title="Phóng to chữ">A+</button>
+        <button class="spk-btn" id="spkThemeBtn" title="Đổi giao diện Sáng / Tối">Sáng</button>
+        <button class="spk-btn" id="spkTocBtn" title="Chọn nhanh slide">Mục lục</button>
+      </div>
+    </header>
+    <div class="spk-prog"><i id="spkProgBar"></i></div>
+    <main class="spk-main" id="spkMain">
+      <div class="spk-head">
+        <div class="spk-head-row">
+          <span class="spk-kicker" id="spkKicker"></span>
+          <span class="spk-meta" id="spkMeta"></span>
+        </div>
+        <h1 class="spk-title" id="spkTitle"></h1>
+      </div>
+
+      <section class="spk-card say">
+        <span class="spk-label">Nội dung cần trình bày</span>
+        <p class="spk-say-text" id="spkNote"></p>
+      </section>
+
+      <section class="spk-card facts" id="spkFactsBox" hidden>
+        <span class="spk-label">Công thức &amp; ý chính trên trang chiếu</span>
+        <div class="spk-formulas" id="spkFormulas" hidden></div>
+        <ul class="spk-list" id="spkBullets"></ul>
+      </section>
+
+      <section class="spk-card ans" id="spkAnsBox" hidden>
+        <span class="spk-label" id="spkAnsLabel">Đáp án &amp; giải thích</span>
+        <ul class="spk-list" id="spkAnswers"></ul>
+      </section>
+
+      <div class="spk-next-cue" id="spkNextCue"></div>
+    </main>
+    <footer class="spk-foot-nav">
+      <button class="spk-btn" id="spkPrev">‹ Trước</button>
+      <button class="spk-counter" id="spkCountBtn">01 / ${pad2(TOTAL)}</button>
+      <button class="spk-btn primary" id="spkNext">Tiếp ›</button>
+    </footer>
+    <div class="spk-drawer" id="spkDrawer">
+      <div class="spk-drawer-head">
+        <h3>Mục lục thuyết trình · ${TOTAL} slide (45 phút)</h3>
+        <button class="spk-btn" id="spkDrawerClose">Đóng</button>
+      </div>
+      <div id="spkDrawerList"></div>
+    </div>
+  `;
+  document.body.appendChild(root);
+
+  const $id = id => root.querySelector('#' + id);
+  const els = {
+    sync: $id('spkSync'),
+    clockBtn: $id('spkClockBtn'),
+    clock: $id('spkClock'),
+    clockReset: $id('spkClockReset'),
+    fsDown: $id('spkFsDown'),
+    fsUp: $id('spkFsUp'),
+    themeBtn: $id('spkThemeBtn'),
+    tocBtn: $id('spkTocBtn'),
+    prog: $id('spkProgBar'),
+    kicker: $id('spkKicker'),
+    meta: $id('spkMeta'),
+    title: $id('spkTitle'),
+    note: $id('spkNote'),
+    factsBox: $id('spkFactsBox'),
+    formulas: $id('spkFormulas'),
+    bullets: $id('spkBullets'),
+    ansBox: $id('spkAnsBox'),
+    ansLabel: $id('spkAnsLabel'),
+    answers: $id('spkAnswers'),
+    nextCue: $id('spkNextCue'),
+    prev: $id('spkPrev'),
+    countBtn: $id('spkCountBtn'),
+    next: $id('spkNext'),
+    drawer: $id('spkDrawer'),
+    drawerClose: $id('spkDrawerClose'),
+    drawerList: $id('spkDrawerList'),
+    main: $id('spkMain')
+  };
+
+  function applyFs() {
+    root.style.setProperty('--spk-fs', fs.toFixed(2) + 'rem');
+    try { localStorage.setItem('sieu-am-spk-fs', fs.toFixed(2)); } catch (_) {}
+  }
+  applyFs();
+
+  function paintClock() {
+    els.clock.textContent = `${pad2(Math.floor(sec / 60))}:${pad2(sec % 60)}`;
+  }
+  els.clockBtn.onclick = () => {
+    if (timerOn) {
+      timerOn = false; clearInterval(tid); tid = null;
+      els.clockBtn.classList.remove('on');
+    } else {
+      timerOn = true;
+      els.clockBtn.classList.add('on');
+      tid = setInterval(() => { sec++; paintClock(); }, 1000);
+    }
+  };
+  els.clockReset.onclick = () => { sec = 0; paintClock(); };
+
+  els.fsDown.onclick = () => { fs = clamp(fs - 0.08, 0.9, 1.55); applyFs(); };
+  els.fsUp.onclick = () => { fs = clamp(fs + 0.08, 0.9, 1.55); applyFs(); };
+
+  function syncThemeBtn() {
+    const isLight = document.documentElement.dataset.theme === 'light';
+    els.themeBtn.textContent = isLight ? 'Tối' : 'Sáng';
+  }
+  els.themeBtn.onclick = () => {
+    if (document.documentElement.dataset.theme === 'light') delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = 'light';
+    syncThemeBtn();
+  };
+  syncThemeBtn();
+
+  /* Nhóm mục lục theo từng phần SGK */
+  function buildDrawer() {
+    const groups = [];
+    DATA.forEach((d, idx) => {
+      let g = groups.find(x => x.sec === d.sec);
+      if (!g) { g = { sec: d.sec, totalMin: 0, items: [] }; groups.push(g); }
+      g.totalMin += parseFloat(d.min || '0');
+      g.items.push({ d, idx });
+    });
+    els.drawerList.innerHTML = groups.map(g => `
+      <div class="spk-sec-group">
+        <div class="spk-sec-title"><span>${g.sec || 'Khác'}</span><span>${String(g.totalMin).replace('.', ',')}′</span></div>
+        <div class="spk-sec-list">
+          ${g.items.map(({ d, idx }) => `
+            <button class="spk-jump${idx === cur ? ' cur' : ''}" data-idx="${idx}">
+              <span class="n">${pad2(idx + 1)}</span>
+              <span>${d.heading || d.title}</span>
+              <span class="m">${d.min ? String(d.min).replace('.', ',') + '′' : ''}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+    els.drawerList.querySelectorAll('.spk-jump').forEach(b => {
+      b.onclick = () => {
+        go(+b.dataset.idx);
+        els.drawer.classList.remove('open');
+      };
+    });
+  }
+
+  function render() {
+    const d = DATA[cur];
+    els.kicker.textContent = d.kicker || d.sec || 'VẬT LÍ 12 · SIÊU ÂM';
+    els.title.textContent = d.heading || d.title || '';
+    const minStr = d.min ? String(d.min).replace('.', ',') + ' phút' : '—';
+    els.meta.textContent = `Slide ${pad2(cur + 1)}/${pad2(TOTAL)} · ⌛ ${minStr}`;
+    els.note.innerHTML = d.note || 'Trình bày các nội dung chính hiển thị trên trang chiếu.';
+
+    const hasF = d.formulas && d.formulas.length;
+    const hasB = d.bullets && d.bullets.length;
+    els.factsBox.hidden = !(hasF || hasB);
+    els.formulas.hidden = !hasF;
+    els.formulas.innerHTML = hasF ? d.formulas.map(f => `<span class="spk-formula-chip">${f}</span>`).join('') : '';
+    els.bullets.innerHTML = hasB ? d.bullets.map(b => `<li>${b}</li>`).join('') : '';
+
+    const hasA = d.answers && d.answers.length;
+    els.ansBox.hidden = !hasA;
+    els.ansLabel.textContent = d.ansLabel || 'Đáp án & giải thích';
+    els.answers.innerHTML = hasA ? d.answers.map(a => `<li>${a}</li>`).join('') : '';
+
+    if (cur < TOTAL - 1) {
+      const nx = DATA[cur + 1];
+      els.nextCue.hidden = false;
+      els.nextCue.innerHTML = `<span>Chuyển tiếp → <strong>Slide ${pad2(cur + 2)}</strong>: ${nx.heading || nx.title}</span><span>›</span>`;
+      els.nextCue.onclick = () => go(cur + 1);
+    } else {
+      els.nextCue.hidden = false;
+      els.nextCue.innerHTML = `<span><strong>Trang cuối bài</strong> — Hoàn thành bài trình bày.</span><span>↺ Về đầu</span>`;
+      els.nextCue.onclick = () => go(0);
+    }
+
+    els.prog.style.width = ((cur + 1) / TOTAL * 100).toFixed(2) + '%';
+    els.countBtn.textContent = `${pad2(cur + 1)} / ${pad2(TOTAL)}`;
+    els.prev.disabled = cur === 0;
+    els.next.disabled = cur === TOTAL - 1;
+    els.drawerList.querySelectorAll('.spk-jump').forEach(b => b.classList.toggle('cur', +b.dataset.idx === cur));
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  function go(idx, silent = false) {
+    idx = clamp(idx, 0, TOTAL - 1);
+    if (idx === cur && !silent) return;
+    cur = idx;
+    try { history.replaceState(null, '', '#s' + pad2(cur + 1)); } catch (_) {}
+    render();
+    if (!silent) broadcastSlide(cur);
+  }
+
+  els.prev.onclick = () => go(cur - 1);
+  els.next.onclick = () => go(cur + 1);
+  els.countBtn.onclick = () => els.drawer.classList.toggle('open');
+  els.tocBtn.onclick = () => els.drawer.classList.toggle('open');
+  els.drawerClose.onclick = () => els.drawer.classList.remove('open');
+
+  /* Vuốt ngang trên điện thoại để chuyển slide */
+  let sx = 0, sy = 0;
+  els.main.addEventListener('touchstart', e => {
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+  }, { passive: true });
+  els.main.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    const dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      go(cur + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  /* Phím tắt trên laptop */
+  window.addEventListener('keydown', e => {
+    const k = e.key;
+    if (k === 'Escape') { els.drawer.classList.remove('open'); return; }
+    if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { e.preventDefault(); go(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if (k.toLowerCase() === 'r') { sec = 0; paintClock(); }
+  });
+
+  function markLinked() {
+    if (!linked) { linked = true; els.sync.hidden = false; }
+  }
+  if (ch) {
+    ch.onmessage = e => {
+      const m = e.data;
+      if (!m || m.from === winId) return;
+      if (m.type === 'hello') { markLinked(); ch.postMessage({ type: 'hello-ack', idx: cur, from: winId }); }
+      if (m.type === 'hello-ack') { markLinked(); }
+      if (m.type === 'goto' && typeof m.idx === 'number') { markLinked(); go(m.idx, true); }
+    };
+    ch.postMessage({ type: 'hello', from: winId });
+  }
+  window.addEventListener('storage', e => {
+    if (e.key !== 'sieu-am-slide' || !e.newValue) return;
+    try {
+      const m = JSON.parse(e.newValue);
+      if (m.from !== winId && typeof m.idx === 'number') { markLinked(); go(m.idx, true); }
+    } catch (_) {}
+  });
+  window.addEventListener('message', e => {
+    const m = e.data;
+    if (m && m.type === 'sieu-am-goto' && m.from !== winId && typeof m.idx === 'number') {
+      markLinked();
+      go(m.idx, true);
+    }
+  });
+
+  window.addEventListener('hashchange', () => {
+    const target = readInitialIdx();
+    if (target !== cur) { cur = target; render(); }
+  });
+
+  buildDrawer();
+  render();
+})();
+
+</script>
+</body>
+</html>
