@@ -1,0 +1,259 @@
+<!-- ============ 07. ÁP ĐIỆN LÝ THUYẾT ============ -->
+<section class="slide" data-sec="II. Cách tạo" data-title="Hiệu ứng áp điện" data-min="1" data-note="Giải thích giới hạn của màng loa cơ học (chỉ dao động hiệu quả dưới khoảng 20 kHz) và nguyên lí tạo siêu âm tần số hàng megahertz bằng hiệu ứng áp điện nghịch đảo trên tinh thể thạch anh hoặc gốm áp điện PZT.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">II. Cách tạo ra siêu âm</span>
+      <h2 class="anim-fade-up">1. Hiệu ứng áp điện (Hình 7.1 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <p class="lead">Màng loa cơ học có quán tính lớn nên không thể dao động ở tần số hàng MHz. Bộ biến đổi điện – cơ trong đầu dò sử dụng tấm <b>tinh thể thạch anh</b> hoặc <b>gốm áp điện (PZT)</b> đặt giữa hai bản điện cực.</p>
+          <ul class="clean" style="margin-top:.7rem">
+            <li><b>a) Chưa đặt điện áp:</b> bề dày tấm tinh thể giữ nguyên.</li>
+            <li><b>b) Điện áp một chiều:</b> điện trường làm mạng tinh thể bị <b>nén</b> (hoặc dãn).</li>
+            <li><b>c) Đảo cực điện áp:</b> chiều biến dạng đảo ngược theo.</li>
+            <li class="teal-dot"><b>d) Điện áp xoay chiều tần số f:</b> tấm gốm co – dãn tuần hoàn với tần số f, phát ra sóng siêu âm có cùng tần số f.</li>
+          </ul>
+          <div class="formula" style="margin-top:.85rem">U xoay chiều (f) &nbsp;→&nbsp; Sóng siêu âm (f)</div>
+        </div>
+        <div class="txt">
+          <div class="card" style="padding:.8rem">
+            <svg viewBox="0 0 470 296" style="width:100%;height:auto" aria-label="Sơ đồ 4 trạng thái hiệu ứng áp điện">
+              <defs>
+                <linearGradient id="cer" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#0b7a6f"/><stop offset=".35" stop-color="#3fe3c8"/><stop offset=".7" stop-color="#19a998"/><stop offset="1" stop-color="#0b7a6f"/>
+                </linearGradient>
+                <linearGradient id="met" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#94a3b8"/><stop offset=".5" stop-color="#475569"/><stop offset="1" stop-color="#94a3b8"/>
+                </linearGradient>
+                <g id="pzSlab">
+                  <rect x="-17" y="-36" width="34" height="72" fill="url(#cer)" stroke="var(--text-1)" stroke-width="1.2"/>
+                  <rect x="-24" y="-42" width="48" height="6" fill="url(#met)"/>
+                  <rect x="-24" y="36" width="48" height="6" fill="url(#met)"/>
+                </g>
+              </defs>
+
+              <g transform="translate(60,140)">
+                <use href="#pzSlab"/>
+                <path d="M-24-42h-14v24M24 42h14v-24" fill="none" stroke="var(--text-3)" stroke-width="1.5"/>
+                <circle cx="-38" cy="-14" r="3" fill="var(--bg)" stroke="var(--text-3)" stroke-width="1.4"/>
+                <circle cx="38" cy="14" r="3" fill="var(--bg)" stroke="var(--text-3)" stroke-width="1.4"/>
+                <text x="0" y="132" text-anchor="middle" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">a) Không điện</text>
+              </g>
+
+              <g transform="translate(178,140)">
+                <g class="pz-static" style="transform:scaleY(.78)"><use href="#pzSlab"/></g>
+                <path d="M-24-33h-14v98h-8M24 33h14v-98h8" fill="none" stroke="var(--accent-amber)" stroke-width="1.5"/>
+                <g stroke="var(--accent-amber)" stroke-width="1.8">
+                  <line x1="-18" y1="95" x2="18" y2="95"/><line x1="-9" y1="101" x2="9" y2="101"/>
+                </g>
+                <text x="-23" y="90" fill="var(--accent-amber)" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">−</text>
+                <text x="15" y="90" fill="var(--accent-amber)" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">+</text>
+                <text x="0" y="132" text-anchor="middle" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">b) Bị nén</text>
+              </g>
+
+              <g transform="translate(296,140)">
+                <g class="pz-static" style="transform:scaleY(1.16)"><use href="#pzSlab"/></g>
+                <path d="M-24-42h-14v106h-8M24 42h14v-106h8" fill="none" stroke="var(--accent-2)" stroke-width="1.5"/>
+                <g stroke="var(--accent-2)" stroke-width="1.8">
+                  <line x1="-18" y1="95" x2="18" y2="95"/><line x1="-9" y1="101" x2="9" y2="101"/>
+                </g>
+                <text x="-23" y="90" fill="var(--accent-2)" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">+</text>
+                <text x="15" y="90" fill="var(--accent-2)" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">−</text>
+                <text x="0" y="132" text-anchor="middle" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">c) Dãn ra</text>
+              </g>
+
+              <g transform="translate(414,140)">
+                <g class="pz-live"><use href="#pzSlab"/></g>
+                <path d="M-24-42h-14v94h-10M24 42h14v-94h10" fill="none" stroke="var(--accent-teal)" stroke-width="1.6"/>
+                <circle cx="0" cy="102" r="12" fill="var(--bg)" stroke="var(--accent-teal)" stroke-width="1.6"/>
+                <path d="M-6 102c2-6 4-6 6 0s4 6 6 0" fill="none" stroke="var(--accent-teal)" stroke-width="1.4"/>
+                <g stroke="var(--accent-teal)" fill="none" stroke-width="1.6">
+                  <path d="M-30-6c-9 5-9 15 0 20"><animate attributeName="opacity" values=".25;1;.25" dur="1.4s" repeatCount="indefinite"/></path>
+                  <path d="M-40-14c-14 9-14 27 0 36" opacity=".55"/>
+                  <path d="M30-6c9 5 9 15 0 20"><animate attributeName="opacity" values="1;.25;1" dur="1.4s" repeatCount="indefinite"/></path>
+                  <path d="M40-14c14 9 14 27 0 36" opacity=".55"/>
+                </g>
+                <text x="0" y="132" text-anchor="middle" fill="var(--accent-teal)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">d) Phát sóng</text>
+              </g>
+            </svg>
+          </div>
+          <p class="note-line" style="margin-top:.55rem">Tần số sóng siêu âm phát ra được điều chỉnh bằng cách thay đổi tần số của nguồn điện áp xoay chiều đặt vào hai điện cực.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08. LAB ÁP ĐIỆN (ĐỒNG BỘ 1:1) ============ -->
+<section class="slide" data-sec="II. Cách tạo" data-title="Thí nghiệm: Điều khiển tấm gốm áp điện" data-min="1.5" data-note="Ở chế độ xoay chiều, quan sát sự đồng bộ giữa đồ thị điện áp U(t), nhịp co dãn của tấm gốm, chiều điện trường và sóng phát ra. Khi tăng tần số, tấm gốm dao động nhanh hơn và bước sóng ngắn lại tương ứng.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">II. Cách tạo ra siêu âm</span>
+      <h2 class="anim-fade-up">2. Mô phỏng tấm gốm áp điện phát sóng</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols one">
+        <div class="lab" data-widget="piezo">
+          <div class="lab-top"><span class="lab-tag">Tấm gốm áp điện (PZT)</span><span class="lab-hint">Chọn chế độ · điều chỉnh tần số</span></div>
+          <div class="seg" id="pzModes">
+            <button class="btn" data-mode="off">Không điện</button>
+            <button class="btn" data-mode="dcp">Một chiều (+)</button>
+            <button class="btn" data-mode="dcn">Đảo cực (−)</button>
+            <button class="btn on" data-mode="ac">Xoay chiều ~</button>
+          </div>
+          <div class="canvas-box"><canvas id="pzCanvas"></canvas></div>
+          <div class="ctrl"><label for="pzF">Tần số điện áp</label><input type="range" id="pzF" min="0" max="1000" step="1" value="741"><output id="pzFout">2,00 MHz</output></div>
+          <div class="readout">
+            <span>Trạng thái: <b id="pzState" class="hl">co – dãn đồng bộ với U(f)</b></span>
+            <span>f phát = <span class="big" id="pzWave">2,00 MHz</span></span>
+            <span>λ (mô mềm) = <b id="pzLam">0,77 mm</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09. THU SÓNG ============ -->
+<section class="slide" data-sec="II. Cách tạo" data-title="Một đầu dò vừa phát vừa thu" data-min="1" data-note="Trình bày tính thuận nghịch của hiệu ứng áp điện: biến đổi điện – cơ khi phát và cơ – điện khi thu. Nhờ đó một đầu dò phát xung rất ngắn vài microgiây rồi chuyển sang chế độ thu sóng phản xạ.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">II. Cách tạo ra siêu âm</span>
+      <h2 class="anim-fade-up">3. Tính thuận nghịch: một đầu dò vừa phát vừa thu</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols lab-left">
+        <div class="txt">
+          <div class="card" style="padding:.85rem">
+            <svg viewBox="0 0 460 250" style="width:100%;height:auto" aria-label="Sơ đồ hai chiều phát và thu siêu âm">
+              <defs>
+                <linearGradient id="slabG" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#0b7a6f"/><stop offset=".5" stop-color="#3fe3c8"/><stop offset="1" stop-color="#0b7a6f"/>
+                </linearGradient>
+              </defs>
+              <text x="10" y="20" fill="var(--accent-teal)" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" letter-spacing="1.2">1. PHÁT SÓNG</text>
+              <path d="M14 48c10-12 20 12 30 0s20 12 30 0 20 12 30 0" fill="none" stroke="var(--accent-teal)" stroke-width="2"/>
+              <text x="116" y="52" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">U(f)</text>
+              <line x1="80" y1="58" x2="80" y2="76" stroke="var(--accent-teal)" stroke-width="1.4" stroke-dasharray="3 3"/>
+              <rect x="52" y="76" width="56" height="8" fill="var(--text-2)"/>
+              <rect x="56" y="84" width="48" height="30" fill="url(#slabG)" stroke="var(--text-1)" stroke-width="1.2">
+                <animate attributeName="height" values="30;22;30;38;30" dur="1.4s" repeatCount="indefinite"/>
+                <animate attributeName="y" values="84;88;84;80;84" dur="1.4s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="52" y="114" width="56" height="8" fill="var(--text-2)"/>
+              <g stroke="var(--accent-teal)" fill="none" stroke-width="1.8">
+                <path d="M122 98c14-12 14 12 28 0s14 12 28 0 14 12 28 0 14 12 28 0">
+                  <animate attributeName="opacity" values=".2;1;.2" dur="1.4s" repeatCount="indefinite"/>
+                </path>
+              </g>
+              <text x="248" y="102" fill="var(--accent-teal)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">→ chùm sóng phát</text>
+
+              <line x1="10" y1="145" x2="450" y2="145" stroke="var(--border-strong)" stroke-dasharray="4 4"/>
+
+              <text x="10" y="170" fill="var(--accent-2)" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" letter-spacing="1.2">2. THU SÓNG PHẢN XẠ</text>
+              <g stroke="var(--accent-2)" fill="none" stroke-width="1.8">
+                <path d="M14 210c10-10 10 10 20 0s10 10 20 0 10 10 20 0 10 10 20 0">
+                  <animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/>
+                </path>
+              </g>
+              <rect x="112" y="192" width="56" height="8" fill="var(--text-2)"/>
+              <rect x="116" y="200" width="48" height="26" fill="url(#slabG)" stroke="var(--text-1)" stroke-width="1.2">
+                <animate attributeName="height" values="26;32;26;20;26" dur="1.4s" repeatCount="indefinite"/>
+                <animate attributeName="y" values="200;197;200;203;200" dur="1.4s" repeatCount="indefinite"/>
+              </rect>
+              <rect x="112" y="226" width="56" height="8" fill="var(--text-2)"/>
+              <path d="M180 212c8 0 8-10 16-10s8 10 16-10 8 20 16 10 8-10 16 10 8-20 16-10" fill="none" stroke="var(--accent-2)" stroke-width="1.8"/>
+              <text x="272" y="216" fill="var(--accent-2)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">→ tín hiệu điện U(f)</text>
+            </svg>
+          </div>
+        </div>
+        <div class="txt">
+          <div class="card card-teal" style="margin-bottom:.6rem">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Chiều phát · Điện → Cơ</span>
+            <p style="font-size:var(--small-size);margin:0">Đặt xung điện xoay chiều tần số f → tinh thể dao động cơ học tần số f → truyền xung siêu âm vào cơ thể.</p>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Chiều thu · Cơ → Điện</span>
+            <p style="font-size:var(--small-size);margin:0">Sóng phản xạ trở về tác dụng lực nén lên tinh thể → tạo ra <b>tín hiệu điện áp xoay chiều</b> ở hai bản cực để máy tính xử lí.</p>
+          </div>
+          <p class="note-line" style="margin-top:.7rem">Do dùng chung một tinh thể, thiết bị <b>phát xung rất ngắn</b> (~1 µs) rồi ngắt nguồn phát để thu nhận tín hiệu sóng phản xạ trong khoảng vài chục đến vài trăm µs tiếp theo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12. THÍ NGHIỆM THẬT: SÓNG DỪNG NÂNG VẬT (VIDEO YOUTUBE + ẢNH) ============ -->
+<section class="slide" data-sec="II. Cách tạo" data-title="Thí nghiệm sóng dừng nâng vật lơ lửng" data-min="1.5" data-note="Quan sát ảnh thí nghiệm TinyLev bên trái và video thí nghiệm sóng dừng của Đại học Harvard bên phải. Trang kế tiếp giải thích cơ chế bằng mô hình sóng dừng.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">II. Cách tạo ra siêu âm</span>
+      <h2 class="anim-fade-up">4. Thí nghiệm mở rộng: Sóng dừng siêu âm nâng vật</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <div class="photo-card">
+            <img src="__TINYLEV_URL__" alt="Ảnh thí nghiệm sóng dừng giữ giọt nước và côn trùng lơ lửng" style="max-height:280px;padding:6px">
+            <div class="photo-cap"><b>Thí nghiệm TinyLev:</b> giọt nước, côn trùng nhỏ và linh kiện được giữ ổn định tại các nút áp suất cách nhau đúng <b>λ/2</b>.</div>
+          </div>
+        </div>
+        <div class="lab">
+          <div class="lab-top">
+            <span class="lab-tag">Video thí nghiệm · Đại học Harvard</span>
+            <a class="btn" href="https://www.youtube.com/watch?v=XpNbyfxxkWE" target="_blank" rel="noopener noreferrer" style="text-decoration:none;padding:.24em .7em;font-size:12.5px">↗ Mở YouTube</a>
+          </div>
+          <div class="canvas-box" style="min-height:270px">
+            <iframe
+              id="ytPlayer"
+              data-yt-src="https://www.youtube.com/embed/XpNbyfxxkWE?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
+              title="Thí nghiệm sóng dừng siêu âm — Đại học Harvard"
+              style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+            <div data-yt-file hidden style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.85rem;padding:1.4rem;text-align:center;background:radial-gradient(circle at 50% 35%, rgba(16,44,68,.92), #040b14 82%)">
+              <span class="pill pill-amber">Đang mở tệp trực tiếp (file://)</span>
+              <p style="margin:0;font-size:var(--small-size);color:var(--text-1);max-width:42ch">Trình duyệt chặn nhúng video YouTube ở chế độ tệp cục bộ <code>file://</code>.</p>
+              <a class="btn solid" href="https://www.youtube.com/watch?v=XpNbyfxxkWE" target="_blank" rel="noopener noreferrer" style="text-decoration:none">▶ Xem video thí nghiệm Đại học Harvard trên YouTube ↗</a>
+              <p style="margin:0;font-size:var(--small-size);color:var(--text-2);max-width:44ch">Khi truy cập qua địa chỉ web (<code>https://</code>), video sẽ phát trực tiếp tại khung này.</p>
+            </div>
+          </div>
+          <p class="dim" style="font-size:var(--small-size);margin:0">Thí nghiệm nâng giọt chất lỏng bằng sóng dừng siêu âm tần số cao (hỗ trợ phụ đề tiếng Việt qua nút <b>CC</b>).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13. MÔ HÌNH SÓNG DỪNG NÂNG VẬT ============ -->
+<section class="slide" data-sec="II. Cách tạo" data-title="Giải thích hiện tượng bằng mô hình sóng dừng" data-min="1" data-note="Điều chỉnh tần số trong khoảng 28–60 kHz để quan sát khoảng cách giữa hai nút sóng dừng λ/2 thay đổi; nhấn Tắt sóng để minh hoạ vật rơi tự do khi mất lực nâng âm học.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">II. Cách tạo ra siêu âm</span>
+      <h2 class="anim-fade-up">4. Giải thích hiện tượng bằng mô hình sóng dừng</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="levitate">
+          <div class="lab-top"><span class="lab-tag">Bẫy sóng dừng siêu âm</span><span class="lab-hint">Điều chỉnh tần số · bật/tắt sóng</span></div>
+          <div class="canvas-box"><canvas id="levCanvas"></canvas></div>
+          <div class="ctrl"><label for="levF">Tần số phát</label><input type="range" id="levF" min="28" max="60" step="2" value="40"><output id="levFout">40 kHz</output></div>
+          <div class="readout">
+            <button class="btn" id="levPow">⏸ Tắt sóng (thả vật)</button>
+            <span>Khoảng cách nút λ/2 = <span class="big" id="levLam">4,29 mm</span></span>
+          </div>
+        </div>
+        <div class="txt">
+          <ul class="clean">
+            <li>Đặt đầu phát siêu âm (<b>28–60 kHz</b>) đối diện mặt phản xạ → sóng tới và sóng phản xạ giao thoa tạo hệ <b>sóng dừng</b>.</li>
+            <li>Tại các <b>nút áp suất</b> cách nhau <b>λ/2</b>, lực do chênh lệch áp suất âm cân bằng với trọng lực nên giọt nước được giữ đứng yên.</li>
+            <li class="teal-dot">Thí nghiệm chứng minh siêu âm mang <b>năng lượng cơ học</b>: cường độ thấp dùng cho chẩn đoán hình ảnh, cường độ cao tạo lực tác động cơ học mạnh.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

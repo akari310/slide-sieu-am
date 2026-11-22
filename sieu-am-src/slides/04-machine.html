@@ -1,0 +1,452 @@
+<!-- ============ 14. NGUYÊN LÍ MÁY ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Chu trình hoạt động của máy siêu âm" data-min="1" data-note="Trình bày 6 bước của chu trình quét (~50–200 µs/đường quét) từ phát xung điện đến xử lí ảnh; điều chỉnh độ sâu d và nhấn Phát xung trên khung mô phỏng để minh hoạ thời gian trễ Δt và công thức d = v·Δt/2.">
+  <div class="slide-inner">
+    <div class="s-head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap">
+      <div>
+        <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+        <h2 class="anim-fade-up">1. Chu trình phát – thu sóng phản xạ</h2>
+      </div>
+      <span class="pill pill-aqua pill-math" style="margin-bottom:.35em">~50–200 µs / đường quét</span>
+    </div>
+    <div class="s-body" style="gap:.7rem">
+      <div class="pipe compact">
+        <div class="pipe-step"><i>01</i><b>Phát xung điện</b><span>Xung cao tần rất ngắn</span></div>
+        <div class="pipe-step hot"><i>02</i><b>Đầu dò phát</b><span>Điện → cơ: phát sóng</span></div>
+        <div class="pipe-step"><i>03</i><b>Gặp ranh giới</b><span>Khác Z → phản xạ</span></div>
+        <div class="pipe-step hot"><i>04</i><b>Đầu dò thu</b><span>Cơ → điện: thu phản xạ</span></div>
+        <div class="pipe-step"><i>05</i><b>Khuếch đại</b><span>Lọc nhiễu &amp; số hoá</span></div>
+        <div class="pipe-step"><i>06</i><b>Máy tính</b><span>Tính d &amp; dựng ảnh</span></div>
+      </div>
+      <div class="cols" style="margin-top:.15rem">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
+          <div class="formula">d = v · Δt / 2 <small>(chia 2: lượt đi và lượt về)</small></div>
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.35em">Hai thông số quyết định hình ảnh</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Thời gian trễ Δt:</b> khoảng thời gian từ lúc phát xung tới lúc thu sóng phản xạ giúp xác định chính xác <b>độ sâu d</b> của mặt phân cách.</li>
+              <li><b>Biên độ sóng phản xạ:</b> xung phản xạ càng mạnh → điểm ảnh càng sáng; chu trình lặp lại hàng nghìn lần mỗi giây nên quan sát được <b>chuyển động tim theo thời gian thực</b>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lab" data-widget="pulseecho">
+          <div class="lab-top"><span class="lab-tag">Xung phát &amp; sóng phản xạ (Δt)</span><span class="lab-hint">Điều chỉnh độ sâu d · phát xung</span></div>
+          <div class="canvas-box" style="min-height:190px"><canvas id="peCanvas"></canvas></div>
+          <div class="ctrl"><label for="peD">Độ sâu mặt phản xạ d</label><input type="range" id="peD" min="20" max="120" step="5" value="60"><output id="peDout">6,0 cm</output></div>
+          <div class="readout" style="font-size:var(--small-size)">
+            <button class="btn solid" id="peFire">▶ Phát xung</button>
+            <span>Δt = <b id="peDt">77,9 µs</b></span>
+            <span>d = v·Δt/2 = <span class="big" id="peRes">6,0 cm</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15. CẤU TẠO ĐẦU DÒ ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Cấu tạo bên trong đầu dò" data-min="1" data-note="Chọn từng bộ phận trong danh sách bên phải để làm nổi bật cấu trúc tương ứng trên mặt cắt đầu dò. Nhấn mạnh vai trò của lớp giảm rung (tắt nhanh dao động dư để tạo xung ngắn) và lớp đệm (phối hợp trở kháng âm).">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">2. Cấu tạo đầu dò siêu âm (Hình 7.2 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols wide-left">
+        <div class="txt" style="display:flex;align-items:center;justify-content:center">
+          <div class="card" style="padding:.85rem;width:min(100%,460px)">
+            <svg viewBox="0 0 365 320" style="width:100%;height:auto" aria-label="Sơ đồ cắt dọc đầu dò siêu âm">
+              <defs>
+                <pattern id="hatch" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(194,101,8,.45)" stroke-width="1.5"/>
+                </pattern>
+              </defs>
+              <g class="part" data-part="housing">
+                <rect x="86" y="16" width="128" height="248" rx="10" fill="var(--bg-soft)" stroke="var(--text-2)" stroke-width="1.6"/>
+                <rect x="118" y="2" width="64" height="16" rx="4" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.4"/>
+              </g>
+              <g class="part" data-part="backing">
+                <rect x="100" y="52" width="100" height="88" fill="url(#hatch)" stroke="var(--accent-amber)" stroke-width="1.4"/>
+              </g>
+              <g class="part" data-part="electrode">
+                <rect x="100" y="140" width="100" height="7" fill="var(--text-1)"/>
+                <rect x="100" y="171" width="100" height="7" fill="var(--text-1)"/>
+              </g>
+              <g class="part hi" data-part="crystal">
+                <rect x="104" y="147" width="92" height="24" fill="rgba(63,227,200,.42)" stroke="var(--accent-teal)" stroke-width="1.8"/>
+              </g>
+              <g class="part" data-part="matching">
+                <rect x="100" y="178" width="100" height="28" fill="rgba(96,165,250,.22)" stroke="var(--accent-2)" stroke-width="1.4"/>
+              </g>
+              <g class="part" data-part="lens">
+                <path d="M100 206h100v18c0 12-22 18-50 18s-50-6-50-18z" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.4"/>
+              </g>
+              <line x1="150" y1="242" x2="150" y2="266" stroke="var(--text-3)" stroke-dasharray="3 3"/>
+              <g class="part" data-part="gel">
+                <rect x="74" y="266" width="152" height="14" rx="3" fill="rgba(63,227,200,.2)" stroke="var(--accent-teal)" stroke-width="1.3"/>
+                <rect x="74" y="286" width="152" height="24" rx="3" fill="rgba(255,111,133,.16)" stroke="var(--accent-rose)" stroke-width="1.3"/>
+              </g>
+              <text x="228" y="40" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">01 Vỏ</text>
+              <text x="228" y="100" fill="var(--accent-amber)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">02 Giảm rung</text>
+              <text x="228" y="164" fill="var(--accent-teal)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">03 Áp điện</text>
+              <line x1="201" y1="175" x2="224" y2="182" stroke="var(--text-2)" stroke-width="1.2" stroke-dasharray="2 2"/>
+              <text x="228" y="186" fill="var(--text-1)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">04 Điện cực</text>
+              <text x="228" y="208" fill="var(--accent-2)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">05 Đệm</text>
+              <text x="228" y="233" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">06 Tiếp âm</text>
+              <text x="12" y="277" fill="var(--accent-teal)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">Gel</text>
+              <text x="12" y="302" fill="var(--accent-rose)" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700">Da</text>
+            </svg>
+          </div>
+        </div>
+        <div class="txt">
+          <ul class="hotspot-list" id="probeList">
+            <li data-part="housing"><span class="k">01</span><span class="nm">Vỏ đầu dò</span><span class="ds">Che chắn nhiễu điện từ</span></li>
+            <li data-part="backing"><span class="k">02</span><span class="nm">Lớp giảm rung</span><span class="ds">Hấp thụ sóng ngược về sau</span></li>
+            <li data-part="crystal" class="on"><span class="k">03</span><span class="nm">Tinh thể áp điện</span><span class="ds">Phát &amp; thu sóng</span></li>
+            <li data-part="electrode"><span class="k">04</span><span class="nm">Hai bản điện cực</span><span class="ds">Cấp và nhận tín hiệu điện</span></li>
+            <li data-part="matching"><span class="k">05</span><span class="nm">Lớp đệm</span><span class="ds">Phối hợp trở kháng</span></li>
+            <li data-part="lens"><span class="k">06</span><span class="nm">Lớp tiếp âm</span><span class="ds">Ôm sát da, hội tụ chùm tia</span></li>
+          </ul>
+          <div class="card card-accent" style="margin-top:.65rem">
+            <p style="font-size:var(--small-size);margin:0" id="probeDesc">Tinh thể áp điện (thạch anh / gốm PZT): bộ phận trung tâm vừa phát xung siêu âm vừa thu sóng phản xạ. Bề dày tinh thể quyết định tần số cộng hưởng của đầu dò.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16. THIẾT BỊ THỰC TẾ: ĐẦU DÒ SIÊU ÂM Y KHOA ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Thực tế thiết bị: Đầu dò siêu âm y khoa" data-min="1" data-note="Đối chiếu trực tiếp từ sơ đồ mặt cắt sang cấu tạo thực tế của đầu dò siêu âm cong (Convex): mặt tiếp âm mềm tiếp xúc với da, vỏ bọc chống nhiễu và cáp truyền tín hiệu điện về bộ xử lí.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">2. Cấu tạo thực tế của đầu dò siêu âm y khoa</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <div class="photo-card">
+            <img src="__PROBE_REAL_URL__" alt="Đầu dò siêu âm cong thực tế trong bệnh viện" style="max-height:295px">
+            <div class="photo-cap"><b>Hình ảnh thực tế · Đầu dò cong (Convex, 2–5 MHz):</b> loại phổ biến trong siêu âm ổ bụng và sản khoa.</div>
+          </div>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
+          <div class="card card-teal">
+            <span class="n">1. Mặt tiếp âm màu xanh</span>
+            <p style="margin:0;font-size:var(--small-size)">Chế tạo từ vật liệu cao su chuyên dụng có trở kháng âm gần với da; ngay bên dưới là <b>dãy tinh thể áp điện</b> sắp xếp theo cung cong.</p>
+          </div>
+          <div class="card card-accent">
+            <span class="n">2. Thân vỏ &amp; cáp chống nhiễu</span>
+            <p style="margin:0;font-size:var(--small-size)">Vỏ nhựa cách điện, bên trong bọc lưới kim loại chống nhiễu điện từ; dây cáp truyền hàng trăm kênh tín hiệu điện về máy xử lí.</p>
+          </div>
+          <div class="card card-amber">
+            <span class="n">3. Sử dụng kèm lớp gel tiếp âm</span>
+            <p style="margin:0;font-size:var(--small-size)">Khi thăm khám, bác sĩ phủ lớp gel lên bề mặt tiếp âm nhằm loại bỏ lớp không khí giữa đầu dò và da bệnh nhân.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 17. PHẢN XẠ / KHÚC XẠ (HÌNH 7.3 SGK) ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Phản xạ – khúc xạ tại mặt phân cách" data-min="1.5" data-note="Đối chiếu trực tiếp Hình 7.3 SGK (tr. 40): điều chỉnh góc tới i để quan sát đồng thời sóng phản xạ (i' = i) và sóng khúc xạ (sin i / v₁ = sin r / v₂). Có thể chuyển giữa hai ranh giới Mô mềm → Xương (v₁ < v₂, có phản xạ toàn phần quá 22,2°) và Xương → Mô mềm (v₁ > v₂, tia khúc xạ lệch gần pháp tuyến như Hình 7.3), sau đó nhấn 0° để giải thích vì sao khi siêu âm đặt đầu dò vuông góc bề mặt.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">3. Phản xạ và khúc xạ tại mặt phân cách (Hình 7.3 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="reflect">
+          <div class="lab-top">
+            <span class="lab-tag">Phản xạ &amp; khúc xạ sóng siêu âm</span>
+            <div class="seg" id="rfPair">
+              <button class="btn on" data-pair="sb">Mô mềm → Xương</button>
+              <button class="btn" data-pair="bs">Xương → Mô mềm</button>
+            </div>
+          </div>
+          <div class="canvas-box" style="min-height:225px"><canvas id="rfCanvas"></canvas></div>
+          <div class="ctrl"><label for="rfAngle">Góc tới</label><input type="range" id="rfAngle" min="0" max="45" step="1" value="15"><output id="rfOut">15°</output></div>
+          <div class="readout" style="font-size:var(--small-size)">
+            <button class="btn" id="rfZero">↺ Về 0° (vuông góc)</button>
+            <span>Phản xạ R: <span class="big" id="rfPct">53%</span></span>
+            <span id="rfState" class="hl">góc khúc xạ r = 43°</span>
+          </div>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.55rem">
+          <ul class="clean">
+            <li>Khi gặp <b>mặt phân cách (ranh giới)</b> hai môi trường có trở kháng âm <b>Z₁ ≠ Z₂</b>, sóng siêu âm vừa bị <b>phản xạ</b> vừa bị <b>khúc xạ</b> (Hình 7.3 SGK).</li>
+            <li><b>Định luật phản xạ và khúc xạ:</b></li>
+          </ul>
+          <div class="formula" style="font-size:clamp(.95rem,1.4vw,1.22rem)">i′ = i &nbsp;·&nbsp; sin i / v₁ = sin r / v₂</div>
+          <div class="formula" style="font-size:clamp(.95rem,1.4vw,1.22rem)">R = [(Z₂ − Z₁) / (Z₂ + Z₁)]² <small>(tại i = 0°)</small></div>
+          <p class="note-line">Trong kĩ thuật siêu âm, ta quan tâm tới <b>tín hiệu sóng phản xạ</b> để chuyển thành tín hiệu điện và dựng ảnh. Đầu dò thường được đặt <b>vuông góc với bề mặt da (i ≈ 0°)</b> để sóng phản xạ quay đúng về mặt thu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 18. GEL (TÍNH HỆ SỐ PHẢN XẠ 99,9%) ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Bài toán lớp gel: Tính hệ số phản xạ 99,9%" data-min="2" data-note="Thay số vào công thức R = ((Z2 − Z1)/(Z2 + Z1))² để chứng minh lớp không khí phản xạ tới 99,9% năng lượng sóng, trong khi lớp gel làm hệ số phản xạ giảm xuống dưới 0,2%. Sau đó thao tác nút Bôi gel kín bề mặt trên mô phỏng để đối chiếu.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">4. Vai trò của lớp gel tiếp âm</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <div class="card card-amber" style="margin-bottom:.55rem">
+            <span class="pill pill-amber" style="margin-bottom:.38em">Bài toán 2 · Tính hệ số phản xạ</span>
+            <p style="font-size:var(--small-size);margin:0">Cho trở kháng âm (đơn vị kg/(m²·s)): <b>Z<sub>khí</sub> = 413</b>, <b>Z<sub>da</sub> = 1,63×10⁶</b>, <b>Z<sub>gel</sub> = 1,50×10⁶</b>.</p>
+          </div>
+          <div class="formula" style="margin-bottom:.55rem;font-size:clamp(.92rem,1.35vw,1.18rem)">R = [(Z₂ − Z₁) / (Z₂ + Z₁)]² <small>(tại góc tới vuông góc)</small></div>
+          <ul class="clean" style="font-size:var(--small-size)">
+            <li><b>Không bôi gel (khí – da):</b><br><span class="mono">R = [(1,63×10⁶ − 413) / (1,63×10⁶ + 413)]² ≈ <b>99,90%</b></span><br><span class="dim">Tính cả hai ranh giới đầu dò – khí và khí – da, tới <b>99,95%</b> sóng bị phản xạ trở lại (SGK tr. 40), chưa tới 0,1% năng lượng truyền vào mô.</span></li>
+            <li class="teal-dot"><b>Đã bôi gel (gel – da):</b><br><span class="mono">R = [(1,63 − 1,50) / (1,63 + 1,50)]² ≈ <b>0,17%</b></span><br><span class="dim">Hơn <b>99,8%</b> năng lượng sóng truyền qua vào cơ thể.</span></li>
+          </ul>
+        </div>
+        <div class="lab" data-widget="gel">
+          <div class="lab-top"><span class="lab-tag">Tác dụng của lớp gel tiếp âm</span><span class="lab-hint">Điều chỉnh tỉ lệ lớp khí</span></div>
+          <div class="gel-vis">
+            <div class="gel-disc" id="gelDisc"><span id="gelDiscTxt">không tạo ảnh</span></div>
+            <div class="gel-stack">
+              <div class="gel-block">Đầu dò</div>
+              <div class="gel-gap" id="gelGap"></div>
+              <div class="gel-block skin">Da · mô mềm</div>
+            </div>
+          </div>
+          <div class="meter"><span>Phản xạ</span><div class="track"><i id="gelRef" style="width:99.95%"></i></div><b id="gelRefTxt">99,95%</b></div>
+          <div class="meter"><span>Truyền qua</span><div class="track"><i id="gelTr" style="width:0.05%;background:linear-gradient(90deg,#0b7a6f,#3fe3c8)"></i></div><b id="gelTrTxt">0,05%</b></div>
+          <div class="ctrl"><label for="gelRange">Không khí còn lại</label><input type="range" id="gelRange" min="0" max="100" step="1" value="100"><output id="gelOut">100%</output></div>
+          <div class="seg">
+            <button class="btn" id="gelOff">Không bôi gel</button>
+            <button class="btn solid" id="gelOn">Bôi gel kín bề mặt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 19. HẤP THỤ ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Suy giảm cường độ theo độ sâu" data-min="1" data-note="Tăng tần số từ 2 MHz lên 10 MHz để quan sát cột biểu diễn cường độ chùm tia suy giảm rất nhanh ngay trong vài xentimét đầu tiên.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">5. Sự suy giảm cường độ sóng theo độ sâu</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="absorb">
+          <div class="lab-top"><span class="lab-tag">Đường cong suy giảm theo độ sâu</span><span class="lab-hint">Điều chỉnh tần số và độ sâu</span></div>
+          <div class="canvas-box"><canvas id="abCanvas"></canvas></div>
+          <div class="ctrl"><label for="abF">Tần số f</label><input type="range" id="abF" min="1" max="15" step="0.5" value="5"><output id="abFout">5,0 MHz</output></div>
+          <div class="ctrl"><label for="abD">Độ sâu d</label><input type="range" id="abD" min="0" max="8" step="0.1" value="4"><output id="abDout">4,0 cm</output></div>
+          <div class="readout">
+            <span>Cường độ còn lại: <span class="big" id="abPct">10%</span></span>
+            <span class="mono" id="abDb">−10,0 dB</span>
+          </div>
+        </div>
+        <div class="txt">
+          <div class="formula" style="margin-bottom:.65rem">I = I₀ · e<sup>−αd</sup></div>
+          <dl class="kv">
+            <dt>I₀</dt><dd>cường độ chùm siêu âm ban đầu khi truyền vào mô</dd>
+            <dt>I</dt><dd>cường độ còn lại sau khi truyền quãng đường d</dd>
+            <dt>α</dt><dd>hệ số hấp thụ — tăng theo <b>tần số f</b> và phụ thuộc bản chất mô</dd>
+          </dl>
+          <div class="card card-accent" style="margin-top:.75rem">
+            <p style="font-size:var(--small-size);margin:0">Mô hấp thụ và chuyển hoá một phần năng lượng sóng thành nhiệt. Ở tần số cao, sóng suy giảm nhanh ở lớp nông; để khảo sát cơ quan ở sâu cần giảm tần số.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 20. KIỂM TRA NHANH 03 ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Kiểm tra nhanh 03 · Chọn tần số" data-min="0.5" data-note="Củng cố mối liên hệ giữa tần số, bước sóng và mức độ hấp thụ của mô ngay sau quy luật suy giảm cường độ.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">Kiểm tra nhanh · Ảnh hưởng của tần số siêu âm</h2>
+    </div>
+    <div class="s-body">
+      <div class="checkpoint-box">
+        <span class="pill pill-amber" style="align-self:flex-start">Câu 3 / 6</span>
+        <div class="checkpoint-q">Khi tăng tần số đầu dò từ 3 MHz lên 12 MHz, độ phân giải hình ảnh và độ xuyên sâu thay đổi như thế nào?</div>
+        <div class="checkpoint-opts">
+          <button data-ok="1">A. Độ phân giải tăng nhưng độ xuyên sâu giảm</button>
+          <button data-ok="0">B. Độ xuyên sâu tăng nhưng độ phân giải giảm</button>
+          <button data-ok="0">C. Sóng không bị mô hấp thụ</button>
+        </div>
+        <div class="checkpoint-fb">Chính xác. Khi tăng tần số f, bước sóng λ = v/f giảm nên độ phân giải tăng, nhưng hệ số hấp thụ α tăng mạnh khiến sóng suy giảm nhanh theo độ sâu.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 21. CÁC LOẠI ĐẦU DÒ ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Phân loại đầu dò &amp; chọn tần số" data-min="1" data-note="Từ mối liên hệ giữa bước sóng λ và độ hấp thụ α, giới thiệu 4 loại đầu dò phổ biến trong lâm sàng: đầu dò thẳng (khảo sát nông, độ phân giải cao), đầu dò cong (ổ bụng và sản khoa), đầu dò mảng pha (đặt qua khe liên sườn khảo sát tim) và đầu dò 3D/4D.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">6. Phân loại đầu dò và dải tần số sử dụng</h2>
+    </div>
+    <div class="s-body">
+      <div class="probes">
+        <div class="probe-card">
+          <svg viewBox="0 0 120 92" aria-hidden="true">
+            <rect x="-80" y="22" width="280" height="70" fill="rgba(63,227,200,.06)"/>
+            <path d="M-80 22h280" stroke="var(--accent-teal)" stroke-width="1.2"/>
+            <rect x="42" y="2" width="36" height="13" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.2"/>
+            <rect x="44" y="15" width="32" height="4" fill="var(--accent-teal)"/>
+            <path d="M44 19v52h32V19" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
+            <line x1="46" y1="24" x2="74" y2="24" stroke="#3fe3c8" stroke-width="1.6" stroke-linecap="round">
+              <animate attributeName="y1" values="22;68" dur="1.7s" repeatCount="indefinite"/>
+              <animate attributeName="y2" values="22;68" dur="1.7s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.7s" repeatCount="indefinite"/>
+            </line>
+            <line x1="46" y1="24" x2="74" y2="24" stroke="#3fe3c8" stroke-width="1.4" stroke-linecap="round">
+              <animate attributeName="y1" values="22;68" dur="1.7s" begin="-0.85s" repeatCount="indefinite"/>
+              <animate attributeName="y2" values="22;68" dur="1.7s" begin="-0.85s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.7s" begin="-0.85s" repeatCount="indefinite"/>
+            </line>
+            <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">khung chữ nhật</text>
+          </svg>
+          <b>Đầu dò thẳng (Linear)</b>
+          <em>5 – 12 MHz</em>
+          <span>Mạch máu nông, tuyến giáp, cơ, khớp dưới da.</span>
+        </div>
+        <div class="probe-card">
+          <svg viewBox="0 0 120 92" aria-hidden="true">
+            <rect x="-80" y="22" width="280" height="70" fill="rgba(63,227,200,.06)"/>
+            <path d="M-80 22h280" stroke="var(--accent-teal)" stroke-width="1.2"/>
+            <path d="M40 3h40l-3 11c-10 7-24 7-34 0z" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.2"/>
+            <path d="M43 14c9 6 25 6 34 0" fill="none" stroke="var(--accent-teal)" stroke-width="3"/>
+            <path d="M43 16c-6 22-9 38-13 55h60c-4-17-7-33-13-55z" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
+            <path d="M44 26 Q60 32 76 26" fill="none" stroke="#3fe3c8" stroke-width="1.6" stroke-linecap="round">
+              <animate attributeName="d" values="M44 24 Q60 29 76 24;M33 66 Q60 74 87 66" dur="1.9s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.9s" repeatCount="indefinite"/>
+            </path>
+            <path d="M44 26 Q60 32 76 26" fill="none" stroke="#3fe3c8" stroke-width="1.4" stroke-linecap="round">
+              <animate attributeName="d" values="M44 24 Q60 29 76 24;M33 66 Q60 74 87 66" dur="1.9s" begin="-0.95s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.9s" begin="-0.95s" repeatCount="indefinite"/>
+            </path>
+            <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">hình quạt rộng</text>
+          </svg>
+          <b>Đầu dò cong (Convex)</b>
+          <em>2 – 5 MHz</em>
+          <span>Ổ bụng, gan – mật – thận, sản khoa và khám thai.</span>
+        </div>
+        <div class="probe-card">
+          <svg viewBox="0 0 120 92" aria-hidden="true">
+            <rect x="-80" y="22" width="280" height="70" fill="rgba(63,227,200,.06)"/>
+            <path d="M-80 22h280" stroke="var(--accent-teal)" stroke-width="1.2"/>
+            <path d="M50 3h20l-2 12H52z" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.2"/>
+            <rect x="52" y="14" width="16" height="4" fill="var(--accent-teal)"/>
+            <path d="M56 18 28 71h64L64 18z" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
+            <path d="M53 26 Q60 29 67 26" fill="none" stroke="#3fe3c8" stroke-width="1.6" stroke-linecap="round">
+              <animate attributeName="d" values="M54 24 Q60 27 66 24;M32 66 Q60 74 88 66" dur="1.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.92;0" dur="1.8s" repeatCount="indefinite"/>
+            </path>
+            <path d="M53 26 Q60 29 67 26" fill="none" stroke="#3fe3c8" stroke-width="1.4" stroke-linecap="round">
+              <animate attributeName="d" values="M54 24 Q60 27 66 24;M32 66 Q60 74 88 66" dur="1.8s" begin="-0.9s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.92;0" dur="1.8s" begin="-0.9s" repeatCount="indefinite"/>
+            </path>
+            <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">quét khe hẹp</text>
+          </svg>
+          <b>Đầu dò mảng pha</b>
+          <em>1 – 5 MHz</em>
+          <span>Khảo sát tim: bề mặt tiếp xúc nhỏ, phù hợp đặt qua khe liên sườn.</span>
+        </div>
+        <div class="probe-card">
+          <svg viewBox="0 0 120 92" aria-hidden="true">
+            <rect x="-80" y="22" width="280" height="70" fill="rgba(63,227,200,.06)"/>
+            <path d="M-80 22h280" stroke="var(--accent-teal)" stroke-width="1.2"/>
+            <rect x="42" y="2" width="36" height="13" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.2"/>
+            <rect x="44" y="15" width="32" height="4" fill="var(--accent-teal)"/>
+            <path d="M46 19 34 60h52L74 19z" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
+            <ellipse cx="60" cy="60" rx="26" ry="8" fill="rgba(63,227,200,.22)" stroke="var(--accent-teal)" stroke-width="1.1"/>
+            <ellipse cx="60" cy="30" rx="14" ry="4" fill="none" stroke="#3fe3c8" stroke-width="1.5">
+              <animate attributeName="cy" values="25;60" dur="2.1s" repeatCount="indefinite"/>
+              <animate attributeName="rx" values="14;26" dur="2.1s" repeatCount="indefinite"/>
+              <animate attributeName="ry" values="4;8" dur="2.1s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.95;0" dur="2.1s" repeatCount="indefinite"/>
+            </ellipse>
+            <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">quét khối 3D/4D</text>
+          </svg>
+          <b>Đầu dò 3D / 4D</b>
+          <em>2 – 8 MHz</em>
+          <span>Tái tạo hình khối không gian theo thời gian thực.</span>
+        </div>
+      </div>
+      <div class="card card-teal" style="margin-top:.75rem;padding:.7rem .95rem">
+        <p style="margin:0;font-size:var(--body-size)"><b>Mối liên hệ giữa độ phân giải và độ xuyên sâu:</b> Tần số cao (10 MHz) cho bước sóng ngắn nên độ phân giải cao nhưng suy giảm nhanh ở lớp nông; tần số thấp (3–5 MHz) ít suy giảm hơn, khảo sát được độ sâu 15–20 cm nhưng độ chi tiết thấp hơn.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 22. KIỂM TRA NHANH 04 ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Kiểm tra nhanh 04 · Chọn đầu dò" data-min="0.5" data-note="Vận dụng quy tắc lựa chọn đầu dò và dải tần số cho vùng khảo sát sâu qua thành bụng (8–12 cm).">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">Kiểm tra nhanh · Lựa chọn đầu dò phù hợp</h2>
+    </div>
+    <div class="s-body">
+      <div class="checkpoint-box">
+        <span class="pill pill-amber" style="align-self:flex-start">Câu 4 / 6</span>
+        <div class="checkpoint-q">Khi siêu âm thai nhi qua thành bụng (vùng khảo sát ở độ sâu khoảng 8–12 cm), bác sĩ nên chọn loại đầu dò nào?</div>
+        <div class="checkpoint-opts">
+          <button data-ok="0">A. Đầu dò thẳng, 10 MHz</button>
+          <button data-ok="1">B. Đầu dò cong, 3,5 MHz</button>
+          <button data-ok="0">C. Đầu dò mảng pha, 9 MHz</button>
+        </div>
+        <div class="checkpoint-fb">Chính xác. Cần độ xuyên sâu lớn qua thành bụng và tử cung (8–12 cm) nên chọn tần số 2–5 MHz để giảm suy hao; đồng thời đầu dò cong (Convex) cho trường quét hình quạt rộng.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 23. THẢO LUẬN: GIỚI HẠN CỦA SIÊU ÂM (NÃO, PHỔI, XƯƠNG) ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Thảo luận: Những vùng hạn chế của siêu âm" data-min="1" data-note="Sử dụng đồng hồ 90 giây cho hai câu hỏi thảo luận về đặc điểm hiển thị của da – xương và giới hạn khảo sát đối với não – phổi; nhấn Hiện đáp án để đối chiếu kết quả.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">III. Nguyên lí hoạt động của máy siêu âm</span>
+      <h2 class="anim-fade-up">Thảo luận · Đặc điểm hiển thị ở da, xương, não và phổi</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <div class="card card-accent" style="margin-bottom:.6rem">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Câu hỏi 1</span>
+            <p style="font-size:var(--small-size);font-weight:600">Vì sao trên ảnh siêu âm, bề mặt da và xương thường hiển thị rất sáng, còn các cơ quan mềm bên trong có độ tương phản thấp hơn?</p>
+            <button class="btn" data-reveal="a1" style="margin-top:.4em">Hiện đáp án</button>
+            <p class="reveal-ans" id="a1" hidden style="margin-top:.5em;font-size:var(--small-size);color:var(--text-2)">Độ sáng tỉ lệ với hệ số phản xạ R. Giữa mô mềm và xương có sự chênh lệch trở kháng âm Z rất lớn nên sóng phản xạ mạnh (vùng sáng). Các cơ quan mềm có giá trị Z gần nhau nên sóng phản xạ yếu và độ tương phản thấp hơn.</p>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Câu hỏi 2</span>
+            <p style="font-size:var(--small-size);font-weight:600">Vì sao siêu âm ít được sử dụng để khảo sát mô não bên trong hộp sọ và mô phổi bình thường?</p>
+            <button class="btn" data-reveal="a2" style="margin-top:.4em">Hiện đáp án</button>
+            <p class="reveal-ans" id="a2" hidden style="margin-top:.5em;font-size:var(--small-size);color:var(--text-2)"><b>Não:</b> xương sọ phản xạ và hấp thụ phần lớn năng lượng siêu âm. <b>Phổi:</b> các phế nang chứa không khí nên mặt phân cách mô – khí phản xạ tới 99,9% năng lượng. Vì vậy não thường dùng MRI/CT, còn phổi dùng X-quang/CT.</p>
+          </div>
+        </div>
+        <div class="txt" style="align-self:center">
+          <div class="lab" style="height:auto;align-items:center;text-align:center;gap:.85rem;padding:1.4rem">
+            <span class="lab-tag">Đồng hồ thảo luận</span>
+            <div class="timer-box" id="discBox"><span id="discTime">01:30</span></div>
+            <div class="seg" style="justify-content:center">
+              <button class="btn solid" id="discStart">▶ Bắt đầu</button>
+              <button class="btn" id="discReset">↺ Đặt lại 01:30</button>
+            </div>
+            <p class="dim" style="font-size:var(--small-size);margin:0">Câu 1: Đặc điểm da – xương &nbsp;·&nbsp; Câu 2: Giới hạn ở não – phổi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

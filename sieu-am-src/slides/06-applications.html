@@ -1,0 +1,399 @@
+<!-- ============ 28. DÒ KHUYẾT TẬT KIM LOẠI (NDT - HÌNH 7.7 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Kiểm tra khuyết tật kim loại (NDT)" data-min="1" data-note="Mở đầu phần Ứng dụng theo đúng thứ tự Hình 7.7 SGK: chuyển đổi giữa Mẫu có lỗ hổng và Mẫu đạt chuẩn rồi nhấn Phát xung để so sánh trực tiếp số lượng xung phản xạ trên đồ thị kiểu A.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">1. Kiểm tra khuyết tật sản phẩm kim loại (Hình 7.7 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <ul class="clean">
+            <li><b>Kiểm tra không phá huỷ (NDT):</b> đặt đầu dò lên dầm cầu, đường ray, thân máy bay hoặc đường ống thép (v ≈ 5900 m/s).</li>
+            <li><b>Mối hàn đạt chuẩn:</b> sóng truyền thẳng tới mặt đáy rồi phản xạ trở lại → chỉ thu được <b>1 xung đáy</b>.</li>
+            <li><b>Có bọt khí / vết nứt:</b> mặt phân cách kim loại – không khí phản xạ sớm thêm <b>1 xung khuyết tật</b> nằm trước xung đáy.</li>
+            <li class="amber-dot"><b>Xác định độ sâu khuyết tật:</b> đo thời gian trễ Δt của xung phản xạ sớm để tính chính xác vị trí lỗi theo <b>d = v·Δt / 2</b>.</li>
+          </ul>
+        </div>
+        <div class="lab" data-widget="defect">
+          <div class="lab-top"><span class="lab-tag">Kiểm tra khuyết tật mối hàn (NDT)</span><span class="lab-hint">So sánh 2 mẫu · phát xung</span></div>
+          <div class="canvas-box"><canvas id="dfCanvas"></canvas></div>
+          <div class="ctrl"><label for="dfD">Độ sâu lỗ hổng</label><input type="range" id="dfD" min="10" max="90" step="1" value="45"><output id="dfDout">4,5 cm</output></div>
+          <div class="readout">
+            <div class="seg">
+              <button class="btn solid" id="dfFire">▶ Phát xung</button>
+              <button class="btn" id="dfToggle">Mẫu: Có lỗ hổng</button>
+            </div>
+            <span id="dfState" class="hl">sẵn sàng</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 29. HÀN VẬT LIỆU BẰNG SIÊU ÂM (HÌNH 7.8 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm để hàn vật liệu" data-min="1" data-note="Trình bày theo Hình 7.8 SGK: nhấn Ép & hàn để quan sát đầu hàn hạ xuống, dao động tần số 20–40 kHz tạo nhiệt ma sát cục bộ làm liên kết hai lớp vật liệu mà không cần keo hay que hàn. Có thể chuyển mục Video EWI để xem thiết bị hàn siêu âm thực tế.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">2. Hàn và tổng hợp vật liệu (Hình 7.8 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="weld">
+          <div class="lab-top">
+            <span class="lab-tag">Hàn vật liệu bằng siêu âm</span>
+            <div class="seg" data-vid-switch="weld">
+              <button class="btn on" data-view="sim">🧪 Mô phỏng</button>
+              <button class="btn" data-view="yt">🎬 Video EWI</button>
+            </div>
+          </div>
+          <div class="canvas-box" style="min-height:245px">
+            <canvas id="wlCanvas"></canvas>
+            <div data-yt-wrap hidden style="position:absolute;inset:0">
+              <iframe
+                id="weldYt"
+                data-yt-src="https://www.youtube.com/embed/Mxzn2HBeyVY?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
+                title="Quy trình hàn nhựa siêu âm thực tế — EWI"
+                style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+              <div data-yt-file hidden style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1.2rem;text-align:center;background:radial-gradient(circle at 50% 35%, rgba(16,44,68,.92), #040b14 82%)">
+                <span class="pill pill-amber">Đang mở tệp trực tiếp (file://)</span>
+                <p style="margin:0;font-size:var(--small-size);color:var(--text-1);max-width:40ch">Trình duyệt chặn nhúng YouTube ở chế độ tệp cục bộ <code>file://</code>. Mở liên kết trực tiếp hoặc truy cập qua địa chỉ web.</p>
+                <a class="btn solid" href="https://www.youtube.com/watch?v=Mxzn2HBeyVY" target="_blank" rel="noopener noreferrer" style="text-decoration:none">▶ Xem video hàn siêu âm EWI trên YouTube ↗</a>
+              </div>
+            </div>
+          </div>
+          <div class="ctrl" data-view-only="sim"><label for="wlF">Tần số dao động</label><input type="range" id="wlF" min="20" max="40" step="2" value="28"><output id="wlFout">28 kHz</output></div>
+          <div class="readout" data-view-only="sim">
+            <div class="seg">
+              <button class="btn solid" id="wlFire">▶ Ép &amp; hàn</button>
+              <button class="btn" id="wlReset">↺ Mẫu mới</button>
+            </div>
+            <span>Mặt ghép: <b id="wlTemp" class="amber">25 °C</b> · <b id="wlState" class="hl">chưa hàn</b></span>
+          </div>
+          <p class="dim" data-view-only="yt" hidden style="font-size:var(--small-size);margin:0"><b>Video thực tế (EWI):</b> đầu hàn siêu âm dao động ở tần số 20–40 kHz làm nóng chảy cục bộ mặt tiếp xúc và gắn liền hai chi tiết nhựa trong thời gian rất ngắn.</p>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.7rem">
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Nguyên lí hàn siêu âm</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li>Đầu hàn truyền dao động cơ học tần số <b>20–40 kHz</b> xuống bề mặt tiếp xúc giữa hai chi tiết.</li>
+              <li>Ma sát mạnh làm <b>nóng chảy cục bộ</b> tại mặt ghép trong thời gian rất ngắn, tạo mối liên kết bền chắc mà <b>không cần keo dán hay que hàn</b>.</li>
+            </ul>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Công nghiệp &amp; khoa học vật liệu</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Hàn chi tiết chính xác:</b> hàn vỏ nhựa, cực pin, linh kiện điện tử, khẩu trang, màng lọc y tế và các tấm kim loại mỏng.</li>
+              <li><b>Tổng hợp vật liệu mới:</b> sóng siêu âm còn hỗ trợ tổng hợp vật liệu vô cơ, hữu cơ, vật liệu sinh học và vật liệu cấu trúc nano.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 30. SIÊU ÂM TRONG Y HỌC: CHẨN ĐOÁN & TÁN SỎI ESWL (HÌNH 7.9 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm trong y học &amp; tán sỏi ngoài cơ thể" data-min="1.5" data-note="Trình bày hai nhóm ứng dụng trong y học (Hình 7.9 SGK): chẩn đoán hình ảnh không xâm lấn và tán sỏi ngoài cơ thể ESWL. Nhấn Phát xung tán sỏi để quan sát lớp da duy trì 37 °C trong khi viên sỏi tại tiêu điểm bị phá vỡ thành mảnh vụn nhỏ; có thể chuyển mục Video chi tiết để xem mô phỏng 3D.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">3. Chẩn đoán hình ảnh và tán sỏi trong y học (Hình 7.9 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.7rem">
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.38em">Chẩn đoán hình ảnh y học (Hình 7.9 SGK)</span>
+            <p style="font-size:var(--small-size);margin:0">Sử dụng siêu âm công suất nhỏ để khảo sát <b>thai nhi, gan – mật, thận, tim và mạch máu</b> theo thời gian thực, an toàn do không phát bức xạ ion hoá.</p>
+          </div>
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.38em">Điều trị: Tán sỏi ngoài cơ thể (ESWL)</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li>Đầu phát lõm hội tụ nhiều chùm sóng đi qua da an toàn (không gây tổn thương mô lành) và <b>tập trung năng lượng lớn đúng vào viên sỏi</b> tại tiêu điểm.</li>
+              <li>Hàng nghìn xung áp suất tác động liên tiếp làm sỏi thận, sỏi mật vỡ thành <b>các mảnh vụn nhỏ</b> để cơ thể đào thải tự nhiên mà không cần phẫu thuật.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lab" data-widget="hifu">
+          <div class="lab-top">
+            <span class="lab-tag">Tán sỏi ngoài cơ thể (ESWL)</span>
+            <div class="seg" data-vid-switch="eswl">
+              <button class="btn on" data-view="sim">🧪 Mô phỏng tán sỏi</button>
+              <button class="btn" data-view="yt">🎬 Video chi tiết</button>
+            </div>
+          </div>
+          <div class="canvas-box" style="min-height:235px">
+            <canvas id="hfCanvas"></canvas>
+            <div data-yt-wrap hidden style="position:absolute;inset:0">
+              <iframe
+                id="eswlYt"
+                data-yt-src="https://www.youtube.com/embed/_iqqEDAIGWg?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
+                title="Extracorporeal Shock Wave Lithotripsy (ESWL) — 3D Animation"
+                style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+              <div data-yt-file hidden style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding:1rem;text-align:center;background:radial-gradient(circle at 50% 35%, rgba(16,44,68,.92), #040b14 82%)">
+                <span class="pill pill-amber">Đang mở tệp trực tiếp (file://)</span>
+                <p style="margin:0;font-size:var(--small-size);color:var(--text-1);max-width:40ch">Trình duyệt chặn nhúng YouTube ở chế độ tệp cục bộ <code>file://</code>. Mở liên kết trực tiếp hoặc truy cập qua địa chỉ web.</p>
+                <a class="btn solid" href="https://www.youtube.com/watch?v=_iqqEDAIGWg" target="_blank" rel="noopener noreferrer" style="text-decoration:none">▶ Xem video 3D tán sỏi trên YouTube ↗</a>
+              </div>
+            </div>
+          </div>
+          <div class="ctrl" data-view-only="sim"><label for="hfPwr">Công suất hội tụ</label><input type="range" id="hfPwr" min="20" max="100" step="5" value="80"><output id="hfPwrOut">80%</output></div>
+          <div class="readout" data-view-only="sim" style="gap:.4rem;font-size:var(--small-size)">
+            <div class="seg">
+              <button class="btn solid" id="hfFire">▶ Phát xung tán sỏi</button>
+              <button class="btn" id="hfReset">↺ Viên sỏi mới</button>
+            </div>
+            <span>Da: <b class="hl">37,0 °C</b> · Sỏi: <b id="hfTarget" class="rose">sẵn sàng</b></span>
+          </div>
+          <p class="dim" data-view-only="yt" hidden style="font-size:var(--small-size);margin:0"><b>Video 3D tán sỏi ngoài cơ thể (ESWL · 1:30):</b> minh hoạ quy trình định vị viên sỏi và hội tụ chùm sóng làm sỏi vỡ thành mảnh nhỏ để cơ thể tự đào thải.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 31. SO SÁNH SIÊU ÂM, X-QUANG / CT VÀ MRI (ĐỐI CHIẾU Y HỌC) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="So sánh Siêu âm, X-quang / CT và MRI" data-min="1" data-note="Đối chiếu ba kĩ thuật chẩn đoán hình ảnh y học để giải đáp trọn vẹn vấn đề đặt ra ở đầu bài; nhấn Hiện đáp án để trình bày ba lí do ưu tiên siêu âm trong sản khoa.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">3. Đối chiếu Siêu âm, X-quang / CT và MRI trong y học</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <table class="tbl">
+            <thead><tr><th>Tiêu chí</th><th>Siêu âm</th><th>X-quang / CT</th><th>MRI</th></tr></thead>
+            <tbody>
+              <tr><td>Tác nhân vật lí</td><td>Sóng cơ học (1–15 MHz)</td><td>Tia X (bức xạ ion hoá)</td><td>Từ trường mạnh &amp; sóng vô tuyến (không ion hoá)</td></tr>
+              <tr><td>An toàn thai nhi</td><td>Rất cao (ưu tiên hàng đầu)</td><td>Hạn chế (nguy cơ ion hoá)</td><td>An toàn (trừ 3 tháng đầu; không tiêm thuốc đối quang từ)</td></tr>
+              <tr><td>Thế mạnh chẩn đoán</td><td>Thai nhi, ổ bụng, tim, mạch máu, mô mềm nông</td><td>Xương, phổi, chấn thương, cấp cứu</td><td>Não, tủy sống, dây chằng, khớp, mô mềm sâu</td></tr>
+              <tr><td>Thời gian khảo sát</td><td>Thời gian thực (tạo ảnh liên tục)</td><td>Nhanh (vài giây – vài phút; ảnh tĩnh / lát cắt)</td><td>Chậm (15–60 phút; cần nằm yên)</td></tr>
+              <tr><td>Chi phí &amp; cơ động</td><td>Thấp, thiết bị gọn nhẹ, cơ động</td><td>Trung bình (CT cao hơn X-quang thường)</td><td>Cao, phòng chắn từ cố định</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
+          <div class="card card-amber">
+            <span class="pill pill-amber" style="margin-bottom:.45em">Nguyên tắc an toàn</span>
+            <p style="font-size:var(--small-size);margin:0">Tuy không gây ion hoá, siêu âm công suất lớn kéo dài vẫn có thể làm <b>tăng nhiệt độ mô</b>. Do đó, y học tuân thủ nguyên tắc sử dụng mức công suất thấp nhất đủ để chẩn đoán chính xác.</p>
+          </div>
+          <div class="card card-accent" style="display:flex;flex-direction:column;gap:.5rem">
+            <span class="pill pill-blue" style="align-self:flex-start">Câu hỏi tổng kết</span>
+            <p style="font-size:var(--small-size);font-weight:600;margin:0">Dựa vào bảng so sánh bên trái, nêu 3 lí do vì sao y học ưu tiên sử dụng siêu âm để theo dõi thai nhi thay cho chụp X-quang / CT hay MRI?</p>
+            <button class="btn solid" data-reveal="xq" style="align-self:flex-start">Hiện đáp án</button>
+            <ul class="clean" id="xq" hidden>
+              <li>Không sử dụng bức xạ ion hoá → <b>an toàn cho thai nhi</b>.</li>
+              <li>Phân biệt rõ ranh giới giữa <b>mô mềm và dịch ối</b>.</li>
+              <li>Theo dõi <b>nhịp tim và cử động thai nhi</b> theo thời gian thực, có thể lặp lại nhiều lần.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 32. LÀM SẠCH & KHỬ KHUẨN BẰNG SIÊU ÂM (HÌNH 7.10 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm để làm sạch &amp; khử khuẩn" data-min="1" data-note="Trình bày theo Hình 7.10 SGK: bể rửa siêu âm (20–40 kHz) tạo hiện tượng bọt khí xâm thực (cavitation) làm sạch các khe rãnh kích thước nhỏ và hỗ trợ khử khuẩn dụng cụ y tế, rau quả, kính mắt, trang sức.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">4. Làm sạch, khử khuẩn và đời sống (Hình 7.10 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Cơ chế bọt khí xâm thực (Cavitation)</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Bước 1:</b> Đầu phát 20–40 kHz truyền sóng áp suất nén – dãn vào chất lỏng.</li>
+              <li><b>Bước 2:</b> Ở pha dãn, áp suất giảm mạnh tạo hàng triệu <b>bọt khí vi mô</b> trong dung dịch.</li>
+              <li class="amber-dot"><b>Bước 3:</b> Ở pha nén tiếp theo, bọt khí <b>co sụp tức thời</b> tạo sóng xung kích vi mô tách rời chất bẩn tại các khe rãnh nhỏ mà không làm trầy xước bề mặt.</li>
+            </ul>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.35em">Khử khuẩn, thực phẩm &amp; đời sống</span>
+            <p style="font-size:var(--small-size);color:var(--text-2);margin:0">Phá vỡ màng tế bào vi sinh vật để <b>khử khuẩn</b> dụng cụ y tế, rau quả; ứng dụng trong <b>công nghệ thực phẩm và nông nghiệp</b> (đồng nhất sữa, chiết xuất, xử lí hạt giống), cảm biến lùi ô tô và máy tạo ẩm siêu âm.</p>
+          </div>
+        </div>
+        <div class="lab">
+          <div class="lab-top">
+            <span class="lab-tag">Bể rửa siêu âm (40 kHz)</span>
+            <div class="seg" data-vid-switch="clean">
+              <button class="btn on" data-view="img">📷 Ảnh bể rửa</button>
+              <button class="btn" data-view="yt">🎬 Video minh hoạ</button>
+            </div>
+          </div>
+          <div class="canvas-box" style="min-height:255px">
+            <img src="__CLEANER_URL__" alt="Bể rửa siêu âm công nghiệp và phòng thí nghiệm Bandelin Sonorex" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#040b14;padding:6px">
+            <div data-yt-wrap hidden style="position:absolute;inset:0">
+              <iframe
+                id="cleanYt"
+                data-yt-src="https://www.youtube.com/embed/j06DGG_vc34?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
+                title="Thử nghiệm rửa kính mắt bằng máy rửa siêu âm"
+                style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+              <div data-yt-file hidden style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1.2rem;text-align:center;background:radial-gradient(circle at 50% 35%, rgba(16,44,68,.92), #040b14 82%)">
+                <span class="pill pill-amber">Đang mở tệp trực tiếp (file://)</span>
+                <p style="margin:0;font-size:var(--small-size);color:var(--text-1);max-width:40ch">Trình duyệt chặn nhúng YouTube ở chế độ tệp cục bộ <code>file://</code>. Mở liên kết trực tiếp hoặc truy cập qua địa chỉ web.</p>
+                <a class="btn solid" href="https://www.youtube.com/watch?v=j06DGG_vc34" target="_blank" rel="noopener noreferrer" style="text-decoration:none">▶ Xem video làm sạch bằng siêu âm trên YouTube ↗</a>
+              </div>
+            </div>
+          </div>
+          <p class="dim" style="font-size:var(--small-size);margin:0"><b>Bể rửa siêu âm (40 kHz):</b> đầu phát đặt dưới đáy truyền dao động vào dung dịch, làm sạch kính mắt, đồng hồ, trang sức và bản mạch điện tử.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 33. KHAI THÁC THUỶ SẢN (HÌNH 7.11 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm trong khai thác thuỷ sản" data-min="1" data-note="Trình bày theo Hình 7.11 SGK: nhấn Phát xung để đo thời gian phản xạ t và tính độ sâu đàn cá theo công thức h = v·t/2 với v ≈ 1500 m/s.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">5. Khai thác thuỷ sản (Hình 7.11 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="sonar">
+          <div class="lab-top"><span class="lab-tag">Máy dò đàn cá (Sonar)</span><span class="lab-hint">Phát xung để đo độ sâu</span></div>
+          <div class="canvas-box"><canvas id="snCanvas"></canvas></div>
+          <div class="readout">
+            <button class="btn solid" id="snFire">▶ Phát xung</button>
+            <span>t = <b id="snT">—</b></span>
+            <span>h = <span class="big" id="snH">—</span></span>
+          </div>
+          <button class="btn" id="snNew" style="align-self:flex-start">↻ Đổi độ sâu đàn cá</button>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.75rem">
+          <div class="formula">h = v · t / 2 <small>(v<sub>nước biển</sub> ≈ 1500 m/s)</small></div>
+          <ul class="clean">
+            <li>Trong nước biển, sóng siêu âm truyền đi rất xa và ít bị suy giảm hơn nhiều so với trong không khí.</li>
+            <li>Đầu dò gắn dưới đáy tàu phát <b>chùm sóng siêu âm hình nón</b> hướng xuống nước; khi gặp đàn cá, một phần sóng phản xạ trở lại đầu thu.</li>
+            <li>Dựa vào thời gian phản hồi <b>t</b> và cường độ sóng phản xạ, thiết bị xác định được <b>độ sâu, vị trí và mật độ đàn cá</b>, nâng cao hiệu quả khai thác thuỷ sản.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 34. NGHIÊN CỨU BIỂN VÀ ĐẠI DƯƠNG (HÌNH 7.12 SGK) ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Ứng dụng siêu âm trong nghiên cứu biển và đại dương" data-min="1" data-note="Quan sát mô phỏng tàu nghiên cứu phát chùm sóng siêu âm đa tia quét từ trái sang phải để dựng địa hình đáy biển (thềm lục địa, rãnh sâu 3850 m, núi ngầm 920 m và xác tàu đắm) theo công thức h = v·t/2.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">6. Nghiên cứu biển và đại dương (Hình 7.12 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.7rem">
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Đo độ sâu &amp; lập bản đồ đáy biển</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li>Ánh sáng bị nước biển hấp thụ rất mạnh, chỉ truyền được vài trăm mét; ngược lại <b>sóng siêu âm truyền đi rất xa</b> dưới đại dương.</li>
+              <li>Hệ thống Sonar đo thời gian phản xạ (<b>h = v·t/2</b>) theo nhiều hướng để lập <b>bản đồ địa hình đáy biển 3D</b>: xác định rãnh sâu, núi ngầm và thềm lục địa.</li>
+            </ul>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Địa chất biển, cứu nạn &amp; hải dương học</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Khảo sát địa chất &amp; tìm kiếm:</b> thăm dò các lớp trầm tích đáy biển, phát hiện tàu đắm, vật thể chìm và kiểm tra đường ống ngầm.</li>
+              <li><b>Theo dõi môi trường biển:</b> đo vận tốc dòng hải lưu (nhờ hiệu ứng Doppler) và nghiên cứu sự phân bố của sinh vật biển sâu.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="lab" data-widget="ocean">
+          <div class="lab-top">
+            <span class="lab-tag">Sonar đa tia lập bản đồ đáy biển</span>
+            <span class="lab-hint">Quét để dựng địa hình</span>
+          </div>
+          <div class="canvas-box" style="min-height:255px"><canvas id="ocCanvas"></canvas></div>
+          <div class="ctrl"><label for="ocSpd">Tốc độ tàu quét</label><input type="range" id="ocSpd" min="40" max="220" step="10" value="100"><output id="ocSpdOut">1,0×</output></div>
+          <div class="readout">
+            <div class="seg">
+              <button class="btn solid" id="ocToggle">⏸ Tạm dừng</button>
+              <button class="btn" id="ocRestart">↻ Quét lại</button>
+            </div>
+            <span>h = <b id="ocDepth" class="hl">—</b> · <b id="ocZone" class="amber">Đang quét…</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 35. KIỂM TRA NHANH 06 ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Kiểm tra nhanh 06 · Tính độ sâu Sonar" data-min="0.5" data-note="Vận dụng nhanh công thức h = v·t/2 để tính độ sâu đáy biển từ thời gian phản xạ Sonar.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">V. Ứng dụng của siêu âm</span>
+      <h2 class="anim-fade-up">Kiểm tra nhanh · Đo độ sâu đáy biển bằng Sonar</h2>
+    </div>
+    <div class="s-body">
+      <div class="checkpoint-box">
+        <span class="pill pill-amber" style="align-self:flex-start">Câu 6 / 6</span>
+        <div class="checkpoint-q">Tàu khảo sát phát xung siêu âm xuống đáy biển, sau 4,0 s thu được sóng phản xạ (v = 1500 m/s). Độ sâu đáy biển tại vị trí đó bằng bao nhiêu?</div>
+        <div class="checkpoint-opts">
+          <button data-ok="0">A. 1500 m</button>
+          <button data-ok="1">B. 3000 m</button>
+          <button data-ok="0">C. 6000 m</button>
+        </div>
+        <div class="checkpoint-fb">Chính xác. h = v · t / 2 = 1500 × 4,0 / 2 = <b>3000 m</b> (chia 2 do sóng truyền theo cả lượt đi từ tàu tới đáy biển và lượt phản xạ trở về).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 36. VẬN DỤNG TỔNG HỢP: 2 TÌNH HUỐNG THỰC TẾ ============ -->
+<section class="slide" data-sec="V. Ứng dụng" data-title="Vận dụng: Phân tích hai tình huống thực tế" data-min="1.5" data-note="Sử dụng đồng hồ đếm ngược 90 giây để phân tích Tình huống 1 (chẩn đoán gan mật) và Tình huống 2 (kiểm tra mối hàn đường ống), sau đó nhấn Hiện phân tích để đối chiếu lời giải.">
+  <div class="slide-inner">
+    <div class="s-head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap">
+      <div>
+        <span class="kicker">V. Ứng dụng của siêu âm</span>
+        <h2 class="anim-fade-up">Vận dụng · Phân tích hai tình huống thực tế</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.35em">
+        <span class="pill pill-amber mono" id="caseClockText">01:30</span>
+        <button class="btn" id="caseClockBtn">▶ Đếm 90s</button>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="cols" style="flex:0 0 auto;align-items:stretch">
+        <div class="card card-teal" style="display:flex;flex-direction:column;gap:.55rem">
+          <span class="pill pill-aqua" style="align-self:flex-start">Tình huống 1 · Chẩn đoán gan mật</span>
+          <p style="font-size:var(--body-size);margin:0">Bệnh nhân đau vùng hạ sườn phải (túi mật ở độ sâu khoảng 8–12 cm). Trên ảnh siêu âm kiểu B, túi mật hiển thị vùng trống âm (tối), bên trong có một vùng tăng âm sáng và phía sau là một <b>vùng tối kéo dài</b>.</p>
+          <ul class="clean" style="font-size:var(--small-size)">
+            <li>1. Nên chọn đầu dò thẳng (10 MHz) hay đầu dò cong (3,5 MHz)?</li>
+            <li>2. Vùng tăng âm sáng kèm vùng tối kéo dài phía sau biểu thị dấu hiệu gì?</li>
+          </ul>
+          <button class="btn" data-reveal="case1" style="align-self:flex-start;margin-top:auto">Hiện phân tích</button>
+          <p class="reveal-ans" id="case1" hidden style="font-size:var(--small-size);color:var(--text-2);margin:0">Chọn <b>đầu dò cong 3,5 MHz</b> để đạt độ xuyên sâu 12 cm. Vùng tăng âm phản xạ mạnh kèm <b>bóng lưng âm</b> phía sau là dấu hiệu điển hình của <b>sỏi mật</b>.</p>
+        </div>
+        <div class="card card-accent" style="display:flex;flex-direction:column;gap:.55rem">
+          <span class="pill pill-blue" style="align-self:flex-start">Tình huống 2 · Kiểm tra mối hàn đường ống</span>
+          <p style="font-size:var(--body-size);margin:0">Đặt đầu dò lên tấm thép dày <b>10 cm</b> (v<sub>thép</sub> = 5900 m/s). Máy siêu âm kiểu A ghi nhận xung mặt đáy ở thời điểm <b>t<sub>đáy</sub> = 33,9 µs</b>, đồng thời xuất hiện thêm một xung phản xạ ở <b>t = 13,6 µs</b>.</p>
+          <ul class="clean" style="font-size:var(--small-size)">
+            <li>1. Mối hàn có đạt tiêu chuẩn kĩ thuật không?</li>
+            <li>2. Khuyết tật nằm cách mặt trên của tấm thép bao nhiêu cm?</li>
+          </ul>
+          <button class="btn" data-reveal="case2" style="align-self:flex-start;margin-top:auto">Hiện phân tích</button>
+          <p class="reveal-ans" id="case2" hidden style="font-size:var(--small-size);color:var(--text-2);margin:0"><b>Không đạt chuẩn</b> do xuất hiện xung phản xạ sớm. Độ sâu khuyết tật: d = 5900 × (13,6×10⁻⁶) / 2 ≈ <b>0,040 m = 4,0 cm</b>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

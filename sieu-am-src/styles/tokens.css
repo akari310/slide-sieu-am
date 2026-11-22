@@ -1,0 +1,169 @@
+/* ============================================================
+   TOKENS & BASE — Dark Acoustic Studio · Liquid Glass (Flagship)
+   ============================================================ */
+:root {
+  --bg: #070d19;
+  --bg-soft: #0d182b;
+  --surface: rgba(15, 27, 48, 0.72);
+  --surface-solid: rgba(14, 26, 46, 0.92);
+  --surface-2: rgba(24, 44, 76, 0.84);
+  --border: rgba(148, 197, 255, 0.16);
+  --border-strong: rgba(148, 197, 255, 0.32);
+
+  --text-1: #f0f6ff;
+  --text-2: #a8bed8;
+  --text-3: #6f89ab;
+
+  --accent: #38bdf8;
+  --accent-ink: #04101f;
+  --accent-2: #60a5fa;
+  --accent-teal: #3fe3c8;
+  --accent-amber: #ffb454;
+  --accent-rose: #ff6f85;
+
+  --good: #22c55e;
+  --good-bg: rgba(34, 197, 94, 0.14);
+  --warn: #ffb454;
+  --warn-bg: rgba(255, 180, 84, 0.14);
+  --bad: #ff6f85;
+  --bad-bg: rgba(255, 111, 133, 0.15);
+
+  --scr-bg: #040b14;
+  --scr-bg-2: #0a1626;
+  --scr-line: rgba(63, 227, 200, 0.24);
+  --scr-text: #dceef2;
+  --scr-muted: #8aaab6;
+  --scr-cyan: #3fe3c8;
+  --scr-ice: #8bd3ff;
+  --scr-amber: #ffb454;
+  --scr-rose: #ff6f85;
+
+  --topbar-bg: rgba(7, 13, 25, 0.82);
+  --overlay-bg: rgba(6, 12, 23, 0.95);
+  --glass-blur: blur(16px);
+
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 38px -16px rgba(0, 0, 0, 0.72);
+  --shadow-lg: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 24px 56px -18px rgba(0, 0, 0, 0.85);
+
+  --sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --topbar-h: 52px;
+  --pad: clamp(1.1rem, 3.6vw, 3.6rem);
+  --h1-size: clamp(2.8rem, 8.2vw, 6.2rem);
+  --h2-size: clamp(1.16rem, 1.72vw, 1.62rem);
+  --h3-size: clamp(1.02rem, 1.28vw, 1.18rem);
+  --body-size: clamp(0.95rem, 1.08vw, 1.1rem);
+  --small-size: clamp(0.84rem, 0.96vw, 0.98rem);
+  --ease: cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+
+html[data-theme="light"] {
+  --bg: #f4f7fc;
+  --bg-soft: #eaf0f8;
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-solid: #ffffff;
+  --surface-2: #edf3fb;
+  --border: rgba(12, 34, 74, 0.14);
+  --border-strong: rgba(12, 34, 74, 0.28);
+
+  --text-1: #0b1b3a;
+  --text-2: #3b4d6e;
+  --text-3: #6c7d9b;
+
+  --accent: #0d2b6b;
+  --accent-ink: #ffffff;
+  --accent-2: #1659d6;
+  --accent-teal: #0b7a6f;
+  --accent-amber: #c26508;
+  --accent-rose: #c92a2a;
+
+  --good: #0e7348;
+  --good-bg: rgba(14, 115, 72, 0.1);
+  --warn: #c26508;
+  --warn-bg: rgba(194, 101, 8, 0.1);
+  --bad: #c92a2a;
+  --bad-bg: rgba(201, 42, 42, 0.1);
+
+  --topbar-bg: rgba(255, 255, 255, 0.9);
+  --overlay-bg: rgba(244, 247, 252, 0.96);
+  --shadow: 0 10px 28px -12px rgba(11, 27, 58, 0.14), 0 2px 6px -1px rgba(11, 27, 58, 0.06);
+  --shadow-lg: 0 18px 42px -16px rgba(11, 27, 58, 0.2), 0 4px 12px -2px rgba(11, 27, 58, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Quan trọng: đảm bảo thuộc tính [hidden] luôn ẩn bất kể display:flex/grid */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+body {
+  font-family: var(--sans);
+  font-size: var(--body-size);
+  line-height: 1.5;
+  color: var(--text-1);
+  background:
+    radial-gradient(52vw 52vw at 88% 8%, rgba(63, 227, 200, 0.13), transparent 60%),
+    radial-gradient(50vw 50vw at 10% 92%, rgba(56, 189, 248, 0.14), transparent 58%),
+    radial-gradient(36vw 36vw at 22% 14%, rgba(255, 180, 84, 0.05), transparent 55%),
+    radial-gradient(rgba(148, 197, 255, 0.12) 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, auto, auto, 28px 28px, auto;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(55vw 55vw at 92% 4%, rgba(22, 89, 214, 0.07), transparent 62%),
+    radial-gradient(45vw 45vw at 6% 96%, rgba(11, 122, 111, 0.07), transparent 60%),
+    radial-gradient(rgba(11, 27, 58, 0.08) 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, auto, 28px 28px, auto;
+  background-attachment: fixed;
+}
+
+img, svg, canvas, video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+code, kbd, pre, samp {
+  font-family: var(--mono);
+}
+
+::selection {
+  background: rgba(63, 227, 200, 0.25);
+  color: var(--text-1);
+}

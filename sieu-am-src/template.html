@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Siêu âm — Vật lí 12 (Chuyên đề 2, Bài 7)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* {{STYLES}} */
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <span>SIÊU ÂM · VẬT LÍ 12</span><span class="sep">/</span>
+    <span class="sec" id="secName">Mở đầu</span>
+  </div>
+  <div class="tools">
+    <span class="tchip plan" id="planChip">⌛ <b>—</b></span>
+    <span class="tchip" id="timeChip">⏱ <b>00:00</b></span>
+    <button class="icon-btn" id="themeBtn" title="Đổi giao diện Sáng / Tối (D)">Sáng</button>
+    <button class="icon-btn" id="penBtn" title="Bút vẽ trên trang chiếu (P)">Bút</button>
+    <button class="icon-btn" id="laserBtn" title="Con trỏ Laser (L)">Laser</button>
+    <button class="icon-btn" id="clearPenBtn" title="Xoá nét vẽ (E)" hidden>Xoá nét</button>
+    <button class="icon-btn" id="notesBtn" title="Ghi chú nhanh tại chỗ (N)">N</button>
+    <button class="icon-btn" id="speakerBtn" title="Mở trang riêng cho người thuyết trình (S)">S</button>
+    <button class="icon-btn" id="gridBtn" title="Mục lục bài trình chiếu (O)">O</button>
+    <button class="icon-btn" id="helpBtn" title="Phím tắt (?)">?</button>
+  </div>
+</header>
+<div class="progress"><i id="bar"></i></div>
+<nav class="rail" id="rail" aria-label="Điều hướng slide"></nav>
+<div class="hud"><b id="curNum">01</b><span class="bar"></span><span id="totNum">39</span><span id="curSec">MỞ ĐẦU</span></div>
+<div class="nav-arrows" aria-label="Chuyển slide">
+  <button id="prevBtn" title="Slide trước (←)" aria-label="Slide trước">‹</button>
+  <button id="nextBtn" title="Slide tiếp theo (→)" aria-label="Slide tiếp theo">›</button>
+</div>
+
+<canvas class="draw-layer" id="drawCanvas"></canvas>
+<div class="laser-dot" id="laserDot"></div>
+
+<main id="deck">
+<!-- {{SLIDES}} -->
+</main>
+
+<aside class="notes" id="notes" aria-live="polite">
+  <h4>Ghi chú trình bày · Slide <span id="noteSlide">01</span></h4>
+  <p id="noteBody">—</p>
+  <div class="meta"><span id="noteTime">⌛ —</span><span>Nhấn N hoặc Esc để đóng</span></div>
+</aside>
+
+<div class="overlay" id="overview">
+  <div class="ov-head">
+    <h3 id="ovTitle">Mục lục bài trình chiếu · 39 slide</h3>
+    <button class="icon-btn" id="ovClose">Đóng (Esc)</button>
+  </div>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+
+<div class="overlay" id="help">
+  <div class="help">
+    <div class="ov-head">
+      <h3>Phím tắt &amp; công cụ trình chiếu</h3>
+      <button class="icon-btn" id="helpClose">Đóng (Esc)</button>
+    </div>
+    <div class="row"><span>Slide tiếp / lùi</span><span><kbd>→</kbd> <kbd>←</kbd> <kbd>Space</kbd> <kbd>PgUp</kbd> <kbd>PgDn</kbd></span></div>
+    <div class="row"><span>Về đầu / cuối bài</span><span><kbd>Home</kbd> <kbd>End</kbd></span></div>
+    <div class="row"><span>Bật / tắt bút vẽ trực tiếp</span><span><kbd>P</kbd> (xoá nét: <kbd>E</kbd>)</span></div>
+    <div class="row"><span>Bật / tắt con trỏ Laser đỏ</span><span><kbd>L</kbd></span></div>
+    <div class="row"><span>Mở cửa sổ riêng cho người thuyết trình</span><span><kbd>S</kbd> (trên điện thoại: mở <code>speaker.html</code>)</span></div>
+    <div class="row"><span>Ghi chú nhanh tại chỗ</span><span><kbd>N</kbd></span></div>
+    <div class="row"><span>Mục lục nhảy nhanh</span><span><kbd>O</kbd></span></div>
+    <div class="row"><span>Bật / tạm dừng đồng hồ trình bày</span><span><kbd>T</kbd> (đặt lại: <kbd>R</kbd>)</span></div>
+    <div class="row"><span>Toàn màn hình</span><span><kbd>F</kbd></span></div>
+    <div class="row"><span>In / Xuất PDF</span><span><kbd>Ctrl</kbd> + <kbd>P</kbd> → Lưu PDF</span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* {{SCRIPTS}} */
+</script>
+</body>
+</html>

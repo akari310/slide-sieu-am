@@ -1,0 +1,138 @@
+<!-- ============ 01. BÌA ============ -->
+<section class="slide cover" data-sec="Mở đầu" data-title="Siêu âm — Vật lí 12" data-min="0.5" data-note="Giới thiệu Bài 7: Siêu âm (Chuyên đề 2, Vật lí 12). Nội dung trọng tâm gồm bản chất vật lí của siêu âm, cơ chế phát – thu bằng hiệu ứng áp điện, nguyên lí tạo ảnh trong y học và các ứng dụng tiêu biểu trong khoa học – kĩ thuật.">
+  <svg class="cover-motif" viewBox="0 0 640 280" aria-hidden="true">
+    <defs>
+      <linearGradient id="cmG1" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0"/>
+        <stop offset="28%" stop-color="#3fe3c8" stop-opacity="0.85"/>
+        <stop offset="68%" stop-color="#38bdf8" stop-opacity="0.72"/>
+        <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="cmG2" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#60a5fa" stop-opacity="0"/>
+        <stop offset="42%" stop-color="#3fe3c8" stop-opacity="0.48"/>
+        <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <!-- Dải gói sóng siêu âm tần số cao lan mượt trong không gian -->
+    <line x1="20" y1="140" x2="620" y2="140" stroke="rgba(139,211,255,0.14)" stroke-width="1" stroke-dasharray="4 6"/>
+    <path class="cm-wave cm1" d="M20 140 C48 140, 62 118, 78 140 C94 162, 108 86, 126 140 C144 194, 158 54, 178 140 C198 226, 214 34, 236 140 C258 246, 274 34, 296 140 C318 246, 336 46, 358 140 C380 234, 398 76, 418 140 C438 204, 456 102, 476 140 C496 178, 514 122, 534 140 C554 158, 582 140, 620 140" stroke="url(#cmG1)" stroke-width="2.6" fill="none"/>
+    <path class="cm-wave cm2" d="M20 140 C52 140, 68 156, 86 140 C104 124, 120 182, 140 140 C160 98, 178 212, 200 140 C222 68, 240 226, 264 140 C288 54, 306 218, 330 140 C354 62, 372 194, 394 140 C416 86, 434 172, 456 140 C478 108, 496 154, 520 140 C544 126, 576 140, 620 140" stroke="url(#cmG2)" stroke-width="1.8" fill="none"/>
+    <path class="cm-wave cm3" d="M60 140 C92 140, 110 120, 132 140 C154 160, 174 96, 198 140 C222 184, 244 82, 270 140 C296 198, 318 90, 344 140 C370 190, 392 110, 416 140 C440 170, 464 126, 490 140 C516 154, 548 140, 590 140" stroke="rgba(139,211,255,0.28)" stroke-width="1.3" fill="none"/>
+  </svg>
+  <div class="ghost-num" aria-hidden="true">07</div>
+  <div class="slide-inner cover-inner">
+    <div class="cover-top">
+      <span class="kicker">Vật lí 12 · Chuyên đề 2 · Bài 7</span>
+      <span class="pill pill-blue">Chẩn đoán hình ảnh &amp; kĩ thuật</span>
+    </div>
+    <div class="cover-hero">
+      <h1 class="reveal">SIÊU<br><span class="outline">ÂM</span></h1>
+      <p class="cover-sub reveal" style="--d:1">Sóng cơ học có tần số trên 20 kHz — từ cơ chế định vị của loài dơi đến chẩn đoán hình ảnh y học và kĩ thuật hiện đại.</p>
+    </div>
+    <div class="cover-outline reveal" style="--d:2">
+      <button type="button" data-jump-sec="I. Siêu âm"><b>I.</b> Siêu âm</button>
+      <button type="button" data-jump-sec="II. Cách tạo"><b>II.</b> Cách tạo ra siêu âm</button>
+      <button type="button" data-jump-sec="III. Máy siêu âm"><b>III.</b> Nguyên lí máy siêu âm</button>
+      <button type="button" data-jump-sec="IV. Tạo ảnh"><b>IV.</b> Tạo hình ảnh</button>
+      <button type="button" data-jump-sec="V. Ứng dụng"><b>V.</b> Ứng dụng</button>
+    </div>
+    <div class="cover-foot">
+      <span><b class="blue">→</b> chuyển trang · <b class="blue">S</b> trang thuyết trình · <b class="blue">P</b> bút vẽ · <b class="blue">L</b> laser</span>
+      <span class="mono">v<sub>mô mềm</sub> ≈ 1540 m/s &nbsp;·&nbsp; λ = v / f &nbsp;·&nbsp; d = v·Δt / 2</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02. ĐẶT VẤN ĐỀ ============ -->
+<section class="slide" data-sec="Mở đầu" data-title="Quan sát thai nhi không dùng tia X" data-min="1.5" data-note="Quan sát hình ảnh siêu âm 2D bên phải và chuyển sang mục Video 4D thực tế để theo dõi cử động thai nhi. Từ đó đặt vấn đề về tác nhân vật lí được sử dụng trong chẩn đoán sản khoa thay cho tia X.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">Đặt vấn đề</span>
+      <h2 class="anim-fade-up">Quan sát thai nhi không phẫu thuật và không dùng tia X</h2>
+      <p class="lead">Tia X trong X-quang và CT có khả năng ion hoá, tiềm ẩn rủi ro với tế bào thai nhi đang phân chia.</p>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <div class="poll" id="poll">
+            <button data-ok="0"><span class="l">Phương án A</span><span class="v">Ánh sáng xuyên mô</span><span class="r">Chưa chính xác. Ánh sáng khả kiến bị da và lớp mô dưới da hấp thụ, tán xạ mạnh ngay ở độ sâu vài milimét.</span></button>
+            <button data-ok="1"><span class="l">Phương án B</span><span class="v">Sóng âm tần số cao</span><span class="r">Chính xác. Thiết bị phát xung sóng cơ học có tần số trên 20 kHz và thu tín hiệu sóng phản xạ từ các mặt phân cách mô.</span></button>
+            <button data-ok="0"><span class="l">Phương án C</span><span class="v">Từ trường mạnh</span><span class="r">Chưa chính xác. Đây là nguyên lí của chụp cộng hưởng từ (MRI), hệ thống có kích thước lớn và chi phí vận hành cao.</span></button>
+          </div>
+          <p class="note-line" style="margin-top:.85rem">Chọn một phương án để kiểm tra đáp án và phần giải thích.</p>
+        </div>
+        <div class="txt stretch">
+          <div class="lab" style="height:100%">
+            <div class="lab-top">
+              <span class="lab-tag">Siêu âm thai nhi thực tế</span>
+              <div class="seg" data-vid-switch="fetal">
+                <button class="btn on" data-view="sim">2D · Kiểu B</button>
+                <button class="btn" data-view="vid">🎬 Video 4D thực tế</button>
+              </div>
+            </div>
+            <div class="canvas-box" style="min-height:220px">
+              <canvas id="fetalCanvas"></canvas>
+              <video id="fetalVideo4d" controls loop muted playsinline hidden style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#040b14" src="__FETAL4D_DATA_URL__"></video>
+            </div>
+            <p class="dim" data-view-only="sim" style="font-size:var(--small-size);margin:0">Vùng sáng ứng với các mặt phân cách phản xạ mạnh; vùng dịch ối truyền sóng tốt, ít phản xạ nên hiển thị màu tối.</p>
+            <p class="dim" data-view-only="vid" hidden style="font-size:var(--small-size);margin:0"><b>Siêu âm 4D thực tế:</b> ghép liên tiếp nhiều lát cắt khối 3D giúp quan sát cử động của thai nhi theo thời gian thực.</p>
+            <div class="chip-row">
+              <span class="pill">Không bức xạ ion hoá</span>
+              <span class="pill">Quan sát thời gian thực</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03. LỊCH SỬ PHÁT HIỆN & PHÁT TRIỂN ============ -->
+<section class="slide" data-sec="Mở đầu" data-title="Lịch sử phát hiện &amp; phát triển siêu âm" data-min="1.5" data-note="Khái quát 4 mốc lịch sử tiêu biểu: thí nghiệm của Spallanzani (1794), phát hiện hiệu ứng áp điện của anh em Curie (1880), hệ thống Sonar của Langevin (1917) và ứng dụng sản khoa của Ian Donald từ năm 1958 đến nay.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">Lịch sử phát triển</span>
+      <h2 class="anim-fade-up">Các dấu mốc nghiên cứu và ứng dụng siêu âm</h2>
+    </div>
+    <div class="s-body" style="gap:.85rem">
+      <div class="hist-grid">
+        <article class="hist-card">
+          <img src="__SPALLANZANI_URL__" alt="Lazzaro Spallanzani">
+          <div class="hist-card-body">
+            <span class="pill pill-aqua" style="align-self:flex-start">1794 · Ý</span>
+            <b>Lazzaro Spallanzani</b>
+            <p>Phát hiện dơi dù bị che mắt vẫn tránh được các dây chuông nhờ thính giác (sau này xác định là sóng siêu âm &gt; 20 kHz).</p>
+          </div>
+        </article>
+        <article class="hist-card">
+          <img src="__CURIE_URL__" alt="Pierre Curie">
+          <div class="hist-card-body">
+            <span class="pill pill-blue" style="align-self:flex-start">1880 · Pháp</span>
+            <b>Pierre &amp; Jacques Curie</b>
+            <p>Phát hiện hiệu ứng áp điện trên tinh thể thạch anh, tạo cơ sở chế tạo nguồn phát siêu âm.</p>
+          </div>
+        </article>
+        <article class="hist-card">
+          <img src="__LANGEVIN_URL__" alt="Paul Langevin">
+          <div class="hist-card-body">
+            <span class="pill pill-amber" style="align-self:flex-start">1917 · Pháp</span>
+            <b>Paul Langevin</b>
+            <p>Sau sự cố tàu Titanic (1912), ứng dụng tinh thể thạch anh chế tạo hệ thống Sonar phát hiện vật thể dưới nước.</p>
+          </div>
+        </article>
+        <article class="hist-card">
+          <div class="hist-duo">
+            <img src="__IAN_DONALD_URL__" alt="Bác sĩ Ian Donald">
+            <img src="__DOPPLER_REAL_URL__" alt="Siêu âm y học hiện đại">
+          </div>
+          <div class="hist-card-body">
+            <span class="pill pill-aqua" style="align-self:flex-start">1958 – Nay</span>
+            <b>Ian Donald &amp; Y học</b>
+            <p>Ứng dụng siêu âm vào sản khoa; hiện nay phát triển thành siêu âm 2D, 3D/4D và Doppler màu.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

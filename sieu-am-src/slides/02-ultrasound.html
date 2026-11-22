@@ -1,0 +1,201 @@
+<!-- ============ 04. ĐỊNH NGHĨA + LAB 1 + WEB AUDIO ============ -->
+<section class="slide" data-sec="I. Siêu âm" data-title="Siêu âm là gì? Thang tần số" data-min="1.5" data-note="Bật chức năng Nghe thử tần số và kéo thanh trượt tăng dần từ 500 Hz qua 10 kHz, 16 kHz và 20 kHz: âm thanh có độ cao tăng dần rồi không còn nghe thấy khi vượt quá giới hạn trên 20 kHz của tai người, trong khi nhiều loài động vật vẫn cảm nhận được.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">I. Siêu âm</span>
+      <h2 class="anim-fade-up">1. Khái niệm và thang tần số âm</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <p class="lead">Sóng âm được phân loại dựa trên <b>khả năng nghe của con người</b> và không khác nhau về bản chất vật lí: đều là sóng cơ học lan truyền trong các môi trường đàn hồi.</p>
+          <div class="formula" style="margin:.7rem 0">16 Hz ≤ f<sub>nghe được</sub> ≤ 20 kHz &lt; f<sub>siêu âm</sub></div>
+          <ul class="clean">
+            <li><b>Hạ âm (&lt; 16 Hz):</b> voi, cá voi sử dụng để giao tiếp ở khoảng cách xa.</li>
+            <li><b>Âm thanh nghe được (16 Hz – 20 kHz):</b> nằm trong giới hạn thính giác của con người.</li>
+            <li><b>Siêu âm (&gt; 20 kHz):</b> dơi, cá heo sử dụng để định vị; y học sử dụng dải <b>1 – 15 MHz</b>.</li>
+          </ul>
+          <div class="photo-strip" style="margin-top:.75rem">
+            <img src="__BAT_URL__" alt="Dơi tai to định vị bằng siêu âm">
+            <div>
+              <span class="pill pill-aqua" style="margin-bottom:.3em">Trong tự nhiên · Loài dơi</span>
+              <p style="font-size:var(--small-size);margin:0;color:var(--text-2)">Dơi phát xung siêu âm <b>40–100 kHz</b> để định vị con mồi. Bật <b>Nghe thử tần số</b> bên phải và kéo vượt mốc 20 kHz để kiểm chứng giới hạn nghe của tai người.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lab" data-widget="freq">
+          <div class="lab-top"><span class="lab-tag">Thang tần số âm thanh</span><span class="lab-hint">Kéo thanh trượt hoặc chọn loài vật</span></div>
+          <div class="freq-zone" id="fqZone">
+            <div class="fz" data-z="infra" style="--w:17.2%"><b>HẠ ÂM</b><span>&lt; 16 Hz</span></div>
+            <div class="fz" data-z="audio" style="--w:44.2%"><b>NGHE ĐƯỢC</b><span>16 Hz – 20 kHz</span></div>
+            <div class="fz" data-z="ultra" style="--w:38.6%"><b>SIÊU ÂM</b><span>&gt; 20 kHz</span></div>
+            <div class="needle" id="fqNeedle"></div>
+          </div>
+          <div class="freq-read">
+            <span class="val" id="fqVal">2,00 MHz</span>
+            <span class="cls" id="fqCls">SIÊU ÂM</span>
+          </div>
+          <input type="range" id="fqRange" min="0" max="1000" value="930" step="1" aria-label="Tần số">
+          <div class="animal-row" id="fqAnimals">
+            <div class="animal" data-lim="20000">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>
+              <b>Người</b>20 kHz
+            </div>
+            <div class="animal" data-lim="45000">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10c0-2.5 1.8-5.5 3.5-6l1.5 2.5h4L15.5 4c1.7.5 3.5 3.5 3.5 6 0 2-1.2 3.2-2.2 3.7L17.5 20h-3l-.7-4h-3.6l-.7 4h-3l.7-6.3C6.2 13.2 5 12 5 10z"/></svg>
+              <b>Chó</b>45 kHz
+            </div>
+            <div class="animal" data-lim="64000">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l3.5 3.2A7 7 0 0 1 14.5 7.2L18 4l.8 6.5A6.2 6.2 0 0 1 12 18a6.2 6.2 0 0 1-6.8-7.5z"/></svg>
+              <b>Mèo</b>64 kHz
+            </div>
+            <div class="animal" data-lim="100000">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11c-2.5-2.5-6.5-5-10-4.5 1.8 2 2.2 4 1.5 6 2-.3 3.5.6 4.5 2l1.8-1.2L12 17l2.2-3.7 1.8 1.2c1-1.4 2.5-2.3 4.5-2-.7-2-.3-4 1.5-6-3.5-.5-7.5 2-10 4.5z"/></svg>
+              <b>Dơi</b>100 kHz
+            </div>
+            <div class="animal" data-lim="150000">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 15c3-5.5 8.5-8 14-6l3-3-.7 4.2c2.5 1.4 3.7 3.4 3.7 5.3-3-1.2-5.5-1.2-8 .4-3.5 2.2-8 1.8-12-.9z"/></svg>
+              <b>Cá heo</b>150 kHz
+            </div>
+          </div>
+          <div class="readout">
+            <button class="btn" id="fqAudio">🔊 Nghe thử tần số</button>
+            <span class="dim" style="font-size:var(--small-size)">Ô xanh = còn nghe được</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05. KIỂM TRA NHANH 01 ============ -->
+<section class="slide" data-sec="I. Siêu âm" data-title="Kiểm tra nhanh 01 · Bản chất siêu âm" data-min="0.5" data-note="Củng cố nhanh bản chất sóng cơ học của siêu âm trước khi chuyển sang tốc độ truyền sóng trong các môi trường.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">I. Siêu âm</span>
+      <h2 class="anim-fade-up">Kiểm tra nhanh · Bản chất của sóng siêu âm</h2>
+    </div>
+    <div class="s-body">
+      <div class="checkpoint-box">
+        <span class="pill pill-amber" style="align-self:flex-start">Câu 1 / 6</span>
+        <div class="checkpoint-q">Đặc điểm nào sau đây đúng với sóng siêu âm?</div>
+        <div class="checkpoint-opts">
+          <button data-ok="1">A. Là sóng cơ học có tần số lớn hơn 20 kHz</button>
+          <button data-ok="0">B. Là sóng điện từ không cần môi trường</button>
+          <button data-ok="0">C. Truyền nhanh nhất trong chân không</button>
+        </div>
+        <div class="checkpoint-fb">Chính xác. Sóng siêu âm có bản chất là <b>sóng cơ học</b> nên cần môi trường vật chất (rắn, lỏng, khí) để lan truyền và có tần số lớn hơn 20 kHz, vượt trên giới hạn trên của âm thanh nghe được.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06. TỐC ĐỘ TRUYỀN & TRỞ KHÁNG ÂM ============ -->
+<section class="slide" data-sec="I. Siêu âm" data-title="Tốc độ truyền &amp; trở kháng âm" data-min="1" data-note="Phân tích biểu đồ tốc độ truyền âm để rút ra quy luật v_rắn &gt; v_lỏng &gt; v_khí. Giải thích giá trị chuẩn v = 1540 m/s của máy siêu âm lâm sàng và giá trị xấp xỉ 1500 m/s thường dùng trong tính toán.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">I. Siêu âm</span>
+      <h2 class="anim-fade-up">2. Tốc độ truyền sóng và trở kháng âm</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols wide-left">
+        <div class="txt">
+          <div style="display:flex;flex-direction:column;gap:.46rem">
+            <div class="bar-row"><span>Không khí</span><div class="track"><i style="width:6%"></i></div><span class="mono">343</span></div>
+            <div class="bar-row"><span>Mỡ</span><div class="track"><i style="width:24.5%"></i></div><span class="mono">1450</span></div>
+            <div class="bar-row"><span>Nước</span><div class="track"><i style="width:25%"></i></div><span class="mono">1480</span></div>
+            <div class="bar-row"><span>Mô mềm</span><div class="track"><i style="width:26%;background:linear-gradient(90deg,#0b7a6f,#19a998)"></i></div><span class="mono hl">1540</span></div>
+            <div class="bar-row"><span>Cơ</span><div class="track"><i style="width:27%"></i></div><span class="mono">1580</span></div>
+            <div class="bar-row"><span>Xương</span><div class="track"><i style="width:69%"></i></div><span class="mono">4080</span></div>
+            <div class="bar-row"><span>Thạch anh</span><div class="track"><i style="width:97%"></i></div><span class="mono">5700</span></div>
+            <div class="bar-row"><span>Thép</span><div class="track"><i style="width:100%"></i></div><span class="mono">5900</span></div>
+          </div>
+          <p class="dim" style="font-size:var(--small-size);margin-top:.65rem">Đơn vị: m/s (ở nhiệt độ phòng ~20 °C). Cơ thể người chứa khoảng 65% nước nên tốc độ truyền âm trong mô mềm gần tương đương trong nước.</p>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
+          <div class="card card-accent">
+            <h3 style="margin-bottom:.3em">Quy luật truyền sóng</h3>
+            <ul class="clean">
+              <li><b>v<sub>rắn</sub> &gt; v<sub>lỏng</sub> &gt; v<sub>khí</sub></b>; sóng siêu âm không truyền được trong chân không.</li>
+              <li>Thiết bị lâm sàng lấy giá trị chuẩn <b>v = 1540 m/s</b> (trong bài tập thường lấy xấp xỉ <b>1500 m/s</b>).</li>
+            </ul>
+          </div>
+          <div class="card card-amber">
+            <span class="pill pill-amber" style="margin-bottom:.45em">Trở kháng âm học</span>
+            <div class="formula" style="font-size:clamp(1rem,1.45vw,1.3rem)">Z = ρ · v</div>
+            <p class="dim" style="font-size:var(--small-size);margin-top:.45em"><b>Z<sub>khí</sub> ≈ 413</b> còn <b>Z<sub>mô</sub> ≈ 1,63×10⁶ kg/(m²·s)</b> — chênh lệch gần <b>4000 lần</b>. Sự chênh lệch trở kháng âm là nguyên nhân gây phản xạ sóng tại mặt phân cách.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07. BƯỚC SÓNG + LAB 2 ============ -->
+<section class="slide" data-sec="I. Siêu âm" data-title="Bước sóng &amp; độ phân giải hình ảnh" data-min="2" data-note="Thực hiện Bài toán 1 (λ = 5700 / (2·10^6) = 2,85 mm) và nạp thông số lên mô phỏng để kiểm chứng. Tăng tần số từ 1 MHz lên 10 MHz trong mô mềm để quan sát bước sóng ngắn dần trên thước đo milimét.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">I. Siêu âm</span>
+      <h2 class="anim-fade-up">3. Bước sóng và độ phân giải hình ảnh</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="lambda">
+          <div class="lab-top"><span class="lab-tag">Bước sóng λ theo tần số và môi trường</span><span class="lab-hint">Điều chỉnh f và môi trường</span></div>
+          <div class="canvas-box" style="min-height:165px"><canvas id="lamCanvas"></canvas></div>
+          <div class="readout">
+            <div class="big-read"><span id="lamVal">0,77</span><small>mm</small></div>
+            <span id="lamRes" style="font-weight:700;font-size:var(--small-size)">Phân biệt cấu trúc cỡ milimét</span>
+          </div>
+          <div class="ctrl"><label for="lamF">Tần số f</label><input type="range" id="lamF" min="0.5" max="10" step="0.1" value="2"><output id="lamFout">2,0 MHz</output></div>
+          <div class="ctrl"><label for="lamMed">Môi trường</label>
+            <select id="lamMed">
+              <option value="343">Không khí · 343 m/s</option>
+              <option value="1480">Nước · 1480 m/s</option>
+              <option value="1540" selected>Mô mềm · 1540 m/s</option>
+              <option value="4080">Xương · 4080 m/s</option>
+              <option value="5700">Thạch anh · 5700 m/s</option>
+              <option value="5900">Thép · 5900 m/s</option>
+            </select>
+          </div>
+          <div class="readout">
+            <span>So với đường kính sợi tóc (0,07 mm): <b id="lamCmp">× 11</b></span>
+            <button class="btn" id="lamPreset">↺ Nạp Bài toán 1 (thạch anh)</button>
+          </div>
+        </div>
+        <div class="txt">
+          <div class="card card-teal" style="margin-bottom:.65rem">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Bài toán 1</span>
+            <p style="font-size:var(--body-size);margin:0">Đầu dò sử dụng tinh thể thạch anh (<b>v = 5700 m/s</b>) phát sóng siêu âm ở tần số <b>2 MHz</b>. Tính bước sóng của chùm siêu âm trong tinh thể đó.</p>
+          </div>
+          <div class="formula" style="margin-bottom:.5rem">λ = v / f</div>
+          <p class="mono" style="font-size:var(--small-size);color:var(--text-1)">λ = 5700 / (2 × 10⁶) = 2,85 × 10⁻³ m = <b class="hl">2,85 mm</b></p>
+          <p class="note-line" style="margin-top:.65rem">Sóng chỉ phản xạ rõ trên các vật có kích thước tương đương hoặc lớn hơn bước sóng. Do đó, siêu âm chẩn đoán sử dụng tần số vùng MHz để đạt <b>λ ≈ 0,15 – 0,8 mm</b>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08. KIỂM TRA NHANH 02 ============ -->
+<section class="slide" data-sec="I. Siêu âm" data-title="Kiểm tra nhanh 02 · Tính bước sóng" data-min="0.5" data-note="Vận dụng nhanh công thức λ = v / f để tính bước sóng siêu âm trong mô mềm.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">I. Siêu âm</span>
+      <h2 class="anim-fade-up">Kiểm tra nhanh · Tính bước sóng siêu âm</h2>
+    </div>
+    <div class="s-body">
+      <div class="checkpoint-box">
+        <span class="pill pill-amber" style="align-self:flex-start">Câu 2 / 6</span>
+        <div class="checkpoint-q">Sóng siêu âm có tần số 5 MHz truyền trong mô mềm (lấy v = 1500 m/s) có bước sóng bằng bao nhiêu?</div>
+        <div class="checkpoint-opts cols-2">
+          <button data-ok="0">A. 0,75 mm</button>
+          <button data-ok="1">B. 0,30 mm</button>
+          <button data-ok="0">C. 3,0 mm</button>
+          <button data-ok="0">D. 7,5 mm</button>
+        </div>
+        <div class="checkpoint-fb">Chính xác. λ = v / f = 1500 / (5 × 10⁶) = 3 × 10⁻⁴ m = <b>0,30 mm</b> (tương đương khoảng 4 lần đường kính sợi tóc).</div>
+      </div>
+    </div>
+  </div>
+</section>

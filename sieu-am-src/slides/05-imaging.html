@@ -1,0 +1,124 @@
+<!-- ============ 24. KIỂU A ============ -->
+<section class="slide" data-sec="IV. Tạo ảnh" data-title="Siêu âm kiểu A (A-scan)" data-min="2" data-note="Nhấn Phát xung để quan sát xung siêu âm truyền xuống và các xung phản xạ trở về đầu dò tại các mặt phân cách A, B, C. Điều chỉnh vị trí mặt phân cách B để theo dõi sự dịch chuyển của đỉnh B và tính lại bề dày lớp cơ theo Δt(B→C).">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">IV. Nguyên tắc tạo hình ảnh siêu âm</span>
+      <h2 class="anim-fade-up">1. Siêu âm kiểu A (Hình 7.5 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols one">
+        <div class="lab" data-widget="ascan">
+          <div class="lab-top"><span class="lab-tag">Siêu âm kiểu A (Amplitude)</span><span class="lab-hint">Phát xung · điều chỉnh mặt phân cách B</span></div>
+          <div class="canvas-box" style="min-height:245px"><canvas id="asCanvas"></canvas></div>
+          <div class="ctrl"><label for="asD">Vị trí mặt phân cách B (mỡ–cơ)</label><input type="range" id="asD" min="20" max="45" step="1" value="30"><output id="asDout">3,0 cm</output></div>
+          <div class="readout">
+            <button class="btn solid" id="asFire">▶ Phát xung</button>
+            <span>Δt(B→C) = <b id="asDt">26,0 µs</b></span>
+            <span>Bề dày lớp cơ = <span class="big" id="asThick">20,0 mm</span></span>
+          </div>
+          <p class="dim" style="font-size:var(--small-size);margin:0">v = 1540 m/s · Mỗi đỉnh trên đồ thị tương ứng với một mặt phân cách · Bề dày lớp = v · Δt / 2.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 25. KIỂU B + BÓNG LƯNG ÂM ============ -->
+<section class="slide" data-sec="IV. Tạo ảnh" data-title="Siêu âm kiểu B &amp; đặc điểm hình ảnh sỏi, nang" data-min="2" data-note="Nhấn Quét lại để quan sát quá trình ghép nhiều đường quét kiểu A thành ảnh lát cắt 2D. Phân tích hai dấu hiệu đặc trưng trên lâm sàng: nang dịch hiển thị màu tối do không có mặt phản xạ bên trong; viên sỏi hiển thị sáng rõ kèm vùng bóng lưng âm tối ở phía sau.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">IV. Nguyên tắc tạo hình ảnh siêu âm</span>
+      <h2 class="anim-fade-up">2. Siêu âm kiểu B (Hình 7.6 SGK)</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols wide-left">
+        <div class="lab" data-widget="bscan">
+          <div class="lab-top"><span class="lab-tag">Siêu âm kiểu B (Brightness)</span><span class="lab-hint">Quét để dựng ảnh · điều chỉnh Gain</span></div>
+          <div class="canvas-box" style="min-height:220px"><canvas id="bsCanvas"></canvas></div>
+          <div class="ctrl"><label for="bsGain">Độ khuếch đại (Gain)</label><input type="range" id="bsGain" min="40" max="220" step="5" value="100"><output id="bsGainOut">1,0×</output></div>
+          <div class="ctrl"><label for="bsSpeed">Tốc độ quét</label><input type="range" id="bsSpeed" min="20" max="250" step="10" value="100"><output id="bsSpeedOut">1,0×</output></div>
+          <div class="readout">
+            <button class="btn solid" id="bsScan">↻ Quét lại</button>
+            <span class="mono" id="bsStatus">đang quét…</span>
+          </div>
+        </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.6rem">
+          <div class="card card-accent">
+            <h3 style="margin-bottom:.3em">Nguyên tắc ghép đường A thành ảnh 2D</h3>
+            <p style="font-size:var(--small-size);margin:0">Tại mỗi vị trí ngang, một tia xung truyền <b>dọc từ trên xuống</b> theo chiều sâu d tạo thành <b>1 cột điểm sáng/tối</b> (biên độ xung A quyết định độ sáng điểm ảnh). Đầu dò quét lần lượt các cột <b>từ trái sang phải</b> (30–60 khung/giây) rồi ghép thành lát cắt 2D.</p>
+          </div>
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Đặc điểm nhận diện trên ảnh siêu âm</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Trống âm (tối):</b> dịch ối, nang dịch, bàng quang — sóng truyền qua hầu như không phản xạ.</li>
+              <li><b>Tăng âm (sáng):</b> xương, sỏi thận hoặc sỏi mật — sóng phản xạ rất mạnh.</li>
+              <li class="amber-dot"><b>Bóng lưng âm:</b> vùng tối kéo dài ngay sau viên sỏi do sỏi phản xạ và hấp thụ phần lớn chùm sóng.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 26. KIỂU M, 3D/4D & DOPPLER ============ -->
+<section class="slide" data-sec="IV. Tạo ảnh" data-title="Kiểu M, 3D/4D và Siêu âm Doppler" data-min="1" data-note="Trình bày 3 chế độ mở rộng: kiểu M (TM), 3D/4D và Doppler. Điều chỉnh tốc độ dòng máu từ 0 đến 120 cm/s để quan sát chuyển động hồng cầu và độ lệch tần số Δf tăng tỉ lệ thuận.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">IV. Nguyên tắc tạo hình ảnh siêu âm</span>
+      <h2 class="anim-fade-up">3. Siêu âm kiểu M, 3D/4D và Doppler</h2>
+    </div>
+    <div class="s-body">
+      <div class="cols">
+        <div class="txt">
+          <div class="cards" style="grid-template-columns:1fr 1fr">
+            <div class="card"><span class="n">M (TM)</span><h3>Time–motion</h3><p class="dim" style="font-size:var(--small-size);margin-top:.3em">Theo dõi một tia quét theo thời gian — khảo sát hoạt động đóng mở của van tim.</p></div>
+            <div class="card"><span class="n">3D / 4D</span><h3>Ảnh khối</h3><p class="dim" style="font-size:var(--small-size);margin-top:.3em">Ghép nhiều lát cắt thành ảnh khối 3D (4D là ảnh 3D theo thời gian thực).</p></div>
+            <div class="card" style="grid-column:1 / -1"><span class="n">Doppler</span><h3>Đo dòng chảy mạch máu</h3><p class="dim" style="font-size:var(--small-size);margin-top:.3em">Sóng phản xạ từ các tế bào hồng cầu chuyển động bị dịch tần số <b>Δf = 2f₀·v·cosθ / c</b>, giúp phát hiện hẹp hoặc tắc mạch máu.</p></div>
+          </div>
+        </div>
+        <div class="lab" data-widget="doppler">
+          <div class="lab-top">
+            <span class="lab-tag">Siêu âm Doppler mạch máu</span>
+            <div class="seg" data-vid-switch="dp">
+              <button class="btn on" data-view="sim">🧪 Mô phỏng</button>
+              <button class="btn" data-view="img">📷 Ảnh Doppler thực tế</button>
+            </div>
+          </div>
+          <div class="canvas-box">
+            <canvas id="dpCanvas"></canvas>
+            <img hidden src="__DOPPLER_REAL_URL__" alt="Bác sĩ khám siêu âm Doppler màu mạch máu thực tế" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#040b14">
+          </div>
+          <div class="ctrl" data-view-only="sim"><label for="dpV">Tốc độ dòng máu v</label><input type="range" id="dpV" min="0" max="120" step="1" value="60"><output id="dpVout">60 cm/s</output></div>
+          <div class="readout" data-view-only="sim">
+            <span>Độ lệch Δf = <span class="big" id="dpDf">1,95 kHz</span></span>
+            <span class="dim">f₀ = 5 MHz · θ = 60°</span>
+          </div>
+          <p class="dim" data-view-only="img" hidden style="font-size:var(--small-size);margin:0"><b>Hình ảnh thực tế siêu âm Doppler màu mạch máu:</b> vùng màu đỏ và xanh trên màn hình biểu thị chiều và tốc độ dòng máu chuyển động hướng về hoặc ra xa đầu dò.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 27. KIỂM TRA NHANH 05 ============ -->
+<section class="slide" data-sec="IV. Tạo ảnh" data-title="Kiểm tra nhanh 05 · Chế độ hiển thị" data-min="0.5" data-note="Củng cố ứng dụng của chế độ siêu âm kiểu M (Time–motion) trong khảo sát tim mạch, khép lại phần Nguyên tắc tạo ảnh.">
+  <div class="slide-inner">
+    <div class="s-head">
+      <span class="kicker">IV. Nguyên tắc tạo hình ảnh siêu âm</span>
+      <h2 class="anim-fade-up">Kiểm tra nhanh · Chế độ hiển thị hình ảnh siêu âm</h2>
+    </div>
+    <div class="s-body">
+      <div class="checkpoint-box">
+        <span class="pill pill-amber" style="align-self:flex-start">Câu 5 / 6</span>
+        <div class="checkpoint-q">Chế độ siêu âm nào chuyên dùng để ghi lại chuyển động đóng – mở của van tim theo thời gian?</div>
+        <div class="checkpoint-opts">
+          <button data-ok="1">A. Kiểu M (Time–motion)</button>
+          <button data-ok="0">B. Kiểu B tĩnh</button>
+          <button data-ok="0">C. Kiểu A</button>
+        </div>
+        <div class="checkpoint-fb">Chính xác. Kiểu M (TM) ghi lại sự thay đổi vị trí của các lá van tim theo trục thời gian, giúp bác sĩ tim mạch đo chính xác biên độ và chu kì hoạt động của van tim.</div>
+      </div>
+    </div>
+  </div>
+</section>
