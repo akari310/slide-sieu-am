@@ -855,27 +855,63 @@ body.laser-active .arcs { cursor: none; }
     visibility: hidden;
     pointer-events: none;
     transform: translate3d(52px, 0, 0) scale(0.985);
+    clip-path: inset(0 0 0 0);
     transition:
-      opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      visibility 0s linear 0.5s;
+      opacity 0.44s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.54s cubic-bezier(0.22, 1, 0.36, 1),
+      clip-path 0.56s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0.56s;
     will-change: transform, opacity;
   }
+  /* 1. Glide (mặc định): trượt ngang mượt theo hướng */
   .slide.is-before {
     transform: translate3d(-52px, 0, 0) scale(0.985);
   }
   .slide.is-after {
     transform: translate3d(52px, 0, 0) scale(0.985);
   }
+  /* 2. Zoom (mở phần mới / bìa / tổng kết): thu phóng chiều sâu */
+  .slide[data-fx="zoom"].is-before {
+    transform: scale(1.055);
+  }
+  .slide[data-fx="zoom"].is-after {
+    transform: scale(0.92);
+  }
+  /* 3. Rise (câu hỏi kiểm tra nhanh / quiz): trồi lên từ phía dưới */
+  .slide[data-fx="rise"].is-before {
+    transform: translate3d(0, -40px, 0) scale(0.97);
+  }
+  .slide[data-fx="rise"].is-after {
+    transform: translate3d(0, 48px, 0) scale(0.96);
+  }
+  /* 4. Swing (mô phỏng tương tác nổi bật): xoay phối cảnh 3D nhẹ */
+  .slide[data-fx="swing"].is-before {
+    transform: perspective(1200px) translate3d(-56px, 0, 0) rotateY(7deg) scale(0.965);
+  }
+  .slide[data-fx="swing"].is-after {
+    transform: perspective(1200px) translate3d(56px, 0, 0) rotateY(-7deg) scale(0.965);
+  }
+  /* 5. Curtain (lịch sử / ảnh thật / bảng so sánh): quét màn kéo theo hướng */
+  .slide[data-fx="curtain"].is-before {
+    transform: translate3d(-28px, 0, 0);
+    clip-path: inset(0 100% 0 0);
+  }
+  .slide[data-fx="curtain"].is-after {
+    transform: translate3d(28px, 0, 0);
+    clip-path: inset(0 0 0 100%);
+  }
+
   .slide.is-active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     z-index: 4;
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: perspective(1200px) translate3d(0, 0, 0) rotateY(0deg) scale(1);
+    clip-path: inset(0 0 0 0);
     transition:
-      opacity 0.44s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.56s cubic-bezier(0.22, 1, 0.36, 1),
+      clip-path 0.56s cubic-bezier(0.22, 1, 0.36, 1),
       visibility 0s linear 0s;
   }
   .slide.is-leaving {
@@ -884,14 +920,14 @@ body.laser-active .arcs { cursor: none; }
     pointer-events: none;
   }
 
-  /* Staggered content entrance when a slide becomes active */
+  /* Staggered content entrance + cascade cho các lưới thẻ */
   .slide .s-head,
   .slide .cols > *,
   .slide .checkpoint-box,
-  .slide .probes,
-  .slide .hist-grid,
-  .slide .pipe,
-  .slide .cards-4 {
+  .slide .pipe-step,
+  .slide .probe-card,
+  .slide .hist-card,
+  .slide .cards-4 > .card {
     opacity: 0;
     transform: translate3d(0, 14px, 0);
     transition:
@@ -904,31 +940,49 @@ body.laser-active .arcs { cursor: none; }
     transition-delay: 45ms;
   }
   .slide.is-active .cols > :first-child,
-  .slide.is-active .checkpoint-box,
-  .slide.is-active .probes,
-  .slide.is-active .hist-grid,
-  .slide.is-active .pipe {
+  .slide.is-active .checkpoint-box {
     opacity: 1;
     transform: none;
-    transition-delay: 105ms;
+    transition-delay: 110ms;
   }
   .slide.is-active .cols > :nth-child(2) {
     opacity: 1;
     transform: none;
-    transition-delay: 165ms;
+    transition-delay: 175ms;
   }
-  .slide.is-active .cards-4 {
+  .slide.is-active .pipe-step,
+  .slide.is-active .probe-card,
+  .slide.is-active .hist-card,
+  .slide.is-active .cards-4 > .card {
     opacity: 1;
     transform: none;
-    transition-delay: 210ms;
   }
+  .slide.is-active .pipe-step:nth-child(1),
+  .slide.is-active .probe-card:nth-child(1),
+  .slide.is-active .hist-card:nth-child(1),
+  .slide.is-active .cards-4 > .card:nth-child(1) { transition-delay: 80ms; }
+  .slide.is-active .pipe-step:nth-child(2),
+  .slide.is-active .probe-card:nth-child(2),
+  .slide.is-active .hist-card:nth-child(2),
+  .slide.is-active .cards-4 > .card:nth-child(2) { transition-delay: 130ms; }
+  .slide.is-active .pipe-step:nth-child(3),
+  .slide.is-active .probe-card:nth-child(3),
+  .slide.is-active .hist-card:nth-child(3),
+  .slide.is-active .cards-4 > .card:nth-child(3) { transition-delay: 180ms; }
+  .slide.is-active .pipe-step:nth-child(4),
+  .slide.is-active .probe-card:nth-child(4),
+  .slide.is-active .hist-card:nth-child(4),
+  .slide.is-active .cards-4 > .card:nth-child(4) { transition-delay: 230ms; }
+  .slide.is-active .pipe-step:nth-child(5) { transition-delay: 280ms; }
+  .slide.is-active .pipe-step:nth-child(6) { transition-delay: 330ms; }
+
   .slide.is-leaving .s-head,
   .slide.is-leaving .cols > *,
   .slide.is-leaving .checkpoint-box,
-  .slide.is-leaving .probes,
-  .slide.is-leaving .hist-grid,
-  .slide.is-leaving .pipe,
-  .slide.is-leaving .cards-4 {
+  .slide.is-leaving .pipe-step,
+  .slide.is-leaving .probe-card,
+  .slide.is-leaving .hist-card,
+  .slide.is-leaving .cards-4 > .card {
     opacity: 1;
     transform: none;
     transition: none;
@@ -1373,12 +1427,13 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
     opacity: 1 !important;
     visibility: visible !important;
     transform: none !important;
+    clip-path: none !important;
     page-break-after: always;
     break-after: page;
     height: 100vh;
     padding-top: 0;
   }
-  .slide .s-head, .slide .cols > *, .slide .checkpoint-box, .slide .probes, .slide .hist-grid, .slide .pipe, .slide .cards-4, .reveal {
+  .slide .s-head, .slide .cols > *, .slide .checkpoint-box, .slide .pipe-step, .slide .probe-card, .slide .hist-card, .slide .cards-4 > .card, .reveal {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -1763,6 +1818,14 @@ select {
   gap: 0.18rem;
   min-height: 78px;
 }
+.pipe.compact .pipe-step {
+  padding: 0.48rem 0.62rem;
+  min-height: 0;
+  gap: 0.1rem;
+}
+.pipe.compact .pipe-step i { font-size: 11.5px; }
+.pipe.compact .pipe-step b { font-size: clamp(12.5px, 0.96vw, 14px); }
+.pipe.compact .pipe-step span { font-size: clamp(11.5px, 0.84vw, 13px); line-height: 1.28; }
 .pipe-step i { font-family: var(--mono); font-style: normal; font-size: 12.5px; font-weight: 700; color: var(--accent-2); letter-spacing: 0.08em; }
 .pipe-step b { font-size: clamp(13px, 1.05vw, 15px); line-height: 1.25; }
 .pipe-step span { font-size: clamp(12px, 0.92vw, 14px); color: var(--text-2); line-height: 1.38; }
@@ -2524,44 +2587,44 @@ select {
 </section>
 
 
-<!-- ============ 13. NGUYÊN LÍ MÁY ============ -->
-<section class="slide" data-sec="III. Máy siêu âm" data-title="Chu trình hoạt động của máy siêu âm" data-min="1" data-note="Lần lượt chỉ qua 6 bước từ máy phát xung điện đến màn hình máy tính. Chốt điểm mấu chốt: mọi loại ảnh siêu âm (A, B, M) đều được dựng từ thời gian trễ Δt và biên độ của từng xung echo.">
+<!-- ============ 14. NGUYÊN LÍ MÁY ============ -->
+<section class="slide" data-sec="III. Máy siêu âm" data-title="Chu trình hoạt động của máy siêu âm" data-min="1" data-note="Chỉ nhanh qua 6 bước chu trình (~50–200 µs/đường quét) từ phát xung điện đến dựng ảnh, rồi kéo độ sâu d và bấm Phóng xung trên Mô phỏng 05 để lớp quan sát trực tiếp thời gian trễ Δt và công thức d = v·Δt/2.">
   <div class="slide-inner">
-    <div class="s-head">
-      <span class="kicker">III. Nguyên lí máy siêu âm · 01</span>
-      <h2 class="anim-fade-up">Máy siêu âm định vị các lớp mô bằng tiếng dội</h2>
-      <p class="lead">Toàn bộ quá trình đo một đường quét diễn ra trong vài chục microgiây nhờ một đầu dò vừa phát vừa thu.</p>
+    <div class="s-head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap">
+      <div>
+        <span class="kicker">III. Nguyên lí máy siêu âm · 01</span>
+        <h2 class="anim-fade-up">Máy siêu âm định vị các lớp mô bằng tiếng dội</h2>
+      </div>
+      <span class="pill pill-aqua" style="margin-bottom:.35em">~50–200 µs / đường quét</span>
     </div>
-    <div class="s-body">
-      <div class="pipe">
-        <div class="pipe-step"><i>01</i><b>Máy phát xung</b><span>Tạo xung điện cao tần cực ngắn</span></div>
-        <div class="pipe-step hot"><i>02</i><b>Đầu dò phát</b><span>Điện → cơ: phát xung siêu âm</span></div>
-        <div class="pipe-step"><i>03</i><b>Lớp mô</b><span>Gặp ranh giới Z khác → dội lại</span></div>
-        <div class="pipe-step hot"><i>04</i><b>Đầu dò thu</b><span>Cơ → điện: nhận xung echo</span></div>
-        <div class="pipe-step"><i>05</i><b>Khuếch đại</b><span>Lọc nhiễu, tăng biên độ &amp; số hoá</span></div>
-        <div class="pipe-step"><i>06</i><b>Máy tính</b><span>Tính d = v·Δt/2 và dựng ảnh</span></div>
+    <div class="s-body" style="gap:.7rem">
+      <div class="pipe compact">
+        <div class="pipe-step"><i>01</i><b>Phát xung điện</b><span>Xung cao tần cực ngắn</span></div>
+        <div class="pipe-step hot"><i>02</i><b>Đầu dò phát</b><span>Điện → cơ: phát sóng</span></div>
+        <div class="pipe-step"><i>03</i><b>Gặp ranh giới</b><span>Khác Z → dội echo</span></div>
+        <div class="pipe-step hot"><i>04</i><b>Đầu dò thu</b><span>Cơ → điện: nhận echo</span></div>
+        <div class="pipe-step"><i>05</i><b>Khuếch đại</b><span>Lọc nhiễu &amp; số hoá</span></div>
+        <div class="pipe-step"><i>06</i><b>Máy tính</b><span>Tính d &amp; dựng ảnh</span></div>
       </div>
-      <div class="pipe-note">
-        <span>CHU TRÌNH: XUNG ĐIỆN → SÓNG ÂM → MÔ → ECHO → TÍN HIỆU ĐIỆN → ẢNH</span>
-        <span>MỖI ĐƯỜNG QUÉT: ~50–200 µs</span>
-      </div>
-      <div class="cols" style="margin-top:.8rem">
-        <div class="txt">
-          <ul class="clean">
-            <li><b>Thời gian Δt:</b> khoảng trễ từ lúc phát xung tới khi nhận echo cho biết vị trí mặt phản xạ.</li>
-            <li><b>Công thức độ sâu:</b> <span class="mono"><b>d = v·Δt / 2</b></span> (chia 2 vì sóng đi cả lượt đi lẫn lượt về).</li>
-            <li><b>Biên độ echo:</b> xung dội càng mạnh thì điểm ảnh tương ứng trên màn hình càng sáng.</li>
-          </ul>
-          <p class="note-line" style="margin-top:.65rem">Do một giây máy có thể lặp lại chu trình này hàng nghìn lần, bác sĩ quan sát được tim đập theo thời gian thực.</p>
+      <div class="cols" style="margin-top:.15rem">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
+          <div class="formula">d = v · Δt / 2 <small>(chia 2: lượt đi + lượt về)</small></div>
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.35em">Hai thông số quyết định hình ảnh</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Thời gian trễ Δt:</b> khoảng thời gian từ lúc phát xung tới lúc thu echo xác định chính xác <b>độ sâu d</b> của mặt phản xạ.</li>
+              <li><b>Biên độ echo:</b> xung dội càng mạnh → điểm ảnh càng sáng; chu trình lặp lại hàng nghìn lần/giây nên quan sát được <b>tim đập thời gian thực</b>.</li>
+            </ul>
+          </div>
         </div>
-        <div class="lab" data-widget="pulseecho" style="min-height:0;padding:.75rem .9rem;gap:.45rem">
+        <div class="lab" data-widget="pulseecho">
           <div class="lab-top"><span class="lab-tag">Mô phỏng 05 · Xung phát &amp; tiếng dội (Δt)</span><span class="lab-hint">Kéo độ sâu d · bấm phóng xung</span></div>
-          <div class="canvas-box" style="min-height:132px"><canvas id="peCanvas"></canvas></div>
+          <div class="canvas-box" style="min-height:190px"><canvas id="peCanvas"></canvas></div>
           <div class="ctrl"><label for="peD">Độ sâu mặt phản xạ d</label><input type="range" id="peD" min="20" max="120" step="5" value="60"><output id="peDout">6,0 cm</output></div>
-          <div class="readout" style="font-size:var(--small-size);padding:.4em .65em">
+          <div class="readout" style="font-size:var(--small-size)">
             <button class="btn solid" id="peFire">▶ Phóng xung</button>
             <span>Δt = <b id="peDt">77,9 µs</b></span>
-            <span>d = v·Δt/2 = <span class="big" id="peRes" style="font-size:clamp(14.5px,1.15vw,17px)">6,0 cm</span></span>
+            <span>d = v·Δt/2 = <span class="big" id="peRes">6,0 cm</span></span>
           </div>
         </div>
       </div>
@@ -3750,7 +3813,7 @@ function update(prevIdx = -1) {
     pauseSlideMedia(old);
     old.classList.add('is-leaving');
     clearTimeout(old._leaveT);
-    old._leaveT = setTimeout(() => old.classList.remove('is-leaving'), 540);
+    old._leaveT = setTimeout(() => old.classList.remove('is-leaving'), 600);
   }
   $('#bar').style.width = ((cur + 1) / TOTAL * 100).toFixed(2) + '%';
   $('#curNum').textContent = pad2(cur + 1);
@@ -4134,9 +4197,18 @@ $$('svg .part').forEach(g => {
 });
 
 /* --- khởi động --- */
+slides.forEach((s, i) => {
+  if (s.dataset.fx) return;
+  const prevSec = i > 0 ? slides[i - 1].dataset.sec : '';
+  const isNewSec = i === 0 || i === TOTAL - 1 || (s.dataset.sec && s.dataset.sec !== prevSec);
+  if (isNewSec) s.dataset.fx = 'zoom';
+  else if (s.querySelector('.checkpoint-box, [data-widget="quiz"]')) s.dataset.fx = 'rise';
+  else if (s.querySelector('.hist-grid, .photo-card, .tbl')) s.dataset.fx = 'curtain';
+  else if (s.querySelector('.lab[data-widget]')) s.dataset.fx = (i % 2 === 0) ? 'swing' : 'glide';
+  else s.dataset.fx = 'glide';
+});
 paintClock();
 update();
-slides[0].classList.add('is-active');
 highlightPart('crystal');
 syncYtFrame($('#ytPlayer'), true);
 
