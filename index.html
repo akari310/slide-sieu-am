@@ -6157,32 +6157,94 @@ requestAnimationFrame(frame);
       depthEl.textContent = fmt(Math.round(curD / 10) * 10, 0) + ' m (' + fmt(tSec, 2) + ' s)';
       zoneEl.textContent = zoneName(scanU, curD);
 
-      /* Chùm sóng đa tia (5 tia hình quạt từ đáy tàu xuống đáy biển) */
+      /* Chùm sóng đa tia: mặt sóng phát xuống (xanh ngọc) + sóng phản xạ dội ngược lên (vàng cam) */
       const rayOffsets = [-0.075, -0.038, 0, 0.038, 0.075];
       const fanPts = rayOffsets.map(du => {
         const u = clamp(scanU + du, 0, 1);
         return [xOfU(u), yOfD(depthAt(u))];
       });
       const fg = g.createLinearGradient(0, sky, 0, h);
-      fg.addColorStop(0, 'rgba(63,227,200,0.34)');
-      fg.addColorStop(1, 'rgba(63,227,200,0.05)');
+      fg.addColorStop(0, 'rgba(63,227,200,0.28)');
+      fg.addColorStop(1, 'rgba(63,227,200,0.04)');
       g.fillStyle = fg;
       g.beginPath();
       g.moveTo(shipX, sky + 4);
       fanPts.forEach(([rx, ry]) => g.lineTo(rx, ry));
       g.closePath(); g.fill();
 
+      const shipY = sky + 4;
+      const aLeft = Math.atan2(fanPts[0][1] - shipY, fanPts[0][0] - shipX);
+      const aRight = Math.atan2(fanPts[4][1] - shipY, fanPts[4][0] - shipX);
+      const aMin = Math.min(aLeft, aRight), aMax = Math.max(aLeft, aRight);
+      const midDist = Math.hypot(fanPts[2][0] - shipX, fanPts[2][1] - shipY);
+
+      /* Cung mặt sóng phát đi xuống từ đáy tàu */
+      const waveCycle = (t * 0.85) % 1;
+      for (let wIdx = 0; wIdx < 2; wIdx++) {
+        const wp = (waveCycle + wIdx * 0.5) % 1;
+        if (wp < 0.52) {
+          const rDown = (wp / 0.52) * midDist;
+          if (rDown > 8) {
+            g.beginPath();
+            g.arc(shipX, shipY, rDown, aMin, aMax);
+            g.strokeStyle = `rgba(63,227,200,${(0.75 * (1 - wp * 0.6)).toFixed(2)})`;
+            g.lineWidth = 2;
+            g.stroke();
+          }
+        } else {
+          /* Cung mặt sóng phản xạ dội ngược từ đáy biển quay về tàu */
+          const ep = (wp - 0.52) / 0.48;
+          const [mx, my] = fanPts[2];
+          const rBack = ep * midDist;
+          const angUp = Math.atan2(shipY - my, shipX - mx);
+          if (rBack > 6) {
+            g.beginPath();
+            g.arc(mx, my, rBack, angUp - 0.36, angUp + 0.36);
+            g.strokeStyle = `rgba(255,180,84,${(0.88 * (1 - ep * 0.35)).toFixed(2)})`;
+            g.lineWidth = 2.1;
+            g.stroke();
+          }
+        }
+      }
+
+      /* 5 tia dẫn + xung đi xuống (xanh ngọc) đập đáy biển rồi bật ngược lên tàu (vàng cam) */
       fanPts.forEach(([rx, ry], idx) => {
-        g.strokeStyle = idx === 2 ? 'rgba(255,180,84,0.8)' : 'rgba(63,227,200,0.5)';
-        g.lineWidth = idx === 2 ? 1.6 : 1.1;
+        g.strokeStyle = idx === 2 ? 'rgba(255,180,84,0.52)' : 'rgba(63,227,200,0.34)';
+        g.lineWidth = idx === 2 ? 1.4 : 1;
         g.setLineDash([4, 3]);
-        g.beginPath(); g.moveTo(shipX, sky + 4); g.lineTo(rx, ry); g.stroke();
+        g.beginPath(); g.moveTo(shipX, shipY); g.lineTo(rx, ry); g.stroke();
         g.setLineDash([]);
-        /* Hạt xung chạy xuống & echo dội lên */
-        const ph = (t * 1.4 + idx * 0.14) % 1;
-        const px = shipX + (rx - shipX) * ph, py = sky + 4 + (ry - sky - 4) * ph;
-        g.fillStyle = ph < 0.55 ? '#3fe3c8' : '#ffb454';
-        g.beginPath(); g.arc(px, py, 2.6, 0, Math.PI * 2); g.fill();
+
+        const ph = (t * 0.85 + idx * 0.06) % 1;
+        if (ph < 0.5) {
+          /* Lượt đi: từ tàu xuống đáy biển */
+          const k = ph / 0.5;
+          const px = shipX + (rx - shipX) * k;
+          const py = shipY + (ry - shipY) * k;
+          g.fillStyle = '#3fe3c8';
+          g.beginPath(); g.arc(px, py, 3, 0, Math.PI * 2); g.fill();
+        } else {
+          /* Điểm đập đáy biển loé sáng khi vừa chạm đáy */
+          const ep = (ph - 0.5) / 0.5;
+          if (ep < 0.35) {
+            const rRing = 3 + ep * 28;
+            g.strokeStyle = `rgba(255,180,84,${(0.85 * (1 - ep / 0.35)).toFixed(2)})`;
+            g.lineWidth = 1.6;
+            g.beginPath(); g.arc(rx, ry, rRing, Math.PI, Math.PI * 2); g.stroke();
+          }
+          /* Lượt về (echo): dội ngược từ đáy biển quay lên đầu thu ở tàu */
+          const kBack = 1 - ep;
+          const px = shipX + (rx - shipX) * kBack;
+          const py = shipY + (ry - shipY) * kBack;
+          const tailK = Math.min(1, kBack + 0.11);
+          const tx = shipX + (rx - shipX) * tailK;
+          const ty = shipY + (ry - shipY) * tailK;
+          g.strokeStyle = 'rgba(255,180,84,0.75)';
+          g.lineWidth = 2;
+          g.beginPath(); g.moveTo(tx, ty); g.lineTo(px, py); g.stroke();
+          g.fillStyle = '#ffb454';
+          g.beginPath(); g.arc(px, py, 3.2, 0, Math.PI * 2); g.fill();
+        }
       });
 
       /* Phần địa hình ĐÃ QUÉT (sáng rõ + đường đồng mức sonar màu ngọc) */
@@ -6260,7 +6322,16 @@ requestAnimationFrame(frame);
         g.beginPath(); g.moveTo(w - 52, y); g.lineTo(w - 46, y); g.stroke();
         g.fillText((dm / 1000) + ' km', w - 6, y + 4);
       }
+
+      /* Chú thích phân biệt sóng phát xuống & sóng dội lên (góc dưới trái) */
+      g.fillStyle = 'rgba(4,11,20,0.82)';
+      rr(g, 10, h - 26, 260, 20, 6); g.fill();
+      g.font = 'bold 11px "JetBrains Mono", monospace';
       g.textAlign = 'left';
+      g.fillStyle = '#3fe3c8';
+      g.fillText('● Sóng phát xuống', 18, h - 12);
+      g.fillStyle = '#ffb454';
+      g.fillText('● Echo dội lên', 150, h - 12);
     }
   });
 })();
