@@ -1007,7 +1007,55 @@ body.laser-active .arcs { cursor: none; }
   padding-bottom: clamp(2.85rem, 5.4vh, 3.6rem);
 }
 .cover-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.cover-hero { position: relative; padding: 0.6rem 0; }
+.cover-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  align-items: center;
+  gap: clamp(1rem, 2.8vw, 2.8rem);
+  margin: auto 0;
+  min-height: 0;
+}
+.cover-hero { position: relative; padding: 0.4rem 0; }
+.cover-wave-card {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  background: var(--surface-solid);
+  padding: clamp(0.65rem, 1.1vw, 0.95rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cover-wave-card:hover {
+  border-color: rgba(63, 227, 200, 0.55);
+  box-shadow: 0 22px 54px -18px rgba(63, 227, 200, 0.26);
+}
+.cover-wave-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.cover-wave-box {
+  position: relative;
+  height: clamp(195px, 31vh, 275px);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--scr-bg);
+  border: 1.5px solid rgba(63, 227, 200, 0.24);
+  box-shadow: inset 0 2px 16px rgba(0, 0, 0, 0.55);
+}
+.cover-wave-box canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 .cover h1 {
   font-family: var(--mono);
   font-size: var(--h1-size);
@@ -1099,43 +1147,16 @@ html[data-theme="light"] .cover h1 .outline {
 }
 .cover-foot .mono { text-transform: none; letter-spacing: 0.03em; }
 
-.arcs {
-  position: absolute;
-  right: 2%;
-  top: 48%;
-  transform: translateY(-50%);
-  width: min(44vw, 560px);
-  aspect-ratio: 1;
-  pointer-events: none;
-  z-index: -1;
-  overflow: visible;
-}
-.arcs .arc-wave {
-  fill: none;
-  stroke: var(--accent-teal);
-  stroke-width: 2.6;
-  transform-origin: 300px 300px;
-  filter: drop-shadow(0 0 9px rgba(63, 227, 200, 0.62));
-  animation: arc-emit 3.6s cubic-bezier(0.14, 0.55, 0.35, 1) infinite;
-  animation-delay: calc(var(--w, 0) * -0.6s);
-}
-.arcs-end {
-  right: auto;
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%);
-  opacity: 0.52;
-}
 .end-waves {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 7vh;
+  bottom: 9vh;
   width: 100%;
-  height: 92px;
+  height: 110px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.42;
+  opacity: 0.65;
 }
 .end-waves .ew {
   fill: none;
@@ -1144,55 +1165,24 @@ html[data-theme="light"] .cover h1 .outline {
 .end-waves .ew1 {
   stroke: var(--accent-teal);
   stroke-width: 2;
-  animation: wave-drift 6s ease-in-out infinite alternate;
+  animation: wave-drift 5.5s ease-in-out infinite alternate;
 }
 .end-waves .ew2 {
   stroke: var(--accent-2);
-  stroke-width: 1.5;
+  stroke-width: 1.6;
   opacity: 0.72;
-  animation: wave-drift 8.5s ease-in-out infinite alternate-reverse;
+  animation: wave-drift 8s ease-in-out infinite alternate-reverse;
+}
+.end-waves .ew3 {
+  stroke: rgba(139, 211, 255, 0.55);
+  stroke-width: 1.2;
+  animation: wave-drift 10s ease-in-out infinite alternate;
 }
 @keyframes wave-drift {
   from { transform: translateX(-2.5%); }
   to { transform: translateX(2.5%); }
 }
-.arcs .arc-wave.ping {
-  stroke: var(--accent-amber);
-  stroke-width: 3.4;
-  filter: drop-shadow(0 0 14px rgba(255, 180, 84, 0.92));
-  animation: arc-ping 1.4s cubic-bezier(0.16, 0.65, 0.3, 1) forwards;
-}
-@keyframes arc-emit {
-  0% { transform: scale(0.04); opacity: 0; stroke-width: 3.8; }
-  12% { opacity: 0.96; }
-  62% { opacity: 0.44; }
-  100% { transform: scale(1); opacity: 0; stroke-width: 1; }
-}
-@keyframes arc-ping {
-  0% { transform: scale(0.04); opacity: 1; stroke-width: 4.5; }
-  100% { transform: scale(1.05); opacity: 0; stroke-width: 1; }
-}
-.arcs .arc-halo {
-  transform-origin: 300px 300px;
-  animation: core-breathe 2s ease-in-out infinite;
-}
-.arcs .arc-core-ring {
-  fill: rgba(63, 227, 200, 0.16);
-  stroke: var(--accent-teal);
-  stroke-width: 2;
-  transform-origin: 300px 300px;
-  animation: core-breathe 2s ease-in-out infinite;
-}
-.arcs .arc-core-dot {
-  fill: #eafffb;
-  filter: drop-shadow(0 0 10px rgba(63, 227, 200, 0.95));
-}
-@keyframes core-breathe {
-  0%, 100% { transform: scale(0.88); opacity: 0.78; }
-  50% { transform: scale(1.2); opacity: 1; }
-}
-html[data-theme="light"] .arcs .arc-wave { stroke: var(--accent-2); filter: none; }
-html[data-theme="light"] .arcs .arc-core-dot { fill: var(--accent-2); }
+html[data-theme="light"] .end-waves .ew1 { stroke: var(--accent-2); }
 
 .ghost-num {
   position: absolute;
@@ -1478,10 +1468,9 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
 }
 @media (max-width: 900px) {
   .rail { display: none; }
-  .cols, .cols.lab-left, .cols.wide-left { grid-template-columns: 1fr; grid-template-rows: auto auto; gap: 0.7rem; }
+  .cols, .cols.lab-left, .cols.wide-left, .cover-stage { grid-template-columns: 1fr; grid-template-rows: auto auto; gap: 0.7rem; }
   .txt { align-self: start; }
   .cover-meta { grid-template-columns: repeat(2, 1fr); }
-  .arcs { opacity: 0.45; }
 }
 @media (max-width: 780px) {
   html { scroll-snap-type: none; }
@@ -2098,44 +2087,27 @@ select {
 
 <main id="deck">
 <!-- ============ 01. BÌA ============ -->
-<section class="slide cover" data-sec="Mở đầu" data-title="Siêu âm — Vật lí 12" data-min="0.5" data-note="Chào cả lớp. Hôm nay ta học Bài 7: Siêu âm (Chuyên đề 2). Trọng tâm của tiết học không chỉ là định nghĩa siêu âm, mà là hiểu cách chiếc máy dùng một viên tinh thể nhỏ xíu để vừa phát xung, vừa nghe tiếng dội và dựng lại hình ảnh bên trong cơ thể.">
-  <svg class="arcs" id="coverArcs" viewBox="0 0 600 600" aria-hidden="true">
-    <defs>
-      <radialGradient id="arcCoreGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.88"/>
-        <stop offset="38%" stop-color="#38bdf8" stop-opacity="0.28"/>
-        <stop offset="100%" stop-color="#3fe3c8" stop-opacity="0"/>
-      </radialGradient>
-      <radialGradient id="arcFieldGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.16"/>
-        <stop offset="65%" stop-color="#38bdf8" stop-opacity="0.06"/>
-        <stop offset="100%" stop-color="#070d19" stop-opacity="0"/>
-      </radialGradient>
-    </defs>
-    <circle cx="300" cy="300" r="288" fill="url(#arcFieldGlow)"/>
-    <!-- 6 mặt sóng cầu siêu âm lan truyền liên tục từ tâm nguồn phát -->
-    <g class="arc-waves">
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:0"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:1"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:2"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:3"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:4"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:5"/>
-    </g>
-    <!-- Tâm nguồn phát áp điện rung phát siêu âm -->
-    <circle cx="300" cy="300" r="64" fill="url(#arcCoreGlow)" class="arc-halo"/>
-    <circle cx="300" cy="300" r="18" class="arc-core-ring"/>
-    <circle cx="300" cy="300" r="7" class="arc-core-dot"/>
-  </svg>
+<section class="slide cover" data-sec="Mở đầu" data-title="Siêu âm — Vật lí 12" data-min="0.5" data-note="Chào cả lớp. Hôm nay ta học Bài 7: Siêu âm (Chuyên đề 2). Quan sát hình ảnh bên phải: siêu âm không phải chùm tia tròn toả ra như vật thể mà là sóng cơ học dọc, truyền qua môi trường đàn hồi nhờ các lớp nén và dãn liên tiếp. Bấm vào khung sóng để phóng một xung siêu âm.">
   <div class="ghost-num" aria-hidden="true">07</div>
   <div class="slide-inner cover-inner">
     <div class="cover-top">
       <span class="kicker">Vật lí 12 · Chuyên đề 2 · Bài 7</span>
       <span class="pill pill-blue">Chẩn đoán hình ảnh &amp; kĩ thuật</span>
     </div>
-    <div class="cover-hero">
-      <h1 class="reveal">SIÊU<br><span class="outline">ÂM</span></h1>
-      <p class="cover-sub reveal" style="--d:1">Sóng cơ học tần số trên 20 kHz — từ tiếng dội của loài dơi đến hình ảnh y học và kiểm tra vật liệu.</p>
+    <div class="cover-stage">
+      <div class="cover-hero">
+        <h1 class="reveal">SIÊU<br><span class="outline">ÂM</span></h1>
+        <p class="cover-sub reveal" style="--d:1">Sóng cơ học tần số trên 20 kHz — lan truyền qua môi trường đàn hồi bằng dao động nén – dãn, từ định vị sinh học đến hình ảnh y khoa.</p>
+      </div>
+      <div class="cover-wave-card reveal" style="--d:1">
+        <div class="cover-wave-head">
+          <span class="lab-tag">Sóng dọc siêu âm · Nén &amp; dãn đàn hồi</span>
+          <span class="lab-hint">Bấm để phóng xung</span>
+        </div>
+        <div class="cover-wave-box">
+          <canvas id="coverWaveCanvas"></canvas>
+        </div>
+      </div>
     </div>
     <div class="cover-meta reveal" style="--d:2">
       <div><b>39</b><span>Slide</span></div>
@@ -3745,19 +3717,22 @@ select {
 
 <!-- ============ 34. CẢM ƠN ============ -->
 <section class="slide" data-sec="Tổng kết" data-title="Cảm ơn đã lắng nghe" data-min="0.5" data-note="Chốt tiết học và gửi lời cảm ơn. (Bài tập về nhà gợi ý nếu cần giao thêm: tính bước sóng siêu âm 5 MHz trong mô mềm v = 1500 m/s và tìm hiểu vì sao không lạm dụng siêu âm 4D kéo dài).">
-  <svg class="arcs arcs-end" viewBox="0 0 600 600" aria-hidden="true">
-    <g class="arc-waves">
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:0"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:1"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:2"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:3"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:4"/>
-      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:5"/>
-    </g>
-  </svg>
-  <svg class="end-waves" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
-    <path class="ew ew1" d="M0 70 Q75 18 150 70 T300 70 T450 70 T600 70 T750 70 T900 70 T1050 70 T1200 70"/>
-    <path class="ew ew2" d="M0 70 Q60 112 120 70 T240 70 T360 70 T480 70 T600 70 T720 70 T840 70 T960 70 T1080 70 T1200 70"/>
+  <svg class="end-waves" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="endCompress" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0"/>
+        <stop offset="20%" stop-color="#3fe3c8" stop-opacity="0.16"/>
+        <stop offset="35%" stop-color="#38bdf8" stop-opacity="0.03"/>
+        <stop offset="50%" stop-color="#3fe3c8" stop-opacity="0.18"/>
+        <stop offset="65%" stop-color="#38bdf8" stop-opacity="0.03"/>
+        <stop offset="80%" stop-color="#3fe3c8" stop-opacity="0.16"/>
+        <stop offset="100%" stop-color="#3fe3c8" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="18" width="1200" height="144" fill="url(#endCompress)"/>
+    <path class="ew ew1" d="M0 90 Q50 30 100 90 T200 90 T300 90 T400 90 T500 90 T600 90 T700 90 T800 90 T900 90 T1000 90 T1100 90 T1200 90"/>
+    <path class="ew ew2" d="M0 90 Q40 138 80 90 T160 90 T240 90 T320 90 T400 90 T480 90 T560 90 T640 90 T720 90 T800 90 T880 90 T960 90 T1040 90 T1120 90 T1200 90"/>
+    <path class="ew ew3" d="M0 90 Q60 62 120 90 T240 90 T360 90 T480 90 T600 90 T720 90 T840 90 T960 90 T1080 90 T1200 90"/>
   </svg>
   <div class="slide-inner" style="justify-content:center;align-items:center;text-align:center">
     <div style="max-width:920px;width:100%;display:flex;flex-direction:column;align-items:center;gap:1.25rem">
@@ -4358,22 +4333,6 @@ $$('svg .part').forEach(g => {
   });
 });
 
-/* --- phát xung siêu âm tương tác khi bấm lên trang bìa --- */
-const coverSlide = $('.slide.cover');
-const coverArcs = $('#coverArcs .arc-waves');
-if (coverSlide && coverArcs) {
-  coverSlide.addEventListener('click', e => {
-    if (e.target.closest('button, a, input, select')) return;
-    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    c.setAttribute('cx', '300');
-    c.setAttribute('cy', '300');
-    c.setAttribute('r', '288');
-    c.setAttribute('class', 'arc-wave ping');
-    coverArcs.appendChild(c);
-    setTimeout(() => c.remove(), 1550);
-  });
-}
-
 /* --- khởi động --- */
 slides.forEach((s, i) => {
   if (s.dataset.fx) return;
@@ -4448,6 +4407,145 @@ function frame(t) {
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+
+/* ============================================================
+   LAB 00a — Bìa: Sóng dọc siêu âm (Nén – Dãn đàn hồi) (Slide 1)
+   ============================================================ */
+(function () {
+  const cv = $('#coverWaveCanvas');
+  if (!cv) return;
+  const card = cv.closest('.cover-wave-card');
+  const rng = mulberry32(4242);
+  const COLS = 34, ROWS = 7;
+  const pts = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      pts.push({
+        u: (c + 0.5) / COLS,
+        v: (r + 0.5) / ROWS,
+        jy: (rng() - 0.5) * 0.06,
+        jx: (rng() - 0.5) * 0.012
+      });
+    }
+  }
+  let pulseX = -1;
+  if (card) {
+    card.addEventListener('click', () => { pulseX = 0; });
+  }
+
+  lab(cv, {
+    tick(t, dt) {
+      if (pulseX >= 0) {
+        pulseX += dt * 0.58;
+        if (pulseX > 1.18) pulseX = -1;
+      }
+      const { g, w, h } = fit(cv);
+      g.clearRect(0, 0, w, h);
+      g.fillStyle = '#040b14';
+      g.fillRect(0, 0, w, h);
+      grid(g, w, h, 24);
+
+      const x0 = 42, x1 = w - 16, span = x1 - x0;
+      const medTop = 24, medH = h * 0.54;
+      const plotY = h * 0.80, plotAmp = h * 0.12;
+      const cycles = 3.2;
+      const kWave = cycles * Math.PI * 2;
+      const omega = 3.2;
+
+      /* Dải vùng nén – dãn theo sóng dọc u(u,t) = A sin(kx - ωt) => mật độ nén ~ -cos(kx - ωt) */
+      const stripCols = 64;
+      const colW = span / stripCols + 1;
+      for (let i = 0; i < stripCols; i++) {
+        const u = (i + 0.5) / stripCols;
+        const phase = kWave * u - omega * t;
+        let comp = -Math.cos(phase);
+        if (pulseX >= 0) {
+          comp += 1.1 * Math.exp(-Math.pow((u - pulseX) / 0.065, 2));
+        }
+        const att = 1 - u * 0.18;
+        const cPos = clamp(comp * att, 0, 1.5);
+        if (cPos > 0.08) {
+          g.fillStyle = pulseX >= 0 && Math.abs(u - pulseX) < 0.09
+            ? `rgba(255,180,84,${(cPos * 0.22).toFixed(3)})`
+            : `rgba(63,227,200,${(cPos * 0.16).toFixed(3)})`;
+          g.fillRect(x0 + u * span - colW / 2, medTop, colW, medH);
+        }
+      }
+
+      /* Nguồn áp điện rung dọc bên trái (biến đổi điện -> dao động cơ theo trục truyền) */
+      const plateDx = Math.sin(-omega * t) * 4.5;
+      g.fillStyle = '#475569';
+      g.fillRect(10, medTop + 6, 6, medH - 12);
+      g.fillStyle = '#3fe3c8';
+      rr(g, 18 + plateDx, medTop + 6, 12, medH - 12, 3); g.fill();
+      g.fillStyle = 'rgba(255,255,255,0.65)';
+      g.fillRect(29 + plateDx, medTop + 10, 2, medH - 20);
+
+      /* Các phần tử môi trường đàn hồi dao động dọc (↔) tạo vùng nén và vùng dãn */
+      const maxDisp = Math.min(13, span / (COLS * 1.15));
+      for (const p of pts) {
+        const u0 = clamp(p.u + p.jx, 0.01, 0.99);
+        const phase = kWave * u0 - omega * t;
+        const att = 1 - u0 * 0.18;
+        let disp = Math.sin(phase) * maxDisp * att;
+        let comp = -Math.cos(phase) * att;
+        let onPulse = 0;
+        if (pulseX >= 0) {
+          const du = u0 - pulseX;
+          const env = Math.exp(-Math.pow(du / 0.06, 2));
+          disp += -du / 0.06 * env * 12;
+          comp += env * 1.2;
+          onPulse = env;
+        }
+        const px = x0 + u0 * span + disp;
+        const py = medTop + 10 + (p.v + p.jy) * (medH - 20);
+        const density = clamp(0.5 + 0.5 * comp, 0, 1);
+        if (onPulse > 0.35) {
+          g.fillStyle = `rgba(255,180,84,${(0.5 + 0.5 * onPulse).toFixed(2)})`;
+        } else if (density > 0.55) {
+          g.fillStyle = `rgba(63,227,200,${(0.45 + 0.55 * density).toFixed(2)})`;
+        } else {
+          g.fillStyle = `rgba(96,165,250,${(0.28 + 0.4 * density).toFixed(2)})`;
+        }
+        g.beginPath();
+        g.arc(px, py, 2.0 + density * 1.1 + onPulse * 0.9, 0, Math.PI * 2);
+        g.fill();
+      }
+
+      /* Đường phân cách & đồ thị áp suất p(x,t) đồng bộ 1:1 với nén/dãn phía trên */
+      g.strokeStyle = 'rgba(139,211,255,0.22)'; g.lineWidth = 1;
+      g.setLineDash([4, 4]);
+      g.beginPath(); g.moveTo(x0, plotY); g.lineTo(x1, plotY); g.stroke();
+      g.setLineDash([]);
+
+      g.beginPath();
+      for (let i = 0; i <= 120; i++) {
+        const u = i / 120;
+        let pVal = -Math.cos(kWave * u - omega * t) * (1 - u * 0.18);
+        if (pulseX >= 0) pVal += 1.05 * Math.exp(-Math.pow((u - pulseX) / 0.06, 2));
+        const xx = x0 + u * span;
+        const yy = plotY - pVal * plotAmp;
+        i === 0 ? g.moveTo(xx, yy) : g.lineTo(xx, yy);
+      }
+      g.strokeStyle = pulseX >= 0 ? '#ffb454' : '#3fe3c8';
+      g.lineWidth = 2;
+      g.stroke();
+
+      /* Nhãn chú thích vật lí chuẩn xác */
+      g.font = 'bold 11px "JetBrains Mono", monospace';
+      g.fillStyle = '#3fe3c8';
+      g.fillText('Vùng nén (áp suất cao)', x0 + 4, 15);
+      g.fillStyle = '#8bd3ff';
+      g.fillText('Vùng dãn', x0 + span * 0.52, 15);
+      g.textAlign = 'right';
+      g.fillStyle = '#a8bed8';
+      g.fillText('Dao động ↔ · Truyền →', x1, h - 7);
+      g.textAlign = 'left';
+      g.fillStyle = '#a8bed8';
+      g.fillText('Áp suất p(x,t)', x0 + 4, plotY - plotAmp - 4);
+    }
+  });
+})();
 
 /* ============================================================
    LAB 00 — Mô phỏng B-scan thai nhi (Slide 2)
