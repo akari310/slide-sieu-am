@@ -1004,7 +1004,7 @@ body.laser-active .arcs { cursor: none; }
 .cover-inner {
   justify-content: space-between;
   padding-top: clamp(1.2rem, 3.2vh, 2.5rem);
-  padding-bottom: clamp(2.4rem, 4.2vh, 3rem);
+  padding-bottom: clamp(2.85rem, 5.4vh, 3.6rem);
 }
 .cover-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .cover-hero { position: relative; padding: 0.6rem 0; }
@@ -1110,23 +1110,6 @@ html[data-theme="light"] .cover h1 .outline {
   z-index: -1;
   overflow: visible;
 }
-.arcs .arc-grid circle,
-.arcs .arc-grid line {
-  fill: none;
-  stroke: rgba(139, 211, 255, 0.12);
-  stroke-width: 1;
-}
-.arcs .arc-grid line {
-  stroke-dasharray: 4 6;
-}
-.arcs .arc-sweep {
-  transform-origin: 300px 300px;
-  animation: arc-spin 6s linear infinite;
-}
-@keyframes arc-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 .arcs .arc-wave {
   fill: none;
   stroke: var(--accent-teal);
@@ -1134,7 +1117,44 @@ html[data-theme="light"] .cover h1 .outline {
   transform-origin: 300px 300px;
   filter: drop-shadow(0 0 9px rgba(63, 227, 200, 0.62));
   animation: arc-emit 3.6s cubic-bezier(0.14, 0.55, 0.35, 1) infinite;
-  animation-delay: calc(var(--w, 0) * -0.72s);
+  animation-delay: calc(var(--w, 0) * -0.6s);
+}
+.arcs-end {
+  right: auto;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  opacity: 0.52;
+}
+.end-waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 7vh;
+  width: 100%;
+  height: 92px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.42;
+}
+.end-waves .ew {
+  fill: none;
+  stroke-linecap: round;
+}
+.end-waves .ew1 {
+  stroke: var(--accent-teal);
+  stroke-width: 2;
+  animation: wave-drift 6s ease-in-out infinite alternate;
+}
+.end-waves .ew2 {
+  stroke: var(--accent-2);
+  stroke-width: 1.5;
+  opacity: 0.72;
+  animation: wave-drift 8.5s ease-in-out infinite alternate-reverse;
+}
+@keyframes wave-drift {
+  from { transform: translateX(-2.5%); }
+  to { transform: translateX(2.5%); }
 }
 .arcs .arc-wave.ping {
   stroke: var(--accent-amber);
@@ -1171,26 +1191,6 @@ html[data-theme="light"] .cover h1 .outline {
   0%, 100% { transform: scale(0.88); opacity: 0.78; }
   50% { transform: scale(1.2); opacity: 1; }
 }
-.arcs .arc-blip {
-  fill: var(--accent-teal);
-  filter: drop-shadow(0 0 10px rgba(63, 227, 200, 0.98));
-  opacity: 0;
-  transform-origin: center;
-  transform-box: fill-box;
-  animation: blip-echo 6s ease-out infinite;
-  animation-delay: var(--bd, 0s);
-}
-.arcs .arc-blip.amber {
-  fill: var(--accent-amber);
-  filter: drop-shadow(0 0 11px rgba(255, 180, 84, 0.98));
-}
-@keyframes blip-echo {
-  0% { opacity: 1; transform: scale(1.75); }
-  16% { opacity: 0.65; transform: scale(1.1); }
-  34%, 100% { opacity: 0; transform: scale(0.5); }
-}
-html[data-theme="light"] .arcs .arc-grid circle,
-html[data-theme="light"] .arcs .arc-grid line { stroke: rgba(13, 43, 107, 0.14); }
 html[data-theme="light"] .arcs .arc-wave { stroke: var(--accent-2); filter: none; }
 html[data-theme="light"] .arcs .arc-core-dot { fill: var(--accent-2); }
 
@@ -1473,7 +1473,8 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
 /* ---------------- Responsive ---------------- */
 @media (max-height: 760px) {
   :root { --topbar-h: 46px; --h2-size: clamp(1.18rem, 2.25vw, 1.85rem); }
-  .slide-inner { padding-top: 0.55rem; padding-bottom: 1.45rem; gap: 0.4rem; }
+  .slide-inner { padding-top: 0.55rem; padding-bottom: 1.65rem; gap: 0.4rem; }
+  .slide-inner.cover-inner { padding-bottom: 2.7rem; }
 }
 @media (max-width: 900px) {
   .rail { display: none; }
@@ -1512,7 +1513,7 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
   html, body { overflow: visible !important; scroll-snap-type: none; }
   body { background: #ffffff; }
   #deck { height: auto !important; overflow: visible !important; }
-  .topbar, .progress, .rail, .hud, .nav-arrows, .notes, .overlay, .toast, .arcs, .draw-layer, .laser-dot { display: none !important; }
+  .topbar, .progress, .rail, .hud, .nav-arrows, .notes, .overlay, .toast, .arcs, .end-waves, .draw-layer, .laser-dot { display: none !important; }
   .slide {
     position: relative !important;
     inset: auto !important;
@@ -2101,45 +2102,30 @@ select {
   <svg class="arcs" id="coverArcs" viewBox="0 0 600 600" aria-hidden="true">
     <defs>
       <radialGradient id="arcCoreGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.82"/>
-        <stop offset="38%" stop-color="#38bdf8" stop-opacity="0.26"/>
+        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.88"/>
+        <stop offset="38%" stop-color="#38bdf8" stop-opacity="0.28"/>
         <stop offset="100%" stop-color="#3fe3c8" stop-opacity="0"/>
       </radialGradient>
-      <linearGradient id="arcSweepGrad" x1="300" y1="12" x2="50" y2="156" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.38"/>
-        <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.12"/>
-        <stop offset="100%" stop-color="#3fe3c8" stop-opacity="0"/>
-      </linearGradient>
+      <radialGradient id="arcFieldGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.16"/>
+        <stop offset="65%" stop-color="#38bdf8" stop-opacity="0.06"/>
+        <stop offset="100%" stop-color="#070d19" stop-opacity="0"/>
+      </radialGradient>
     </defs>
-    <!-- Lưới toạ độ mờ chuẩn máy siêu âm / sonar -->
-    <g class="arc-grid">
-      <circle cx="300" cy="300" r="72"/><circle cx="300" cy="300" r="144"/>
-      <circle cx="300" cy="300" r="216"/><circle cx="300" cy="300" r="288"/>
-      <line x1="12" y1="300" x2="588" y2="300"/><line x1="300" y1="12" x2="300" y2="588"/>
-    </g>
-    <!-- Tia quét xoay 360° theo chiều kim đồng hồ (tia sáng dẫn đầu tại 12h, đuôi mờ phía sau) -->
-    <g class="arc-sweep">
-      <path d="M300 300 L50.6 156 A288 288 0 0 1 300 12 Z" fill="url(#arcSweepGrad)"/>
-      <line x1="300" y1="300" x2="300" y2="12" stroke="rgba(63,227,200,0.85)" stroke-width="2"/>
-    </g>
-    <!-- 5 vòng sóng siêu âm phát liên tục từ tâm ra ngoài -->
+    <circle cx="300" cy="300" r="288" fill="url(#arcFieldGlow)"/>
+    <!-- 6 mặt sóng cầu siêu âm lan truyền liên tục từ tâm nguồn phát -->
     <g class="arc-waves">
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:0"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:1"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:2"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:3"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:4"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:5"/>
     </g>
-    <!-- 3 điểm phản xạ echo loé sáng đúng lúc tia quét quét qua -->
-    <g class="arc-blips">
-      <circle class="arc-blip" cx="435.5" cy="194.1" r="4.8" style="--bd:0.87s"/>
-      <circle class="arc-blip amber" cx="440.5" cy="456.1" r="5.2" style="--bd:2.30s"/>
-      <circle class="arc-blip" cx="153.5" cy="359.2" r="4.5" style="--bd:4.13s"/>
-    </g>
-    <!-- Tâm nguồn phát áp điện -->
-    <circle cx="300" cy="300" r="56" fill="url(#arcCoreGlow)" class="arc-halo"/>
-    <circle cx="300" cy="300" r="14" class="arc-core-ring"/>
-    <circle cx="300" cy="300" r="5.5" class="arc-core-dot"/>
+    <!-- Tâm nguồn phát áp điện rung phát siêu âm -->
+    <circle cx="300" cy="300" r="64" fill="url(#arcCoreGlow)" class="arc-halo"/>
+    <circle cx="300" cy="300" r="18" class="arc-core-ring"/>
+    <circle cx="300" cy="300" r="7" class="arc-core-dot"/>
   </svg>
   <div class="ghost-num" aria-hidden="true">07</div>
   <div class="slide-inner cover-inner">
@@ -3759,18 +3745,19 @@ select {
 
 <!-- ============ 34. CẢM ƠN ============ -->
 <section class="slide" data-sec="Tổng kết" data-title="Cảm ơn đã lắng nghe" data-min="0.5" data-note="Chốt tiết học và gửi lời cảm ơn. (Bài tập về nhà gợi ý nếu cần giao thêm: tính bước sóng siêu âm 5 MHz trong mô mềm v = 1500 m/s và tìm hiểu vì sao không lạm dụng siêu âm 4D kéo dài).">
-  <svg class="arcs" viewBox="0 0 600 600" aria-hidden="true" style="right:auto;left:50%;transform:translate(-50%,-50%);opacity:.92">
-    <g class="arc-grid">
-      <circle cx="300" cy="300" r="72"/><circle cx="300" cy="300" r="144"/>
-      <circle cx="300" cy="300" r="216"/><circle cx="300" cy="300" r="288"/>
-    </g>
+  <svg class="arcs arcs-end" viewBox="0 0 600 600" aria-hidden="true">
     <g class="arc-waves">
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:0"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:1"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:2"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:3"/>
       <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:4"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:5"/>
     </g>
+  </svg>
+  <svg class="end-waves" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
+    <path class="ew ew1" d="M0 70 Q75 18 150 70 T300 70 T450 70 T600 70 T750 70 T900 70 T1050 70 T1200 70"/>
+    <path class="ew ew2" d="M0 70 Q60 112 120 70 T240 70 T360 70 T480 70 T600 70 T720 70 T840 70 T960 70 T1080 70 T1200 70"/>
   </svg>
   <div class="slide-inner" style="justify-content:center;align-items:center;text-align:center">
     <div style="max-width:920px;width:100%;display:flex;flex-direction:column;align-items:center;gap:1.25rem">
