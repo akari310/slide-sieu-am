@@ -233,8 +233,12 @@ code, kbd, pre, samp {
   min-height: 0;
   display: grid;
   gap: clamp(1rem, 2.4vw, 2.4rem);
-  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   align-items: stretch;
+}
+
+.cols.lab-left {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
 }
 
 .cols.wide-left {
@@ -763,6 +767,42 @@ ul.clean li.teal-dot::before { background: var(--accent-teal); }
 .hud b { color: var(--accent-2); font-weight: 700; }
 .hud .bar { width: 40px; height: 1.5px; background: var(--border-strong); }
 
+.nav-arrows {
+  position: fixed;
+  right: calc(var(--pad) + 18px);
+  bottom: 8px;
+  z-index: 56;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.nav-arrows button {
+  appearance: none;
+  width: 30px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-solid);
+  color: var(--text-1);
+  font-family: var(--mono);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.16s, border-color 0.16s, color 0.16s, transform 0.14s, opacity 0.16s;
+}
+.nav-arrows button:hover:not(:disabled) {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: var(--accent-ink);
+  transform: translateY(-1px);
+}
+.nav-arrows button:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
 /* ---------------- Annotation Pen & Laser Pointer ---------------- */
 .draw-layer {
   position: fixed;
@@ -796,7 +836,105 @@ ul.clean li.teal-dot::before { background: var(--accent-teal); }
 body.laser-active .slide,
 body.laser-active .arcs { cursor: none; }
 
-/* ---------------- Reveal ---------------- */
+/* ---------------- Deck Stage & Reveal Transitions ---------------- */
+@media (min-width: 781px) {
+  html, body {
+    overflow: hidden;
+  }
+  #deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(52px, 0, 0) scale(0.985);
+    transition:
+      opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0.5s;
+    will-change: transform, opacity;
+  }
+  .slide.is-before {
+    transform: translate3d(-52px, 0, 0) scale(0.985);
+  }
+  .slide.is-after {
+    transform: translate3d(52px, 0, 0) scale(0.985);
+  }
+  .slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 4;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      opacity 0.44s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0s;
+  }
+  .slide.is-leaving {
+    z-index: 3;
+    visibility: visible;
+    pointer-events: none;
+  }
+
+  /* Staggered content entrance when a slide becomes active */
+  .slide .s-head,
+  .slide .cols > *,
+  .slide .checkpoint-box,
+  .slide .probes,
+  .slide .hist-grid,
+  .slide .pipe,
+  .slide .cards-4 {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition:
+      opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .slide.is-active .s-head {
+    opacity: 1;
+    transform: none;
+    transition-delay: 45ms;
+  }
+  .slide.is-active .cols > :first-child,
+  .slide.is-active .checkpoint-box,
+  .slide.is-active .probes,
+  .slide.is-active .hist-grid,
+  .slide.is-active .pipe {
+    opacity: 1;
+    transform: none;
+    transition-delay: 105ms;
+  }
+  .slide.is-active .cols > :nth-child(2) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 165ms;
+  }
+  .slide.is-active .cards-4 {
+    opacity: 1;
+    transform: none;
+    transition-delay: 210ms;
+  }
+  .slide.is-leaving .s-head,
+  .slide.is-leaving .cols > *,
+  .slide.is-leaving .checkpoint-box,
+  .slide.is-leaving .probes,
+  .slide.is-leaving .hist-grid,
+  .slide.is-leaving .pipe,
+  .slide.is-leaving .cards-4 {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(14px);
@@ -805,13 +943,13 @@ body.laser-active .arcs { cursor: none; }
 .slide.is-active .reveal {
   opacity: 1;
   transform: none;
-  transition-delay: calc(var(--d, 0) * 70ms);
+  transition-delay: calc(var(--d, 0) * 75ms + 50ms);
 }
 .slide.is-active .anim-fade-up {
-  animation: kf-fade-up 0.5s var(--ease) both;
+  animation: kf-fade-up 0.48s var(--ease) 40ms both;
 }
 @keyframes kf-fade-up {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
 }
 
@@ -1193,7 +1331,7 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
 }
 @media (max-width: 900px) {
   .rail { display: none; }
-  .cols, .cols.wide-left { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); gap: 0.7rem; }
+  .cols, .cols.lab-left, .cols.wide-left { grid-template-columns: 1fr; grid-template-rows: auto auto; gap: 0.7rem; }
   .txt { align-self: start; }
   .cover-meta { grid-template-columns: repeat(2, 1fr); }
   .arcs { opacity: 0.45; }
@@ -1203,7 +1341,7 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
   .slide { height: auto; min-height: 100dvh; overflow: visible; }
   .slide-inner { height: auto; min-height: calc(100dvh - var(--topbar-h)); padding-bottom: 2.2rem; }
   .s-body { justify-content: flex-start; }
-  .hud { display: none; }
+  .hud, .nav-arrows { display: none; }
 }
 @media (max-width: 680px) {
   .checkpoint-opts,
@@ -1225,11 +1363,25 @@ svg .part.hi rect, svg .part.hi path { stroke: var(--accent-rose) !important; st
 
 @media print {
   @page { size: A4 landscape; margin: 0; }
-  html { scroll-snap-type: none; }
+  html, body { overflow: visible !important; scroll-snap-type: none; }
   body { background: #ffffff; }
-  .topbar, .progress, .rail, .hud, .notes, .overlay, .toast, .arcs, .draw-layer, .laser-dot { display: none !important; }
-  .slide { page-break-after: always; break-after: page; height: 100vh; padding-top: 0; }
-  .reveal { opacity: 1 !important; transform: none !important; }
+  #deck { height: auto !important; overflow: visible !important; }
+  .topbar, .progress, .rail, .hud, .nav-arrows, .notes, .overlay, .toast, .arcs, .draw-layer, .laser-dot { display: none !important; }
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    page-break-after: always;
+    break-after: page;
+    height: 100vh;
+    padding-top: 0;
+  }
+  .slide .s-head, .slide .cols > *, .slide .checkpoint-box, .slide .probes, .slide .hist-grid, .slide .pipe, .slide .cards-4, .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 
@@ -1774,6 +1926,10 @@ select {
 <div class="progress"><i id="bar"></i></div>
 <nav class="rail" id="rail" aria-label="Điều hướng slide"></nav>
 <div class="hud"><b id="curNum">01</b><span class="bar"></span><span id="totNum">39</span><span id="curSec">MỞ ĐẦU</span></div>
+<div class="nav-arrows" aria-label="Chuyển slide">
+  <button id="prevBtn" title="Slide trước (←)" aria-label="Slide trước">‹</button>
+  <button id="nextBtn" title="Slide tiếp theo (→)" aria-label="Slide tiếp theo">›</button>
+</div>
 
 <canvas class="draw-layer" id="drawCanvas"></canvas>
 <div class="laser-dot" id="laserDot"></div>
@@ -1797,7 +1953,7 @@ select {
     </div>
     <div class="cover-meta reveal" style="--d:2">
       <div><b>39</b><span>Slide</span></div>
-      <div><b>17</b><span>Mô phỏng &amp; video</span></div>
+      <div><b>19</b><span>Mô phỏng &amp; video</span></div>
       <div><b>21</b><span>Câu hỏi &amp; bài tập</span></div>
       <div><b>45′</b><span>Thời lượng</span></div>
     </div>
@@ -2044,16 +2200,7 @@ select {
       <h2 class="anim-fade-up">Bước sóng ngắn mới nhìn rõ chi tiết nhỏ</h2>
     </div>
     <div class="s-body">
-      <div class="cols">
-        <div class="txt">
-          <div class="card card-teal" style="margin-bottom:.65rem">
-            <span class="pill pill-aqua" style="margin-bottom:.4em">Bài toán 1</span>
-            <p style="font-size:var(--body-size);margin:0">Đầu dò dùng tinh thể thạch anh (<b>v = 5700 m/s</b>) phát sóng ở tần số <b>2 MHz</b>. Tính bước sóng của chùm sóng ngay trong tinh thể đó.</p>
-          </div>
-          <div class="formula" style="margin-bottom:.5rem">λ = v / f</div>
-          <p class="mono" style="font-size:var(--small-size);color:var(--text-1)">λ = 5700 / (2 × 10⁶) = 2,85 × 10⁻³ m = <b class="hl">2,85 mm</b></p>
-          <p class="note-line" style="margin-top:.65rem">Sóng chỉ phản xạ rõ trên vật có kích thước cỡ bước sóng trở lên. Vì vậy siêu âm chẩn đoán phải dùng MHz để đạt <b>λ ≈ 0,15 – 0,8 mm</b>.</p>
-        </div>
+      <div class="cols lab-left">
         <div class="lab" data-widget="lambda">
           <div class="lab-top"><span class="lab-tag">Mô phỏng 02 · Bước sóng λ trên thước mm thực</span><span class="lab-hint">Kéo f &amp; đổi môi trường</span></div>
           <div class="canvas-box" style="min-height:165px"><canvas id="lamCanvas"></canvas></div>
@@ -2076,6 +2223,15 @@ select {
             <span>So với sợi tóc (0,07 mm): <b id="lamCmp">× 11</b></span>
             <button class="btn" id="lamPreset">↺ Nạp bài toán 1 (thạch anh)</button>
           </div>
+        </div>
+        <div class="txt">
+          <div class="card card-teal" style="margin-bottom:.65rem">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Bài toán 1</span>
+            <p style="font-size:var(--body-size);margin:0">Đầu dò dùng tinh thể thạch anh (<b>v = 5700 m/s</b>) phát sóng ở tần số <b>2 MHz</b>. Tính bước sóng của chùm sóng ngay trong tinh thể đó.</p>
+          </div>
+          <div class="formula" style="margin-bottom:.5rem">λ = v / f</div>
+          <p class="mono" style="font-size:var(--small-size);color:var(--text-1)">λ = 5700 / (2 × 10⁶) = 2,85 × 10⁻³ m = <b class="hl">2,85 mm</b></p>
+          <p class="note-line" style="margin-top:.65rem">Sóng chỉ phản xạ rõ trên vật có kích thước cỡ bước sóng trở lên. Vì vậy siêu âm chẩn đoán phải dùng MHz để đạt <b>λ ≈ 0,15 – 0,8 mm</b>.</p>
         </div>
       </div>
     </div>
@@ -2233,18 +2389,7 @@ select {
       <p class="lead">Tấm tinh thể áp điện hoạt động theo cả hai chiều chuyển đổi năng lượng.</p>
     </div>
     <div class="s-body">
-      <div class="cols">
-        <div class="txt">
-          <div class="card card-teal" style="margin-bottom:.6rem">
-            <span class="pill pill-aqua" style="margin-bottom:.4em">Chiều phát · Điện → Cơ</span>
-            <p style="font-size:var(--small-size);margin:0">Đặt xung điện xoay chiều tần số f → tinh thể dao động cơ học tần số f → truyền xung siêu âm vào cơ thể.</p>
-          </div>
-          <div class="card card-accent">
-            <span class="pill pill-blue" style="margin-bottom:.4em">Chiều thu · Cơ → Điện</span>
-            <p style="font-size:var(--small-size);margin:0">Sóng phản xạ dội về nén lên tinh thể → tạo ra <b>tín hiệu điện áp xoay chiều</b> ở hai bản cực để máy tính xử lí.</p>
-          </div>
-          <p class="note-line" style="margin-top:.7rem">Vì dùng chung một tinh thể, máy phải <b>phát xung cực ngắn</b> (~1 µs) rồi ngắt ngay để lắng nghe tiếng dội về trong vài chục đến vài trăm µs tiếp theo.</p>
-        </div>
+      <div class="cols lab-left">
         <div class="txt">
           <div class="card" style="padding:.85rem">
             <svg viewBox="0 0 460 250" style="width:100%;height:auto" aria-label="Sơ đồ hai chiều phát và thu siêu âm">
@@ -2288,6 +2433,17 @@ select {
               <text x="272" y="216" fill="var(--accent-2)" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700">→ tín hiệu điện U(f)</text>
             </svg>
           </div>
+        </div>
+        <div class="txt">
+          <div class="card card-teal" style="margin-bottom:.6rem">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Chiều phát · Điện → Cơ</span>
+            <p style="font-size:var(--small-size);margin:0">Đặt xung điện xoay chiều tần số f → tinh thể dao động cơ học tần số f → truyền xung siêu âm vào cơ thể.</p>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.4em">Chiều thu · Cơ → Điện</span>
+            <p style="font-size:var(--small-size);margin:0">Sóng phản xạ dội về nén lên tinh thể → tạo ra <b>tín hiệu điện áp xoay chiều</b> ở hai bản cực để máy tính xử lí.</p>
+          </div>
+          <p class="note-line" style="margin-top:.7rem">Vì dùng chung một tinh thể, máy phải <b>phát xung cực ngắn</b> (~1 µs) rồi ngắt ngay để lắng nghe tiếng dội về trong vài chục đến vài trăm µs tiếp theo.</p>
         </div>
       </div>
     </div>
@@ -2345,14 +2501,7 @@ select {
       <h2 class="anim-fade-up">Giải thích hiện tượng bằng mô hình sóng dừng</h2>
     </div>
     <div class="s-body">
-      <div class="cols">
-        <div class="txt">
-          <ul class="clean">
-            <li>Đặt đầu phát siêu âm (<b>28–60 kHz</b>) đối diện mặt phản xạ → sóng tới và sóng phản xạ giao thoa tạo hệ <b>sóng dừng</b>.</li>
-            <li>Tại các <b>nút áp suất</b> cách nhau <b>λ/2</b>, lực đẩy chênh lệch áp suất âm cân bằng trọng lực → giọt nước đứng yên.</li>
-            <li class="teal-dot">Chứng minh siêu âm mang <b>năng lượng cơ học thật</b>: mức thấp để soi mô, mức cao tạo lực nâng và tác động cơ học mạnh.</li>
-          </ul>
-        </div>
+      <div class="cols lab-left">
         <div class="lab" data-widget="levitate">
           <div class="lab-top"><span class="lab-tag">Mô phỏng 04 · Bẫy sóng dừng siêu âm</span><span class="lab-hint">Đổi tần số · bật/tắt sóng</span></div>
           <div class="canvas-box"><canvas id="levCanvas"></canvas></div>
@@ -2361,6 +2510,13 @@ select {
             <button class="btn" id="levPow">⏸ Tắt sóng (thả vật)</button>
             <span>Khoảng cách nút λ/2 = <span class="big" id="levLam">4,29 mm</span></span>
           </div>
+        </div>
+        <div class="txt">
+          <ul class="clean">
+            <li>Đặt đầu phát siêu âm (<b>28–60 kHz</b>) đối diện mặt phản xạ → sóng tới và sóng phản xạ giao thoa tạo hệ <b>sóng dừng</b>.</li>
+            <li>Tại các <b>nút áp suất</b> cách nhau <b>λ/2</b>, lực đẩy chênh lệch áp suất âm cân bằng trọng lực → giọt nước đứng yên.</li>
+            <li class="teal-dot">Chứng minh siêu âm mang <b>năng lượng cơ học thật</b>: mức thấp để soi mô, mức cao tạo lực nâng và tác động cơ học mạnh.</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -2399,7 +2555,7 @@ select {
           <p class="note-line" style="margin-top:.65rem">Do một giây máy có thể lặp lại chu trình này hàng nghìn lần, bác sĩ quan sát được tim đập theo thời gian thực.</p>
         </div>
         <div class="lab" data-widget="pulseecho" style="min-height:0;padding:.75rem .9rem;gap:.45rem">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng · Xung phát &amp; tiếng dội (Δt)</span><span class="lab-hint">Kéo độ sâu d · bấm phóng xung</span></div>
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 05 · Xung phát &amp; tiếng dội (Δt)</span><span class="lab-hint">Kéo độ sâu d · bấm phóng xung</span></div>
           <div class="canvas-box" style="min-height:132px"><canvas id="peCanvas"></canvas></div>
           <div class="ctrl"><label for="peD">Độ sâu mặt phản xạ d</label><input type="range" id="peD" min="20" max="120" step="5" value="60"><output id="peDout">6,0 cm</output></div>
           <div class="readout" style="font-size:var(--small-size);padding:.4em .65em">
@@ -2619,7 +2775,16 @@ select {
       <h2 class="anim-fade-up">Tại mặt phân cách: một phần dội lại, một phần truyền tiếp</h2>
     </div>
     <div class="s-body">
-      <div class="cols">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="reflect">
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 06 · Phản xạ &amp; khúc xạ</span><span class="lab-hint">Kéo góc tới</span></div>
+          <div class="canvas-box"><canvas id="rfCanvas"></canvas></div>
+          <div class="ctrl"><label for="rfAngle">Góc tới</label><input type="range" id="rfAngle" min="0" max="45" step="1" value="0"><output id="rfOut">0°</output></div>
+          <div class="readout">
+            <span>Năng lượng phản xạ: <span class="big" id="rfPct">43%</span></span>
+            <span id="rfState" class="hl">vuông góc · thu tín hiệu tối đa</span>
+          </div>
+        </div>
         <div class="txt">
           <ul class="clean">
             <li>Khi gặp ranh giới hai môi trường có trở kháng âm <b>Z₁ ≠ Z₂</b>, sóng tách thành tia <b>phản xạ</b> và tia <b>khúc xạ</b>.</li>
@@ -2628,15 +2793,6 @@ select {
           <div class="formula" style="margin:.6rem 0">R = [(Z₂ − Z₁) / (Z₂ + Z₁)]²</div>
           <div class="formula" style="margin-bottom:.6rem">d = v · Δt / 2</div>
           <p class="note-line">Đầu dò chỉ thu được sóng phản xạ khi tia dội quay đúng về mặt thu → người khám luôn giữ đầu dò <b>gần như vuông góc</b> với bề mặt da.</p>
-        </div>
-        <div class="lab" data-widget="reflect">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 05 · Phản xạ &amp; khúc xạ</span><span class="lab-hint">Kéo góc tới</span></div>
-          <div class="canvas-box"><canvas id="rfCanvas"></canvas></div>
-          <div class="ctrl"><label for="rfAngle">Góc tới</label><input type="range" id="rfAngle" min="0" max="45" step="1" value="0"><output id="rfOut">0°</output></div>
-          <div class="readout">
-            <span>Năng lượng phản xạ: <span class="big" id="rfPct">43%</span></span>
-            <span id="rfState" class="hl">vuông góc · thu tín hiệu tối đa</span>
-          </div>
         </div>
       </div>
     </div>
@@ -2663,7 +2819,7 @@ select {
           </ul>
         </div>
         <div class="lab" data-widget="gel">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 06 · Tác dụng của gel tiếp âm</span><span class="lab-hint">Kéo để lấp khe khí</span></div>
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 07 · Tác dụng của gel tiếp âm</span><span class="lab-hint">Kéo để lấp khe khí</span></div>
           <div class="gel-vis">
             <div class="gel-disc" id="gelDisc"><span id="gelDiscTxt">mất ảnh</span></div>
             <div class="gel-stack">
@@ -2693,7 +2849,17 @@ select {
       <h2 class="anim-fade-up">Cường độ sóng suy giảm theo hàm mũ khi đi sâu vào mô</h2>
     </div>
     <div class="s-body">
-      <div class="cols">
+      <div class="cols lab-left">
+        <div class="lab" data-widget="absorb">
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 08 · Đường cong suy giảm &amp; độ sâu</span><span class="lab-hint">Kéo tần số &amp; độ sâu</span></div>
+          <div class="canvas-box"><canvas id="abCanvas"></canvas></div>
+          <div class="ctrl"><label for="abF">Tần số f</label><input type="range" id="abF" min="1" max="15" step="0.5" value="5"><output id="abFout">5,0 MHz</output></div>
+          <div class="ctrl"><label for="abD">Độ sâu d</label><input type="range" id="abD" min="0" max="8" step="0.1" value="4"><output id="abDout">4,0 cm</output></div>
+          <div class="readout">
+            <span>Cường độ còn lại: <span class="big" id="abPct">10%</span></span>
+            <span class="mono" id="abDb">−10,0 dB</span>
+          </div>
+        </div>
         <div class="txt">
           <div class="formula" style="margin-bottom:.65rem">I = I₀ · e<sup>−αd</sup></div>
           <dl class="kv">
@@ -2703,16 +2869,6 @@ select {
           </dl>
           <div class="card card-accent" style="margin-top:.75rem">
             <p style="font-size:var(--small-size);margin:0">Mô biến một phần năng lượng dao động thành nhiệt. Ở tần số cao, sóng bị hấp thụ mạnh ngay lớp nông; muốn khảo sát sâu phải giảm tần số.</p>
-          </div>
-        </div>
-        <div class="lab" data-widget="absorb">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 07 · Đường cong suy giảm &amp; độ sâu</span><span class="lab-hint">Kéo tần số &amp; độ sâu</span></div>
-          <div class="canvas-box"><canvas id="abCanvas"></canvas></div>
-          <div class="ctrl"><label for="abF">Tần số f</label><input type="range" id="abF" min="1" max="15" step="0.5" value="5"><output id="abFout">5,0 MHz</output></div>
-          <div class="ctrl"><label for="abD">Độ sâu d</label><input type="range" id="abD" min="0" max="8" step="0.1" value="4"><output id="abDout">4,0 cm</output></div>
-          <div class="readout">
-            <span>Cường độ còn lại: <span class="big" id="abPct">10%</span></span>
-            <span class="mono" id="abDb">−10,0 dB</span>
           </div>
         </div>
       </div>
@@ -2792,7 +2948,7 @@ select {
     <div class="s-body">
       <div class="cols one">
         <div class="lab" data-widget="ascan">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 08 · Siêu âm kiểu A (Amplitude)</span><span class="lab-hint">Bấm phát xung · kéo ranh giới B</span></div>
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 09 · Siêu âm kiểu A (Amplitude)</span><span class="lab-hint">Bấm phát xung · kéo ranh giới B</span></div>
           <div class="canvas-box" style="min-height:245px"><canvas id="asCanvas"></canvas></div>
           <div class="ctrl"><label for="asD">Vị trí ranh giới B (mỡ–cơ)</label><input type="range" id="asD" min="20" max="45" step="1" value="30"><output id="asDout">3,0 cm</output></div>
           <div class="readout">
@@ -2817,7 +2973,7 @@ select {
     <div class="s-body">
       <div class="cols wide-left">
         <div class="lab" data-widget="bscan">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 09 · Siêu âm kiểu B (Brightness)</span><span class="lab-hint">Quét để dựng ảnh · chỉnh Gain</span></div>
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 10 · Siêu âm kiểu B (Brightness)</span><span class="lab-hint">Quét để dựng ảnh · chỉnh Gain</span></div>
           <div class="canvas-box" style="min-height:220px"><canvas id="bsCanvas"></canvas></div>
           <div class="ctrl"><label for="bsGain">Độ khuếch đại (Gain)</label><input type="range" id="bsGain" min="40" max="220" step="5" value="100"><output id="bsGainOut">1,0×</output></div>
           <div class="ctrl"><label for="bsSpeed">Tốc độ quét</label><input type="range" id="bsSpeed" min="20" max="250" step="10" value="100"><output id="bsSpeedOut">1,0×</output></div>
@@ -2863,7 +3019,7 @@ select {
         </div>
         <div class="lab" data-widget="doppler">
           <div class="lab-top">
-            <span class="lab-tag">Mô phỏng 10 · Siêu âm Doppler mạch máu</span>
+            <span class="lab-tag">Mô phỏng 11 · Siêu âm Doppler mạch máu</span>
             <div class="seg" data-vid-switch="dp">
               <button class="btn on" data-view="sim">🧪 Mô phỏng</button>
               <button class="btn" data-view="img">📷 Ảnh Doppler thật</button>
@@ -2958,20 +3114,10 @@ select {
       <h2 class="anim-fade-up">Tăng cường độ sóng: tán sỏi ngoài cơ thể không cần mổ</h2>
     </div>
     <div class="s-body">
-      <div class="cols" style="margin-bottom:.65rem;flex:0 0 auto;align-items:stretch">
-        <div class="txt" style="display:flex;flex-direction:column;gap:.6rem">
-          <div class="card card-teal">
-            <span class="pill pill-aqua" style="margin-bottom:.35em">Tán sỏi ngoài cơ thể (ESWL)</span>
-            <p style="font-size:var(--small-size);margin:0">Đầu phát cong hội tụ nhiều chùm sóng siêu âm cường độ thấp đi qua da an toàn (mô lành không bị tổn thương), rồi <b>tập trung năng lượng cực lớn đúng vào viên sỏi</b> tại tiêu điểm.</p>
-          </div>
-          <div class="card card-accent">
-            <span class="pill pill-blue" style="margin-bottom:.35em">Phá vỡ sỏi không cần phẫu thuật</span>
-            <p style="font-size:var(--small-size);margin:0">Hàng nghìn xung áp suất va đập liên tiếp làm viên sỏi thận, sỏi mật nứt vỡ thành <b>vụn nhỏ như cát</b> để cơ thể tự đào thải ra ngoài theo đường tự nhiên.</p>
-          </div>
-        </div>
+      <div class="cols lab-left" style="margin-bottom:.65rem;flex:0 0 auto;align-items:stretch">
         <div class="lab" data-widget="hifu" style="min-height:0;padding:.72rem .88rem;gap:.48rem">
           <div class="lab-top">
-            <span class="lab-tag">Mô phỏng · Tán sỏi ngoài cơ thể (ESWL)</span>
+            <span class="lab-tag">Mô phỏng 12 · Tán sỏi ngoài cơ thể (ESWL)</span>
             <div class="seg" data-vid-switch="eswl">
               <button class="btn on" data-view="sim">🧪 Mô phỏng tán sỏi</button>
               <button class="btn" data-view="yt">🎬 Video chi tiết</button>
@@ -3005,6 +3151,16 @@ select {
           </div>
           <p class="dim" data-view-only="yt" hidden style="font-size:var(--small-size);margin:0"><b>Video 3D tán sỏi ngoài cơ thể (ESWL · 1:30):</b> minh hoạ bệnh nhân nằm trên máy tán sỏi, định vị viên sỏi và phát chùm sóng hội tụ làm sỏi vỡ vụn tự đào thải.</p>
         </div>
+        <div class="txt" style="display:flex;flex-direction:column;gap:.6rem">
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.35em">Tán sỏi ngoài cơ thể (ESWL)</span>
+            <p style="font-size:var(--small-size);margin:0">Đầu phát cong hội tụ nhiều chùm sóng siêu âm cường độ thấp đi qua da an toàn (mô lành không bị tổn thương), rồi <b>tập trung năng lượng cực lớn đúng vào viên sỏi</b> tại tiêu điểm.</p>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.35em">Phá vỡ sỏi không cần phẫu thuật</span>
+            <p style="font-size:var(--small-size);margin:0">Hàng nghìn xung áp suất va đập liên tiếp làm viên sỏi thận, sỏi mật nứt vỡ thành <b>vụn nhỏ như cát</b> để cơ thể tự đào thải ra ngoài theo đường tự nhiên.</p>
+          </div>
+        </div>
       </div>
       <div class="cards-4">
         <div class="card"><span class="pill pill-blue" style="margin-bottom:.35em">Hàng hải</span><p style="font-size:var(--small-size);color:var(--text-2);margin:0">Sonar đo sâu, dò đàn cá, tìm vật chìm.</p></div>
@@ -3024,7 +3180,7 @@ select {
       <h2 class="anim-fade-up">Kiểm tra vết nứt trong kim loại mà không cần cắt mẫu</h2>
     </div>
     <div class="s-body">
-      <div class="cols wide-left">
+      <div class="cols">
         <div class="txt">
           <ul class="clean">
             <li><b>Kiểm tra không phá huỷ (NDT):</b> đặt đầu dò lên dầm cầu, đường ray hay mối hàn thép (v ≈ 5900 m/s).</li>
@@ -3034,7 +3190,7 @@ select {
           </ul>
         </div>
         <div class="lab" data-widget="defect">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 11 · Dò khuyết tật mối hàn</span><span class="lab-hint">So sánh 2 mẫu · bấm phát xung</span></div>
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 13 · Dò khuyết tật mối hàn</span><span class="lab-hint">So sánh 2 mẫu · bấm phát xung</span></div>
           <div class="canvas-box"><canvas id="dfCanvas"></canvas></div>
           <div class="ctrl"><label for="dfD">Độ sâu lỗ hổng</label><input type="range" id="dfD" min="10" max="90" step="1" value="45"><output id="dfDout">4,5 cm</output></div>
           <div class="readout">
@@ -3058,10 +3214,10 @@ select {
       <h2 class="anim-fade-up">Ứng dụng siêu âm để hàn vật liệu</h2>
     </div>
     <div class="s-body">
-      <div class="cols">
+      <div class="cols lab-left">
         <div class="lab" data-widget="weld">
           <div class="lab-top">
-            <span class="lab-tag">Mô phỏng 13 · Hàn vật liệu siêu âm</span>
+            <span class="lab-tag">Mô phỏng 14 · Hàn vật liệu siêu âm</span>
             <div class="seg" data-vid-switch="weld">
               <button class="btn on" data-view="sim">🧪 Mô phỏng</button>
               <button class="btn" data-view="yt">🎬 Video EWI</button>
@@ -3125,6 +3281,20 @@ select {
     </div>
     <div class="s-body">
       <div class="cols">
+        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
+          <div class="card card-teal">
+            <span class="pill pill-aqua" style="margin-bottom:.4em">Cơ chế bọt khí xâm thực (Cavitation)</span>
+            <ul class="clean" style="font-size:var(--small-size)">
+              <li><b>Bước 1:</b> Đầu phát 20–40 kHz truyền sóng áp suất nén – dãn vào chất lỏng.</li>
+              <li><b>Bước 2:</b> Ở pha dãn, áp suất giảm mạnh tạo hàng triệu <b>bọt khí vi mô</b> trong dung dịch.</li>
+              <li class="amber-dot"><b>Bước 3:</b> Ở pha nén tiếp theo, bọt khí <b>vỡ sập tức thời</b> tạo xung kích vi mô đánh bật vết bẩn ở khe siêu nhỏ mà không làm trầy bề mặt.</li>
+            </ul>
+          </div>
+          <div class="card card-accent">
+            <span class="pill pill-blue" style="margin-bottom:.35em">Khử khuẩn &amp; ứng dụng đời sống</span>
+            <p style="font-size:var(--small-size);color:var(--text-2);margin:0">Phá vỡ màng vi sinh vật để <b>khử khuẩn</b> dụng cụ y tế, rau quả; làm sạch kính mắt, linh kiện; ứng dụng trong cảm biến lùi ô tô và máy tạo ẩm siêu âm.</p>
+          </div>
+        </div>
         <div class="lab">
           <div class="lab-top">
             <span class="lab-tag">Thực tế · Bể rửa siêu âm</span>
@@ -3153,20 +3323,6 @@ select {
           </div>
           <p class="dim" style="font-size:var(--small-size);margin:0"><b>Bể rửa siêu âm (40 kHz):</b> đầu phát dưới đáy làm khối nước rung mạnh, rửa sạch kính mắt, đồng hồ, trang sức, bo mạch.</p>
         </div>
-        <div class="txt" style="display:flex;flex-direction:column;gap:.65rem">
-          <div class="card card-teal">
-            <span class="pill pill-aqua" style="margin-bottom:.4em">Cơ chế bọt khí xâm thực (Cavitation)</span>
-            <ul class="clean" style="font-size:var(--small-size)">
-              <li><b>Bước 1:</b> Đầu phát 20–40 kHz truyền sóng áp suất nén – dãn vào chất lỏng.</li>
-              <li><b>Bước 2:</b> Ở pha dãn, áp suất giảm mạnh tạo hàng triệu <b>bọt khí vi mô</b> trong dung dịch.</li>
-              <li class="amber-dot"><b>Bước 3:</b> Ở pha nén tiếp theo, bọt khí <b>vỡ sập tức thời</b> tạo xung kích vi mô đánh bật vết bẩn ở khe siêu nhỏ mà không làm trầy bề mặt.</li>
-            </ul>
-          </div>
-          <div class="card card-accent">
-            <span class="pill pill-blue" style="margin-bottom:.35em">Khử khuẩn &amp; ứng dụng đời sống</span>
-            <p style="font-size:var(--small-size);color:var(--text-2);margin:0">Phá vỡ màng vi sinh vật để <b>khử khuẩn</b> dụng cụ y tế, rau quả; làm sạch kính mắt, linh kiện; ứng dụng trong cảm biến lùi ô tô và máy tạo ẩm siêu âm.</p>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -3180,9 +3336,9 @@ select {
       <h2 class="anim-fade-up">Ứng dụng siêu âm trong khai thác thuỷ sản</h2>
     </div>
     <div class="s-body">
-      <div class="cols">
+      <div class="cols lab-left">
         <div class="lab" data-widget="sonar">
-          <div class="lab-top"><span class="lab-tag">Mô phỏng 12 · Máy dò đàn cá (Sonar)</span><span class="lab-hint">Bấm phát xung để đo</span></div>
+          <div class="lab-top"><span class="lab-tag">Mô phỏng 15 · Máy dò đàn cá (Sonar)</span><span class="lab-hint">Bấm phát xung để đo</span></div>
           <div class="canvas-box"><canvas id="snCanvas"></canvas></div>
           <div class="readout">
             <button class="btn solid" id="snFire">▶ Phát xung</button>
@@ -3213,21 +3369,6 @@ select {
     </div>
     <div class="s-body">
       <div class="cols">
-        <div class="lab" data-widget="ocean">
-          <div class="lab-top">
-            <span class="lab-tag">Mô phỏng 14 · Sonar đa tia lập bản đồ đáy biển</span>
-            <span class="lab-hint">Quét để lộ địa hình</span>
-          </div>
-          <div class="canvas-box" style="min-height:255px"><canvas id="ocCanvas"></canvas></div>
-          <div class="ctrl"><label for="ocSpd">Tốc độ tàu quét</label><input type="range" id="ocSpd" min="40" max="220" step="10" value="100"><output id="ocSpdOut">1,0×</output></div>
-          <div class="readout">
-            <div class="seg">
-              <button class="btn solid" id="ocToggle">⏸ Tạm dừng</button>
-              <button class="btn" id="ocRestart">↻ Quét lại</button>
-            </div>
-            <span>h = <b id="ocDepth" class="hl">—</b> · <b id="ocZone" class="amber">Đang quét…</b></span>
-          </div>
-        </div>
         <div class="txt" style="display:flex;flex-direction:column;gap:.7rem">
           <div class="card card-teal">
             <span class="pill pill-aqua" style="margin-bottom:.4em">Đo độ sâu &amp; lập bản đồ đáy biển</span>
@@ -3242,6 +3383,21 @@ select {
               <li><b>Khảo sát địa chất &amp; tìm kiếm:</b> thăm dò các lớp trầm tích đáy biển, phát hiện tàu đắm, vật thể chìm và kiểm tra đường ống ngầm.</li>
               <li><b>Theo dõi môi trường biển:</b> đo vận tốc dòng hải lưu (nhờ hiệu ứng Doppler) và nghiên cứu sự phân bố của sinh vật biển sâu.</li>
             </ul>
+          </div>
+        </div>
+        <div class="lab" data-widget="ocean">
+          <div class="lab-top">
+            <span class="lab-tag">Mô phỏng 16 · Sonar đa tia lập bản đồ đáy biển</span>
+            <span class="lab-hint">Quét để lộ địa hình</span>
+          </div>
+          <div class="canvas-box" style="min-height:255px"><canvas id="ocCanvas"></canvas></div>
+          <div class="ctrl"><label for="ocSpd">Tốc độ tàu quét</label><input type="range" id="ocSpd" min="40" max="220" step="10" value="100"><output id="ocSpdOut">1,0×</output></div>
+          <div class="readout">
+            <div class="seg">
+              <button class="btn solid" id="ocToggle">⏸ Tạm dừng</button>
+              <button class="btn" id="ocRestart">↻ Quét lại</button>
+            </div>
+            <span>h = <b id="ocDepth" class="hl">—</b> · <b id="ocZone" class="amber">Đang quét…</b></span>
           </div>
         </div>
       </div>
@@ -3570,10 +3726,32 @@ if (penBtn) penBtn.onclick = togglePen;
 if (laserBtn) laserBtn.onclick = toggleLaser;
 if (clearPenBtn) clearPenBtn.onclick = () => { clearInk(); toast('Đã xoá nét vẽ'); };
 
-/* --- điều hướng --- */
-function update() {
+/* --- điều hướng & hiệu ứng chuyển tiếp theo hướng --- */
+const prevBtn = $('#prevBtn'), nextBtn = $('#nextBtn');
+function pauseSlideMedia(slide) {
+  if (!slide) return;
+  $$('video', slide).forEach(v => v.pause?.());
+  $$('iframe', slide).forEach(f => f._ytPlayer?.pauseVideo?.());
+}
+
+function update(prevIdx = -1) {
   const s = slides[cur];
-  slides.forEach((el, i) => el.classList.toggle('is-active', i === cur));
+  slides.forEach((el, i) => {
+    el.classList.toggle('is-active', i === cur);
+    el.classList.toggle('is-before', i < cur);
+    el.classList.toggle('is-after', i > cur);
+    if (i === cur) {
+      clearTimeout(el._leaveT);
+      el.classList.remove('is-leaving');
+    }
+  });
+  if (prevIdx >= 0 && prevIdx !== cur && slides[prevIdx]) {
+    const old = slides[prevIdx];
+    pauseSlideMedia(old);
+    old.classList.add('is-leaving');
+    clearTimeout(old._leaveT);
+    old._leaveT = setTimeout(() => old.classList.remove('is-leaving'), 540);
+  }
   $('#bar').style.width = ((cur + 1) / TOTAL * 100).toFixed(2) + '%';
   $('#curNum').textContent = pad2(cur + 1);
   $('#curSec').textContent = (s.dataset.sec || '').toUpperCase();
@@ -3584,16 +3762,23 @@ function update() {
   $('#noteTime').textContent = '⌛ ' + (s.dataset.min ? s.dataset.min.replace('.', ',') + ' phút' : '—');
   $$('#rail button').forEach((b, i) => b.classList.toggle('cur', i === cur));
   $$('#ovGrid button').forEach((b, i) => b.classList.toggle('cur', i === cur));
+  if (prevBtn) prevBtn.disabled = cur === 0;
+  if (nextBtn) nextBtn.disabled = cur === TOTAL - 1;
 }
 
 function go(n) {
   n = clamp(n, 0, TOTAL - 1);
   if (n === cur) return;
   if (hasInk) clearInk();
+  const prev = cur;
   cur = n;
-  slides[cur].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  update();
+  if (window.innerWidth <= 780) {
+    slides[cur].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  update(prev);
 }
+if (prevBtn) prevBtn.onclick = () => go(cur - 1);
+if (nextBtn) nextBtn.onclick = () => go(cur + 1);
 
 function closeAll() {
   $('#notes').classList.remove('open');
@@ -3609,16 +3794,17 @@ function toast(msg) {
   t._t = setTimeout(() => t.classList.remove('show'), 1800);
 }
 
-/* --- đồng bộ scroll --- */
+/* --- đồng bộ scroll (chỉ chế độ cuộn mobile <= 780px) --- */
 let raf = false;
 addEventListener('scroll', () => {
+  if (window.innerWidth > 780) return;
   if (raf) return;
   raf = true;
   requestAnimationFrame(() => {
     raf = false;
     const h = window.innerHeight || 1;
     const i = clamp(Math.round(window.scrollY / h), 0, TOTAL - 1);
-    if (i !== cur) { cur = i; update(); }
+    if (i !== cur) { const prev = cur; cur = i; update(prev); }
   });
 }, { passive: true });
 
