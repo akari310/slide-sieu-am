@@ -1009,7 +1009,11 @@ body.laser-active .arcs { cursor: none; }
 
 /* ---------------- Cover ---------------- */
 .cover { padding-top: var(--topbar-h); }
-.cover-inner { justify-content: space-between; padding-top: clamp(1.2rem, 3.2vh, 2.5rem); }
+.cover-inner {
+  justify-content: space-between;
+  padding-top: clamp(1.2rem, 3.2vh, 2.5rem);
+  padding-bottom: clamp(2.4rem, 4.2vh, 3rem);
+}
 .cover-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .cover-hero { position: relative; padding: 0.6rem 0; }
 .cover h1 {
@@ -1023,11 +1027,17 @@ body.laser-active .arcs { cursor: none; }
 .cover h1 .outline {
   color: transparent;
   -webkit-text-stroke: 2.2px var(--accent-teal);
-  filter: drop-shadow(0 0 18px rgba(63, 227, 200, 0.32));
+  filter: drop-shadow(0 0 18px rgba(63, 227, 200, 0.36));
+  animation: outline-breathe 3.6s ease-in-out infinite;
+}
+@keyframes outline-breathe {
+  0%, 100% { filter: drop-shadow(0 0 14px rgba(63, 227, 200, 0.28)); }
+  50% { filter: drop-shadow(0 0 28px rgba(63, 227, 200, 0.62)); }
 }
 html[data-theme="light"] .cover h1 .outline {
   -webkit-text-stroke: 2.2px var(--accent-2);
   filter: none;
+  animation: none;
 }
 .cover-sub {
   font-size: clamp(1rem, 1.45vw, 1.32rem);
@@ -1055,6 +1065,12 @@ html[data-theme="light"] .cover h1 .outline {
   display: flex;
   flex-direction: column;
   gap: 0.15em;
+  transition: transform 0.22s var(--ease), border-color 0.22s, box-shadow 0.22s;
+}
+.cover-meta div:hover {
+  transform: translateY(-3px);
+  border-color: rgba(63, 227, 200, 0.45);
+  box-shadow: 0 14px 34px -14px rgba(63, 227, 200, 0.35);
 }
 .cover-meta b {
   font-family: var(--mono);
@@ -1094,13 +1110,91 @@ html[data-theme="light"] .cover h1 .outline {
   aspect-ratio: 1;
   pointer-events: none;
   z-index: -1;
+  overflow: visible;
 }
-.arcs circle { fill: none; stroke: rgba(63, 227, 200, 0.26); stroke-width: 1.5; transform-origin: center; }
-.arcs circle:nth-child(1) { animation: pulse 4.5s ease-out infinite; }
-.arcs circle:nth-child(2) { animation: pulse 4.5s 0.6s ease-out infinite; }
-.arcs circle:nth-child(3) { animation: pulse 4.5s 1.2s ease-out infinite; }
-.arcs circle:nth-child(4) { animation: pulse 4.5s 1.8s ease-out infinite; }
-@keyframes pulse { 0% { opacity: 0.1; transform: scale(0.88); } 45% { opacity: 0.85; } 100% { opacity: 0; transform: scale(1.06); } }
+.arcs .arc-grid circle,
+.arcs .arc-grid line {
+  fill: none;
+  stroke: rgba(139, 211, 255, 0.12);
+  stroke-width: 1;
+}
+.arcs .arc-grid line {
+  stroke-dasharray: 4 6;
+}
+.arcs .arc-sweep {
+  transform-origin: 300px 300px;
+  animation: arc-spin 7.5s linear infinite;
+}
+@keyframes arc-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.arcs .arc-wave {
+  fill: none;
+  stroke: var(--accent-teal);
+  stroke-width: 2.2;
+  transform-origin: 300px 300px;
+  filter: drop-shadow(0 0 8px rgba(63, 227, 200, 0.55));
+  animation: arc-emit 4.5s cubic-bezier(0.14, 0.55, 0.35, 1) infinite;
+  animation-delay: calc(var(--w, 0) * -0.9s);
+}
+.arcs .arc-wave.ping {
+  stroke: var(--accent-amber);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 12px rgba(255, 180, 84, 0.85));
+  animation: arc-ping 1.5s cubic-bezier(0.16, 0.65, 0.3, 1) forwards;
+}
+@keyframes arc-emit {
+  0% { transform: scale(0.04); opacity: 0; stroke-width: 3.2; }
+  12% { opacity: 0.88; }
+  65% { opacity: 0.36; }
+  100% { transform: scale(1); opacity: 0; stroke-width: 1; }
+}
+@keyframes arc-ping {
+  0% { transform: scale(0.04); opacity: 1; stroke-width: 4; }
+  100% { transform: scale(1.04); opacity: 0; stroke-width: 1; }
+}
+.arcs .arc-halo {
+  transform-origin: 300px 300px;
+  animation: core-breathe 2.2s ease-in-out infinite;
+}
+.arcs .arc-core-ring {
+  fill: rgba(63, 227, 200, 0.14);
+  stroke: var(--accent-teal);
+  stroke-width: 1.8;
+  transform-origin: 300px 300px;
+  animation: core-breathe 2.2s ease-in-out infinite;
+}
+.arcs .arc-core-dot {
+  fill: #eafffb;
+  filter: drop-shadow(0 0 10px rgba(63, 227, 200, 0.95));
+}
+@keyframes core-breathe {
+  0%, 100% { transform: scale(0.9); opacity: 0.78; }
+  50% { transform: scale(1.16); opacity: 1; }
+}
+.arcs .arc-blip {
+  fill: var(--accent-teal);
+  filter: drop-shadow(0 0 8px rgba(63, 227, 200, 0.9));
+  opacity: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: blip-echo 7.5s ease-out infinite;
+  animation-delay: var(--bd, 0s);
+}
+.arcs .arc-blip.amber {
+  fill: var(--accent-amber);
+  filter: drop-shadow(0 0 9px rgba(255, 180, 84, 0.95));
+}
+@keyframes blip-echo {
+  0%, 74%, 100% { opacity: 0; transform: scale(0.5); }
+  78% { opacity: 1; transform: scale(1.45); }
+  88% { opacity: 0.45; transform: scale(1); }
+}
+html[data-theme="light"] .arcs .arc-grid circle,
+html[data-theme="light"] .arcs .arc-grid line { stroke: rgba(13, 43, 107, 0.14); }
+html[data-theme="light"] .arcs .arc-wave { stroke: var(--accent-2); filter: none; }
+html[data-theme="light"] .arcs .arc-core-dot { fill: var(--accent-2); }
 
 .ghost-num {
   position: absolute;
@@ -1856,6 +1950,12 @@ select {
   flex-direction: column;
   gap: 0.3rem;
   min-width: 0;
+  transition: transform 0.22s var(--ease), border-color 0.22s, box-shadow 0.22s;
+}
+.probe-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(63, 227, 200, 0.42);
+  box-shadow: 0 16px 36px -16px rgba(63, 227, 200, 0.3);
 }
 .probe-card svg {
   width: 100%;
@@ -2000,9 +2100,48 @@ select {
 <main id="deck">
 <!-- ============ 01. BÌA ============ -->
 <section class="slide cover" data-sec="Mở đầu" data-title="Siêu âm — Vật lí 12" data-min="0.5" data-note="Chào cả lớp. Hôm nay ta học Bài 7: Siêu âm (Chuyên đề 2). Trọng tâm của tiết học không chỉ là định nghĩa siêu âm, mà là hiểu cách chiếc máy dùng một viên tinh thể nhỏ xíu để vừa phát xung, vừa nghe tiếng dội và dựng lại hình ảnh bên trong cơ thể.">
-  <svg class="arcs" viewBox="0 0 600 600" aria-hidden="true">
-    <circle cx="300" cy="300" r="70"/><circle cx="300" cy="300" r="145"/>
-    <circle cx="300" cy="300" r="220"/><circle cx="300" cy="300" r="290"/>
+  <svg class="arcs" id="coverArcs" viewBox="0 0 600 600" aria-hidden="true">
+    <defs>
+      <radialGradient id="arcCoreGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.72"/>
+        <stop offset="35%" stop-color="#38bdf8" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#3fe3c8" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="arcSweepGrad" x1="300" y1="300" x2="545" y2="155" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#3fe3c8" stop-opacity="0.34"/>
+        <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#3fe3c8" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <!-- Lưới toạ độ mờ chuẩn máy siêu âm / sonar -->
+    <g class="arc-grid">
+      <circle cx="300" cy="300" r="72"/><circle cx="300" cy="300" r="144"/>
+      <circle cx="300" cy="300" r="216"/><circle cx="300" cy="300" r="288"/>
+      <line x1="12" y1="300" x2="588" y2="300"/><line x1="300" y1="12" x2="300" y2="588"/>
+    </g>
+    <!-- Tia quét xoay 360° -->
+    <g class="arc-sweep">
+      <path d="M300 300 L300 12 A288 288 0 0 1 549.4 156 Z" fill="url(#arcSweepGrad)"/>
+      <line x1="300" y1="300" x2="300" y2="12" stroke="rgba(63,227,200,0.68)" stroke-width="1.6"/>
+    </g>
+    <!-- 5 vòng sóng siêu âm phát liên tục từ tâm ra ngoài -->
+    <g class="arc-waves">
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:0"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:1"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:2"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:3"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:4"/>
+    </g>
+    <!-- Điểm phản xạ echo loé sáng khi chùm quét đi qua -->
+    <g class="arc-blips">
+      <circle class="arc-blip" cx="426" cy="182" r="4" style="--bd:0.9s"/>
+      <circle class="arc-blip amber" cx="458" cy="396" r="4.5" style="--bd:2.8s"/>
+      <circle class="arc-blip" cx="188" cy="378" r="3.8" style="--bd:4.9s"/>
+    </g>
+    <!-- Tâm nguồn phát áp điện -->
+    <circle cx="300" cy="300" r="54" fill="url(#arcCoreGlow)" class="arc-halo"/>
+    <circle cx="300" cy="300" r="14" class="arc-core-ring"/>
+    <circle cx="300" cy="300" r="5.5" class="arc-core-dot"/>
   </svg>
   <div class="ghost-num" aria-hidden="true">07</div>
   <div class="slide-inner cover-inner">
@@ -2720,6 +2859,16 @@ select {
             <rect x="42" y="2" width="36" height="13" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.2"/>
             <rect x="44" y="15" width="32" height="4" fill="var(--accent-teal)"/>
             <path d="M44 19v52h32V19" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
+            <line x1="46" y1="24" x2="74" y2="24" stroke="#3fe3c8" stroke-width="1.6" stroke-linecap="round">
+              <animate attributeName="y1" values="22;68" dur="1.7s" repeatCount="indefinite"/>
+              <animate attributeName="y2" values="22;68" dur="1.7s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.7s" repeatCount="indefinite"/>
+            </line>
+            <line x1="46" y1="24" x2="74" y2="24" stroke="#3fe3c8" stroke-width="1.4" stroke-linecap="round">
+              <animate attributeName="y1" values="22;68" dur="1.7s" begin="-0.85s" repeatCount="indefinite"/>
+              <animate attributeName="y2" values="22;68" dur="1.7s" begin="-0.85s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.7s" begin="-0.85s" repeatCount="indefinite"/>
+            </line>
             <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">khung chữ nhật</text>
           </svg>
           <b>Đầu dò thẳng (Linear)</b>
@@ -2733,6 +2882,14 @@ select {
             <path d="M40 3h40l-3 11c-10 7-24 7-34 0z" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.2"/>
             <path d="M43 14c9 6 25 6 34 0" fill="none" stroke="var(--accent-teal)" stroke-width="3"/>
             <path d="M43 16c-6 22-9 38-13 55h60c-4-17-7-33-13-55z" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
+            <path d="M44 26 Q60 32 76 26" fill="none" stroke="#3fe3c8" stroke-width="1.6" stroke-linecap="round">
+              <animate attributeName="d" values="M44 24 Q60 29 76 24;M33 66 Q60 74 87 66" dur="1.9s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.9s" repeatCount="indefinite"/>
+            </path>
+            <path d="M44 26 Q60 32 76 26" fill="none" stroke="#3fe3c8" stroke-width="1.4" stroke-linecap="round">
+              <animate attributeName="d" values="M44 24 Q60 29 76 24;M33 66 Q60 74 87 66" dur="1.9s" begin="-0.95s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.9s" begin="-0.95s" repeatCount="indefinite"/>
+            </path>
             <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">hình quạt rộng</text>
           </svg>
           <b>Đầu dò cong (Convex)</b>
@@ -2746,6 +2903,14 @@ select {
             <path d="M50 3h20l-2 12H52z" fill="var(--surface-2)" stroke="var(--text-2)" stroke-width="1.2"/>
             <rect x="52" y="14" width="16" height="4" fill="var(--accent-teal)"/>
             <path d="M56 18 28 71h64L64 18z" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
+            <path d="M53 26 Q60 29 67 26" fill="none" stroke="#3fe3c8" stroke-width="1.6" stroke-linecap="round">
+              <animate attributeName="d" values="M54 24 Q60 27 66 24;M32 66 Q60 74 88 66" dur="1.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.92;0" dur="1.8s" repeatCount="indefinite"/>
+            </path>
+            <path d="M53 26 Q60 29 67 26" fill="none" stroke="#3fe3c8" stroke-width="1.4" stroke-linecap="round">
+              <animate attributeName="d" values="M54 24 Q60 27 66 24;M32 66 Q60 74 88 66" dur="1.8s" begin="-0.9s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.92;0" dur="1.8s" begin="-0.9s" repeatCount="indefinite"/>
+            </path>
             <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">quét khe hẹp</text>
           </svg>
           <b>Đầu dò mảng pha</b>
@@ -2760,6 +2925,12 @@ select {
             <rect x="44" y="15" width="32" height="4" fill="var(--accent-teal)"/>
             <path d="M46 19 34 60h52L74 19z" fill="rgba(96,165,250,.15)" stroke="var(--accent-2)" stroke-width="1.1" stroke-dasharray="3 2"/>
             <ellipse cx="60" cy="60" rx="26" ry="8" fill="rgba(63,227,200,.22)" stroke="var(--accent-teal)" stroke-width="1.1"/>
+            <ellipse cx="60" cy="30" rx="14" ry="4" fill="none" stroke="#3fe3c8" stroke-width="1.5">
+              <animate attributeName="cy" values="25;60" dur="2.1s" repeatCount="indefinite"/>
+              <animate attributeName="rx" values="14;26" dur="2.1s" repeatCount="indefinite"/>
+              <animate attributeName="ry" values="4;8" dur="2.1s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;0.95;0" dur="2.1s" repeatCount="indefinite"/>
+            </ellipse>
             <text x="60" y="86" text-anchor="middle" fill="var(--text-2)" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">quét khối 3D/4D</text>
           </svg>
           <b>Đầu dò 3D / 4D</b>
@@ -3593,9 +3764,18 @@ select {
 
 <!-- ============ 34. CẢM ƠN ============ -->
 <section class="slide" data-sec="Tổng kết" data-title="Cảm ơn đã lắng nghe" data-min="0.5" data-note="Chốt tiết học và gửi lời cảm ơn. (Bài tập về nhà gợi ý nếu cần giao thêm: tính bước sóng siêu âm 5 MHz trong mô mềm v = 1500 m/s và tìm hiểu vì sao không lạm dụng siêu âm 4D kéo dài).">
-  <svg class="arcs" viewBox="0 0 600 600" aria-hidden="true" style="right:auto;left:50%;transform:translate(-50%,-50%);opacity:.75">
-    <circle cx="300" cy="300" r="70"/><circle cx="300" cy="300" r="145"/>
-    <circle cx="300" cy="300" r="220"/><circle cx="300" cy="300" r="290"/>
+  <svg class="arcs" viewBox="0 0 600 600" aria-hidden="true" style="right:auto;left:50%;transform:translate(-50%,-50%);opacity:.78">
+    <g class="arc-grid">
+      <circle cx="300" cy="300" r="72"/><circle cx="300" cy="300" r="144"/>
+      <circle cx="300" cy="300" r="216"/><circle cx="300" cy="300" r="288"/>
+    </g>
+    <g class="arc-waves">
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:0"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:1"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:2"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:3"/>
+      <circle class="arc-wave" cx="300" cy="300" r="288" style="--w:4"/>
+    </g>
   </svg>
   <div class="slide-inner" style="justify-content:center;align-items:center;text-align:center">
     <div style="max-width:920px;width:100%;display:flex;flex-direction:column;align-items:center;gap:1.25rem">
@@ -4195,6 +4375,22 @@ $$('svg .part').forEach(g => {
     if (!active || active.dataset.part !== g.dataset.part) g.classList.remove('hi');
   });
 });
+
+/* --- phát xung siêu âm tương tác khi bấm lên trang bìa --- */
+const coverSlide = $('.slide.cover');
+const coverArcs = $('#coverArcs .arc-waves');
+if (coverSlide && coverArcs) {
+  coverSlide.addEventListener('click', e => {
+    if (e.target.closest('button, a, input, select')) return;
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', '300');
+    c.setAttribute('cy', '300');
+    c.setAttribute('r', '288');
+    c.setAttribute('class', 'arc-wave ping');
+    coverArcs.appendChild(c);
+    setTimeout(() => c.remove(), 1550);
+  });
+}
 
 /* --- khởi động --- */
 slides.forEach((s, i) => {
