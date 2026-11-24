@@ -3078,13 +3078,37 @@ html[data-theme="light"] .spk-formula-chip {
     <div class="s-body">
       <div class="cols lab-left">
         <div class="lab" data-widget="levitate">
-          <div class="lab-top"><span class="lab-tag">Bẫy sóng dừng siêu âm</span><span class="lab-hint">Điều chỉnh tần số · bật/tắt sóng</span></div>
-          <div class="canvas-box"><canvas id="levCanvas"></canvas></div>
-          <div class="ctrl"><label for="levF">Tần số phát</label><input type="range" id="levF" min="28" max="60" step="2" value="40"><output id="levFout">40 kHz</output></div>
-          <div class="readout">
+          <div class="lab-top">
+            <span class="lab-tag">Bẫy sóng dừng siêu âm</span>
+            <div class="seg" data-vid-switch="lev">
+              <button class="btn on" data-view="sim">🧪 Mô phỏng</button>
+              <button class="btn" data-view="yt">🎬 Video Harvard</button>
+            </div>
+          </div>
+          <div class="canvas-box" style="min-height:245px">
+            <canvas id="levCanvas"></canvas>
+            <div data-yt-wrap hidden style="position:absolute;inset:0">
+              <iframe
+                id="levYt"
+                data-yt-src="https://www.youtube.com/embed/XpNbyfxxkWE?cc_load_policy=1&amp;cc_lang_pref=vi&amp;hl=vi&amp;rel=0&amp;enablejsapi=1"
+                title="Thí nghiệm sóng dừng siêu âm — Đại học Harvard"
+                style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#040b14"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+              <div data-yt-file hidden style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;padding:1.2rem;text-align:center;background:radial-gradient(circle at 50% 35%, rgba(16,44,68,.92), #040b14 82%)">
+                <span class="pill pill-amber">Đang mở tệp trực tiếp (file://)</span>
+                <p style="margin:0;font-size:var(--small-size);color:var(--text-1);max-width:40ch">Trình duyệt chặn nhúng YouTube ở chế độ tệp cục bộ <code>file://</code>. Mở liên kết trực tiếp hoặc truy cập qua địa chỉ web.</p>
+                <a class="btn solid" href="https://www.youtube.com/watch?v=XpNbyfxxkWE" target="_blank" rel="noopener noreferrer" style="text-decoration:none">▶ Xem video thí nghiệm Đại học Harvard trên YouTube ↗</a>
+              </div>
+            </div>
+          </div>
+          <div class="ctrl" data-view-only="sim"><label for="levF">Tần số phát</label><input type="range" id="levF" min="28" max="60" step="2" value="40"><output id="levFout">40 kHz</output></div>
+          <div class="readout" data-view-only="sim">
             <button class="btn" id="levPow">⏸ Tắt sóng (thả vật)</button>
             <span>Khoảng cách nút λ/2 = <span class="big" id="levLam">4,29 mm</span></span>
           </div>
+          <p class="dim" data-view-only="yt" hidden style="font-size:var(--small-size);margin:0"><b>Video thí nghiệm Đại học Harvard:</b> nâng giữ giọt chất lỏng lơ lửng tại các nút áp suất của hệ sóng dừng siêu âm (tự động bật phụ đề tiếng Việt CC).</p>
         </div>
         <div class="txt">
           <ul class="clean">

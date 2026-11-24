@@ -234,7 +234,7 @@ const SIM_SPECS = [
   },
   {
     id: 'piezo',
-    slide: 'Slide 10',
+    slide: 'Slide 11',
     kicker: 'Phần II · Cách tạo ra siêu âm (Hình 7.1 SGK)',
     title: 'Thí nghiệm 3: Hiệu ứng áp điện trên tấm gốm PZT',
     formula: 'f_sóng = f_điện áp',
@@ -244,7 +244,7 @@ const SIM_SPECS = [
   },
   {
     id: 'reflect',
-    slide: 'Slide 15',
+    slide: 'Slide 16',
     kicker: 'Phần III · Nguyên lí máy siêu âm (Hình 7.3 SGK)',
     title: 'Thí nghiệm 4: Phản xạ và khúc xạ sóng siêu âm tại mặt phân cách',
     formula: "i' = i · sin i / v₁ = sin r / v₂",
@@ -255,7 +255,7 @@ const SIM_SPECS = [
   },
   {
     id: 'pulseecho',
-    slide: 'Slide 16',
+    slide: 'Slide 17',
     kicker: 'Phần III · Định vị bằng tiếng vọng (tr. 40 SGK)',
     title: 'Thí nghiệm 5: Phát xung và thu tiếng dội đo độ sâu d',
     formula: 'd = v · Δt / 2',
@@ -266,7 +266,7 @@ const SIM_SPECS = [
   },
   {
     id: 'gel',
-    slide: 'Slide 17',
+    slide: 'Slide 18',
     kicker: 'Phần III · Vai trò lớp gel (tr. 40 SGK)',
     title: 'Thí nghiệm 6: Tác dụng lớp gel đẩy khe khí 99,95%',
     formula: 'R = [(Z₂ − Z₁) / (Z₂ + Z₁)]²',
@@ -277,7 +277,7 @@ const SIM_SPECS = [
   },
   {
     id: 'absorb',
-    slide: 'Slide 18',
+    slide: 'Slide 19',
     kicker: 'Phần III · Em có biết? (tr. 41 SGK)',
     title: 'Thí nghiệm 7: Quy luật suy giảm cường độ I = I₀·e⁻ᵅᵈ & chọn đầu dò',
     formula: 'I = I₀ · e^(−αd)',
@@ -287,7 +287,7 @@ const SIM_SPECS = [
   },
   {
     id: 'ascan',
-    slide: 'Slide 21',
+    slide: 'Slide 23',
     kicker: 'Phần IV · Siêu âm kiểu A (Hình 7.5 SGK)',
     title: 'Thí nghiệm 8: Siêu âm kiểu A & đo bề dày lớp cơ',
     formula: 'd_cơ = v · Δt(B→C) / 2',
@@ -297,7 +297,7 @@ const SIM_SPECS = [
   },
   {
     id: 'defect',
-    slide: 'Slide 26',
+    slide: 'Slide 28',
     kicker: 'Phần V · Ứng dụng công nghiệp (Hình 7.7 SGK)',
     title: 'Thí nghiệm 9: Kiểm tra khuyết tật kim loại không phá huỷ (NDT)',
     formula: 'd_lỗi = v · Δt_sớm / 2',
@@ -307,23 +307,45 @@ const SIM_SPECS = [
   },
   {
     id: 'weld',
-    slide: 'Slide 26',
+    slide: 'Slide 28',
     kicker: 'Phần V · Ứng dụng công nghiệp (Hình 7.8 SGK)',
     title: 'Thí nghiệm 10: Hàn vật liệu bằng dao động siêu âm',
     formula: 'f = 20 – 40 kHz',
     notes: [
       { type: 'amber', title: 'Không cần keo hay que hàn', body: 'Nhấn <b>"▶ Ép & hàn"</b> để xem đầu phát 20–40 kHz rung ma sát làm nóng chảy cục bộ tại mặt tiếp xúc, gắn liền hai lớp vật liệu.' },
-      { type: 'accent', title: 'Video thực tế', body: 'Có thể bấm tab <b>"🎬 Video EWI"</b> ngay trong khung mô phỏng để xem dây chuyền hàn nhựa siêu âm ngoài thực tế.' }
+      { type: 'accent', title: 'Mô phỏng ⇄ Video thực tế', body: 'Bấm nút <b>"🎬 Video EWI"</b> ở góc phải khung để chuyển sang video hàn siêu âm thực tế (tự động bật phụ đề tiếng Việt CC).' }
     ]
   },
   {
     id: 'hifu',
-    slide: 'Slide 26',
+    slide: 'Slide 28',
     kicker: 'Phần V · Ứng dụng y học (Hình 7.9 SGK)',
     title: 'Thí nghiệm 11: Tán sỏi ngoài cơ thể ESWL hội tụ chùm sóng',
     formula: 'Da 37,0 °C · Vỡ sỏi tại tiêu điểm',
     notes: [
-      { type: 'teal', title: 'Hội tụ năng lượng an toàn', body: 'Nhấn <b>"▶ Phát xung tán sỏi"</b>: chùm sóng hội tụ đi qua lớp da an toàn ở 37 °C nhưng tập trung áp suất làm vỡ sỏi thận thành mảnh vụn nhỏ.' }
+      { type: 'teal', title: 'Hội tụ năng lượng an toàn', body: 'Nhấn <b>"▶ Phát xung tán sỏi"</b>: chùm sóng hội tụ đi qua lớp da an toàn ở 37 °C nhưng tập trung áp suất làm vỡ sỏi thận thành mảnh vụn nhỏ.' },
+      { type: 'accent', title: 'Mô phỏng ⇄ Video 3D', body: 'Bấm nút <b>"🎬 Video chi tiết"</b> ở góc phải khung để xem video 3D tán sỏi ngoài cơ thể (tự động bật phụ đề tiếng Việt CC).' }
+    ]
+  },
+  {
+    id: 'levitate',
+    slide: 'Slide 29',
+    kicker: 'Phần V · Khoa học vật liệu & Sóng dừng',
+    title: 'Thí nghiệm 12: Bẫy sóng dừng siêu âm nâng vật lơ lửng',
+    formula: 'Khoảng cách nút = λ / 2',
+    notes: [
+      { type: 'teal', title: 'Mô phỏng sóng dừng', body: 'Kéo thanh <b>Tần số phát (28–60 kHz)</b> để thấy khoảng cách nút <b>λ/2</b> thay đổi, hoặc bấm <b>"⏸ Tắt sóng"</b> để thấy vật rơi tự do.' },
+      { type: 'accent', title: 'Mô phỏng ⇄ Video Harvard', body: 'Bấm nút <b>"🎬 Video Harvard"</b> ở góc phải khung để xem thí nghiệm nâng giọt nước thực tế (tự động bật phụ đề tiếng Việt CC).' }
+    ]
+  },
+  {
+    id: 'doppler',
+    slide: 'Slide 25',
+    kicker: 'Phần IV · Siêu âm Doppler màu (tr. 42 SGK)',
+    title: 'Thí nghiệm 13: Đo tốc độ dòng máu bằng hiệu ứng Doppler',
+    formula: 'Δf = 2·f₀·v·cosθ / c',
+    notes: [
+      { type: 'teal', title: 'Mô phỏng ⇄ Ảnh thực tế', body: 'Kéo tốc độ dòng máu <b>v</b> để xem độ dịch tần số Δf thay đổi, hoặc chuyển sang <b>"📷 Ảnh Doppler thực tế"</b> ngay trong khung.' }
     ]
   }
 ];
@@ -377,7 +399,7 @@ const hubHtml = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thư viện 11 Thí nghiệm Mô phỏng Siêu âm — Vật lí 12</title>
+<title>Thư viện ${SIM_SPECS.length} Thí nghiệm Mô phỏng Siêu âm — Vật lí 12</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -393,7 +415,7 @@ html, body { height: auto; overflow-y: auto; scroll-snap-type: none; }
   <header style="display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:1rem">
     <div>
       <span class="kicker">Vật lí 12 · Chuyên đề 2 · Bài 7: Siêu âm</span>
-      <h1 style="font-size:clamp(1.7rem,3vw,2.6rem);margin:.35em 0 .1em">Thư viện 11 Thí nghiệm Mô phỏng Tương tác</h1>
+      <h1 style="font-size:clamp(1.7rem,3vw,2.6rem);margin:.35em 0 .1em">Thư viện ${SIM_SPECS.length} Thí nghiệm Mô phỏng Tương tác</h1>
       <p class="dim" style="margin:0">Các trang phụ độc lập gắn nút mở nhanh từ slide trình chiếu PowerPoint / Canva.</p>
     </div>
     <a class="btn solid" href="../" style="text-decoration:none">← Mở bộ Slide Web đầy đủ</a>

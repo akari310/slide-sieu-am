@@ -2214,7 +2214,7 @@ html, body {
 <div class="sim-shell">
   <header class="sim-head">
     <div class="sim-head-left">
-      <span class="sim-kicker">Slide 26 · Phần V · Ứng dụng công nghiệp (Hình 7.7 SGK)</span>
+      <span class="sim-kicker">Slide 28 · Phần V · Ứng dụng công nghiệp (Hình 7.7 SGK)</span>
       <h1 class="sim-title">Thí nghiệm 9: Kiểm tra khuyết tật kim loại không phá huỷ (NDT)</h1>
     </div>
     <div class="sim-head-actions">
@@ -2261,10 +2261,97 @@ function toast(msg) {
   clearTimeout(_toastT);
   _toastT = setTimeout(() => el.classList.remove('on'), 2800);
 }
+
+/* --- YouTube IFrame API + tự động bật phụ đề tiếng Việt (CC vi) giống bản slide gốc --- */
+let ytApiLoading = false;
+const ytApiQueue = [];
+function ensureYtApi(cb) {
+  if (window.YT && window.YT.Player) { cb(); return; }
+  ytApiQueue.push(cb);
+  if (!ytApiLoading) {
+    ytApiLoading = true;
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof prev === 'function') prev();
+      while (ytApiQueue.length) ytApiQueue.shift()();
+    };
+    const s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+}
+
+function applyViCaptions(player) {
+  try {
+    player.loadModule?.('captions');
+    const tracks = player.getOption?.('captions', 'tracklist') || [];
+    const cur = player.getOption?.('captions', 'track') || {};
+    const vi = tracks.find(t => t.languageCode === 'vi');
+    if (vi) {
+      player.setOption('captions', 'track', vi);
+      return true;
+    }
+    const base = tracks[0] || (cur.languageCode ? cur : { languageCode: 'en', kind: 'asr', vss_id: 'a.en' });
+    player.setOption('captions', 'track', {
+      languageCode: base.languageCode,
+      vss_id: base.vss_id,
+      kind: base.kind,
+      translationLanguage: { languageCode: 'vi', languageName: 'Tiếng Việt' }
+    });
+    return true;
+  } catch (_) { return false; }
+}
+
+function attachYtViCaptions(iframe) {
+  if (!iframe || iframe._ytAttached || !iframe.id) return;
+  iframe._ytAttached = true;
+  ensureYtApi(() => {
+    try {
+      iframe._ytPlayer = new window.YT.Player(iframe.id, {
+        events: {
+          onReady: e => applyViCaptions(e.target),
+          onApiChange: e => applyViCaptions(e.target),
+          onStateChange: e => {
+            if (e.data === 1) {
+              applyViCaptions(e.target);
+              setTimeout(() => applyViCaptions(e.target), 450);
+            }
+          }
+        }
+      });
+    } catch (_) { iframe._ytAttached = false; }
+  });
+}
+
+function syncYtFrame(iframe, active = true) {
+  if (!iframe) return;
+  const fileBox = iframe.parentElement?.querySelector('[data-yt-file]');
+  if (location.protocol === 'file:') {
+    iframe.hidden = true;
+    if (fileBox) fileBox.hidden = false;
+  } else {
+    iframe.hidden = false;
+    if (fileBox) fileBox.hidden = true;
+    if (active) {
+      if (!iframe.getAttribute('src') && iframe.dataset.ytSrc) {
+        iframe.addEventListener('load', () => attachYtViCaptions(iframe), { once: true });
+        const sep = iframe.dataset.ytSrc.includes('?') ? '&' : '?';
+        iframe.src = `${iframe.dataset.ytSrc}${sep}origin=${encodeURIComponent(location.origin)}`;
+      } else {
+        attachYtViCaptions(iframe);
+      }
+    } else {
+      iframe._ytPlayer?.pauseVideo?.();
+    }
+  }
+}
+
 $$('[data-vid-switch]').forEach(seg => {
   const labEl = seg.closest('.lab');
   if (!labEl) return;
   const canvas = labEl.querySelector('.canvas-box canvas');
+  const video = labEl.querySelector('.canvas-box video');
   const photo = labEl.querySelector('.canvas-box img');
   const ytWrap = labEl.querySelector('.canvas-box [data-yt-wrap]');
   const ytFrame = ytWrap?.querySelector('[data-yt-src]');
@@ -2274,12 +2361,15 @@ $$('[data-vid-switch]').forEach(seg => {
       const mode = b.dataset.view;
       btns.forEach(x => x.classList.toggle('on', x === b));
       if (canvas) canvas.hidden = mode !== 'sim';
+      if (video) {
+        video.hidden = mode !== 'vid';
+        if (mode === 'vid') video.play?.().catch(() => {});
+        else video.pause?.();
+      }
       if (photo) photo.hidden = mode !== 'img';
       if (ytWrap) {
         ytWrap.hidden = mode !== 'yt';
-        if (mode === 'yt' && ytFrame && !ytFrame.getAttribute('src') && ytFrame.dataset.ytSrc) {
-          ytFrame.src = ytFrame.dataset.ytSrc;
-        }
+        syncYtFrame(ytFrame, mode === 'yt');
       }
       $$('[data-view-only]', labEl).forEach(el => {
         el.hidden = el.dataset.viewOnly !== mode;
