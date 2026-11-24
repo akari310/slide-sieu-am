@@ -3869,126 +3869,261 @@ requestAnimationFrame(frame);
   });
 })();
 
-/* LAB 11 — Dò khuyết tật mối hàn (Slide 23): Đầu dò góc + bật/tắt lỗ hổng */
+/* LAB 11 — Dò khuyết tật mối hàn (Slide 23 / Thí nghiệm 9): Sóng tới + phản xạ sớm ở khuyết tật & phản xạ đáy */
 (function () {
   const el = $('.lab[data-widget="defect"]'); if (!el) return;
   const cv = $('#dfCanvas'), dR = $('#dfD'), dOut = $('#dfDout'), stateEl = $('#dfState'), toggleBtn = $('#dfToggle');
-  const V = 5900, DEPTH = 0.10, TMAX = 2 * DEPTH / V;
-  let dmm = 45, prog = 1, hasDefect = true;
+  const V = 5900, DEPTH = 0.10, TMAX = 2 * DEPTH / V, TSPAN = TMAX * 1.12;
+  let dmm = 45, prog = 1.08, hasDefect = true;
 
   const rng = mulberry32(1010);
-  const grains = Array.from({ length: 42 }, () => [rng(), rng()]);
+  const grains = Array.from({ length: 48 }, () => [rng(), rng()]);
 
   function paint() {
     dmm = +dR.value;
     dOut.textContent = fmt(dmm / 10, 1) + ' cm';
-    stateEl.textContent = hasDefect ? 'sẵn sàng (mẫu có lỗ hổng)' : 'sẵn sàng (mẫu đạt chuẩn)';
+    const tDefUs = (2 * (dmm / 1000) / V) * 1e6;
+    stateEl.textContent = hasDefect
+      ? `có xung phản xạ sớm (Δt = ${fmt(tDefUs, 1)} µs) → lỗ hổng sâu ${fmt(dmm / 10, 1)} cm`
+      : 'chỉ có 1 xung phản xạ đáy → mẫu đạt chuẩn';
   }
-  dR.addEventListener('input', () => { paint(); prog = 1; });
-  $('#dfFire').onclick = () => { prog = 0; stateEl.textContent = 'đang đo xung…'; };
+  dR.addEventListener('input', () => { paint(); prog = 1.08; });
+  $('#dfFire').onclick = () => { prog = 0; stateEl.textContent = 'sóng đang truyền xuống & phản xạ trở lại…'; };
   if (toggleBtn) {
     toggleBtn.onclick = () => {
       hasDefect = !hasDefect;
       toggleBtn.textContent = hasDefect ? 'Mẫu: Có lỗ hổng' : 'Mẫu: Đạt chuẩn';
       dR.disabled = !hasDefect;
-      prog = 1;
-      paint();
+      prog = 0;
+      stateEl.textContent = 'sóng đang truyền xuống & phản xạ trở lại…';
     };
   }
   paint();
 
+  function drawArrowHead(g, x, y, dir, color, sz = 6) {
+    g.fillStyle = color;
+    g.beginPath();
+    if (dir > 0) {
+      g.moveTo(x, y + sz); g.lineTo(x - sz * 0.72, y - sz * 0.6); g.lineTo(x + sz * 0.72, y - sz * 0.6);
+    } else {
+      g.moveTo(x, y - sz); g.lineTo(x - sz * 0.72, y + sz * 0.6); g.lineTo(x + sz * 0.72, y + sz * 0.6);
+    }
+    g.closePath(); g.fill();
+  }
+
+  function drawEchoLoop(g, xDown, xUp, yTop, yBot, frac, color, isComplete) {
+    if (frac <= 0) return;
+    const len = yBot - yTop;
+    const r = Math.min(8, Math.abs(xUp - xDown) / 2);
+    const turnY = Math.max(yTop + 6, yBot - r);
+
+    g.save();
+    g.strokeStyle = color;
+    g.lineWidth = isComplete ? 2.4 : 2.8;
+    g.lineCap = 'round';
+    g.lineJoin = 'round';
+
+    if (frac <= 0.5) {
+      const k = frac / 0.5;
+      const yCur = yTop + k * len;
+      g.beginPath();
+      g.moveTo(xDown, yTop);
+      g.lineTo(xDown, yCur);
+      g.stroke();
+      drawArrowHead(g, xDown, Math.min(yCur, yBot - 4), 1, color, 6.5);
+      /* Đầu sóng đang đi xuống */
+      g.fillStyle = '#ffffff';
+      g.shadowColor = color; g.shadowBlur = 10;
+      g.beginPath(); g.arc(xDown, yCur, 4.2, 0, Math.PI * 2); g.fill();
+    } else {
+      const k = Math.min(1, (frac - 0.5) / 0.5);
+      const yUpCur = yBot - k * len;
+      /* Nhánh đi xuống + vòng phản xạ tại mặt phân cách + nhánh phản xạ đi ngược lên đầu dò */
+      g.beginPath();
+      g.moveTo(xDown, yTop);
+      g.lineTo(xDown, turnY);
+      g.quadraticCurveTo(xDown, yBot, (xDown + xUp) / 2, yBot);
+      g.quadraticCurveTo(xUp, yBot, xUp, turnY);
+      g.lineTo(xUp, Math.min(turnY, yUpCur));
+      g.stroke();
+
+      /* Mũi tên chiều đi xuống & chiều phản xạ đi lên */
+      drawArrowHead(g, xDown, yTop + len * 0.52, 1, color, 5.5);
+      if (k > 0.12) {
+        const upArrowY = isComplete ? (yTop + len * 0.45) : Math.max(yTop + 8, yUpCur + 2);
+        drawArrowHead(g, xUp, upArrowY, -1, color, 6);
+      }
+      /* Điểm loé phản xạ tại mặt phân cách */
+      if (k < 0.35) {
+        const pulse = 1 - k / 0.35;
+        g.strokeStyle = color;
+        g.globalAlpha = pulse * 0.85;
+        g.lineWidth = 2;
+        g.beginPath();
+        g.arc((xDown + xUp) / 2, yBot, 5 + (1 - pulse) * 14, Math.PI, 0);
+        g.stroke();
+        g.globalAlpha = 1;
+      }
+      /* Đầu sóng phản xạ đang đi ngược lên đầu dò */
+      if (!isComplete) {
+        g.fillStyle = '#ffffff';
+        g.shadowColor = color; g.shadowBlur = 12;
+        g.beginPath(); g.arc(xUp, yUpCur, 4.5, 0, Math.PI * 2); g.fill();
+      }
+    }
+    g.restore();
+  }
+
   lab(el, {
     tick(t, dt) {
-      if (prog < 1) {
-        prog = Math.min(1, prog + dt * 0.78);
-        if (prog >= 1) stateEl.textContent = hasDefect ? 'có xung sớm → phát hiện lỗ hổng' : 'chỉ 1 xung đáy → mối hàn đạt chuẩn';
+      if (prog < 1.08) {
+        prog = Math.min(1.08, prog + dt * 0.44);
+        if (prog >= 1.08) paint();
       }
       const { g, w, h } = fit(cv);
       g.clearRect(0, 0, w, h);
       grid(g, w, h, 26);
 
-      const bw = w * 0.34, bx = 12, by = 34, bh = h - 54;
+      /* Khối kim loại bên trái */
+      const bw = w * 0.38, bx = 14, by = 48, bh = h - 72;
+      const cx = bx + bw * 0.52;
       const steel = g.createLinearGradient(bx, by, bx + bw, by);
-      steel.addColorStop(0, 'rgba(90,110,130,.38)');
-      steel.addColorStop(0.5, 'rgba(150,175,195,.48)');
-      steel.addColorStop(1, 'rgba(80,100,120,.38)');
+      steel.addColorStop(0, 'rgba(92,112,134,.42)');
+      steel.addColorStop(0.5, 'rgba(155,180,202,.52)');
+      steel.addColorStop(1, 'rgba(82,102,124,.42)');
       g.fillStyle = steel;
       rr(g, bx, by, bw, bh, 4); g.fill();
 
-      g.fillStyle = 'rgba(200,160,90,.24)';
-      g.fillRect(bx + bw * 0.42, by, bw * 0.16, bh);
-      g.strokeStyle = 'rgba(200,160,90,.55)'; g.lineWidth = 1;
+      /* Vùng mối hàn */
+      g.fillStyle = 'rgba(200,160,90,.16)';
+      g.fillRect(bx + bw * 0.36, by, bw * 0.28, bh);
+      g.strokeStyle = 'rgba(200,160,90,.42)'; g.lineWidth = 1;
       g.beginPath();
-      g.moveTo(bx + bw * 0.42, by); g.lineTo(bx + bw * 0.42, by + bh);
-      g.moveTo(bx + bw * 0.58, by); g.lineTo(bx + bw * 0.58, by + bh);
+      g.moveTo(bx + bw * 0.36, by); g.lineTo(bx + bw * 0.36, by + bh);
+      g.moveTo(bx + bw * 0.64, by); g.lineTo(bx + bw * 0.64, by + bh);
       g.stroke();
 
       g.fillStyle = 'rgba(255,255,255,.07)';
       grains.forEach(([rx, ry]) => g.fillRect(bx + rx * bw, by + ry * bh, 1.5, 1.5));
-      g.strokeStyle = 'rgba(180,210,225,.6)'; g.lineWidth = 1.2;
+      g.strokeStyle = 'rgba(185,215,232,.68)'; g.lineWidth = 1.4;
       rr(g, bx, by, bw, bh, 4); g.stroke();
 
-      /* Đầu dò trên khối thép */
-      g.fillStyle = 'rgba(63,227,200,.28)'; g.strokeStyle = '#3fe3c8'; g.lineWidth = 1.3;
-      rr(g, bx + bw / 2 - 18, by - 16, 36, 13, 3); g.fill(); g.stroke();
-      g.fillStyle = '#dceef2'; g.font = '12px "JetBrains Mono", monospace';
-      g.textAlign = 'center'; g.fillText('Đầu dò NDT', bx + bw / 2, by - 21); g.textAlign = 'left';
+      /* Nhãn mặt đáy */
+      g.fillStyle = '#99c2dc'; g.font = '12px "JetBrains Mono", monospace';
+      g.fillText('Mặt đáy thép (10 cm)', bx + 6, by + bh + 16);
+
+      /* Đầu dò NDT (kiểu vỏ cam + đế khớp âm như thực tế) */
+      const pw = Math.min(54, bw * 0.36);
+      const px = cx - pw / 2;
+      g.fillStyle = 'rgba(63,227,200,.24)';
+      g.fillRect(px - 6, by - 3, pw + 12, 5);
+      g.fillStyle = '#223142'; g.strokeStyle = '#94b8cc'; g.lineWidth = 1.2;
+      rr(g, px, by - 11, pw, 9, 2); g.fill(); g.stroke();
+      const bodyG = g.createLinearGradient(px + 4, by - 32, px + pw - 4, by - 32);
+      bodyG.addColorStop(0, '#ea580c'); bodyG.addColorStop(0.5, '#fb923c'); bodyG.addColorStop(1, '#c2410c');
+      g.fillStyle = bodyG; g.strokeStyle = '#fdba74'; g.lineWidth = 1.2;
+      rr(g, px + 5, by - 31, pw - 10, 21, 4); g.fill(); g.stroke();
+      g.fillStyle = '#e6f4f8'; g.font = 'bold 12px "JetBrains Mono", monospace';
+      g.textAlign = 'center'; g.fillText('Đầu dò NDT', cx, by - 36); g.textAlign = 'left';
+
+      /* Vết nứt / lỗ hổng bên trái chùm tia (chắn 1 phần chùm tia, phần còn lại đi tiếp xuống đáy) */
+      const fd = dmm / 100;
+      const dy = by + fd * bh;
+      const xDefDown = cx - 15, xDefUp = cx - 5;
+      const xBotDown = hasDefect ? cx + 6 : cx - 6;
+      const xBotUp = hasDefect ? cx + 16 : cx + 6;
 
       if (hasDefect) {
-        const dy = by + (dmm / 100) * bh;
-        g.fillStyle = 'rgba(255,111,133,.9)';
+        g.save();
+        g.fillStyle = '#ff4d6d'; g.strokeStyle = '#ff99ac'; g.lineWidth = 1.3;
         g.beginPath();
-        g.ellipse(bx + bw * 0.5, dy, Math.min(13, bw * 0.1), Math.min(8, bh * 0.045), 0, 0, Math.PI * 2);
-        g.fill();
-        g.fillStyle = '#ff6f85'; g.font = '12px "JetBrains Mono", monospace';
-        g.fillText('lỗ hổng', bx + bw * 0.5 + 16, dy + 4);
+        g.moveTo(cx - 34, dy - 1);
+        g.lineTo(cx - 21, dy - 4);
+        g.lineTo(cx - 10, dy - 1);
+        g.lineTo(cx + 1, dy - 3);
+        g.lineTo(cx - 4, dy + 3);
+        g.lineTo(cx - 16, dy + 2);
+        g.lineTo(cx - 26, dy + 4);
+        g.closePath();
+        g.fill(); g.stroke();
+        g.fillStyle = '#ff859a'; g.font = 'bold 12px "JetBrains Mono", monospace';
+        g.textAlign = 'right';
+        g.fillText('vết nứt', Math.max(bx + 54, cx - 38), dy + 4);
+        g.textAlign = 'left';
+        g.restore();
       }
 
-      if (prog < 1) {
-        const dd = Math.min(1, prog * 2) * DEPTH;
-        const yy = by + (dd / DEPTH) * bh;
-        g.fillStyle = '#ffffff';
-        g.beginPath(); g.arc(bx + bw / 2, yy, 3.2, 0, Math.PI * 2); g.fill();
+      /* Vẽ đường truyền sóng TỚI (↓) và PHẢN XẠ NGƯỢC LÊN (↑) chuẩn vật lí */
+      const botComplete = prog >= 1.0;
+      drawEchoLoop(g, xBotDown, xBotUp, by + 1, by + bh - 2, Math.min(1, prog), '#3fe3c8', botComplete);
+      if (hasDefect) {
+        const defFrac = Math.min(1, prog / fd);
+        drawEchoLoop(g, xDefDown, xDefUp, by + 1, dy - 2, defFrac, '#ff6f85', prog >= fd);
       }
 
-      const tx = bx + bw + 18, tw = w - tx - 12;
-      const baseY = h * 0.62, amp = h * 0.44;
-      g.strokeStyle = 'rgba(255,255,255,.18)'; g.lineWidth = 1;
+      /* Nhánh thu/phát nhấp nháy tại đầu dò khi nhận xung phản xạ */
+      if ((hasDefect && Math.abs(prog - fd) < 0.06) || Math.abs(prog - 1.0) < 0.06) {
+        g.fillStyle = 'rgba(63,227,200,.45)';
+        g.beginPath(); g.arc(cx, by - 4, 12, 0, Math.PI * 2); g.fill();
+      }
+
+      /* Đồ thị dao động kí kiểu A bên phải (đồng bộ 100% thời điểm sóng phản xạ về tới đầu dò!) */
+      const tx = bx + bw + 22, tw = w - tx - 14;
+      const baseY = h * 0.68, amp = h * 0.48;
+      g.fillStyle = 'rgba(5,16,30,.65)';
+      g.strokeStyle = 'rgba(63,227,200,.26)'; g.lineWidth = 1;
+      rr(g, tx - 6, 18, tw + 12, h - 32, 8); g.fill(); g.stroke();
+
+      g.fillStyle = '#9be8db'; g.font = 'bold 12px "JetBrains Mono", monospace';
+      g.fillText('Màn hình xung phản xạ (kiểu A)', tx + 4, 34);
+
+      g.strokeStyle = 'rgba(255,255,255,.2)'; g.lineWidth = 1;
       g.beginPath(); g.moveTo(tx, baseY); g.lineTo(tx + tw, baseY); g.stroke();
       g.fillStyle = '#b4ccd6'; g.font = '12px "JetBrains Mono", monospace';
       for (let us = 0; us <= 35; us += 10) {
-        const x = tx + (us * 1e-6 / TMAX) * tw;
+        const x = tx + (us * 1e-6 / TSPAN) * tw;
         g.beginPath(); g.moveTo(x, baseY - 3); g.lineTo(x, baseY + 3); g.stroke();
-        g.textAlign = 'center'; g.fillText(us + '', x, baseY + 16);
+        g.textAlign = 'center'; g.fillText(us + '', x, baseY + 17);
       }
+      g.textAlign = 'right';
+      g.fillText('t (µs)', tx + tw - 2, baseY + 31);
       g.textAlign = 'left';
-      g.fillText('t (µs)', tx + tw - 44, baseY + 29);
 
-      const reveal = prog * TMAX;
+      const revealT = Math.min(TSPAN, prog * TMAX);
+      const tDef = 2 * (dmm / 1000) / V;
+      const botAmp = hasDefect ? 0.76 : 0.94;
       const pts = [];
       for (let i = 0; i <= tw; i++) {
-        const tt = (i / tw) * TMAX;
-        if (tt > reveal) break;
-        let u = 1.05 * Math.exp(-Math.pow(tt / 0.38e-6, 2));
-        if (hasDefect) u += 0.58 * Math.exp(-Math.pow((tt - 2 * (dmm / 1000) / V) / 0.5e-6, 2));
-        u += 0.85 * Math.exp(-Math.pow((tt - TMAX) / 0.55e-6, 2));
-        pts.push([tx + (tt / TMAX) * tw, baseY - u * amp]);
+        const tt = (i / tw) * TSPAN;
+        if (tt > revealT) break;
+        let u = 1.02 * Math.exp(-Math.pow(tt / 0.42e-6, 2));
+        if (hasDefect) u += 0.66 * Math.exp(-Math.pow((tt - tDef) / 0.52e-6, 2));
+        u += botAmp * Math.exp(-Math.pow((tt - TMAX) / 0.56e-6, 2));
+        pts.push([tx + (tt / TSPAN) * tw, baseY - u * amp]);
       }
       if (pts.length > 1) {
         g.beginPath();
         pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]));
-        g.strokeStyle = '#3fe3c8'; g.lineWidth = 2; g.stroke();
+        g.strokeStyle = '#3fe3c8'; g.lineWidth = 2.4; g.stroke();
       }
 
-      if (prog > 0.98) {
-        const xb = tx + tw - 16;
-        g.font = '12px "JetBrains Mono", monospace';
+      /* Nhãn đỉnh xung xuất hiện đúng lúc xung phản xạ về tới đầu dò */
+      g.font = 'bold 12px "JetBrains Mono", monospace';
+      g.fillStyle = '#dceef2';
+      g.fillText('phát', tx + 4, baseY - amp * 0.96);
+
+      if (hasDefect && prog >= fd) {
+        const xd = tx + (tDef / TSPAN) * tw;
         g.textAlign = 'center';
-        if (hasDefect) {
-          const xd = tx + (2 * (dmm / 1000) / V / TMAX) * tw;
-          g.fillStyle = '#ff6f85'; g.fillText('khuyết tật', xd, baseY - amp * 0.64 - 6);
-        }
-        g.fillStyle = '#8bd3ff'; g.fillText('đáy', xb, baseY - amp * 0.9 - 6);
+        g.fillStyle = '#ff6f85';
+        g.fillText('khuyết tật', xd, baseY - amp * 0.7 - 8);
+        g.textAlign = 'left';
+      }
+      if (prog >= 1.0) {
+        const xb = tx + (TMAX / TSPAN) * tw;
+        g.textAlign = 'center';
+        g.fillStyle = '#8bd3ff';
+        g.fillText('đáy', xb, baseY - amp * botAmp - 8);
         g.textAlign = 'left';
       }
     }
